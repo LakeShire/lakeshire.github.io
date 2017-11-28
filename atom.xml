@@ -483,9 +483,9 @@
     
       <category term="Android" scheme="http://lakeshire.github.io/tags/Android/"/>
     
-      <category term="Java" scheme="http://lakeshire.github.io/tags/Java/"/>
-    
       <category term="Json" scheme="http://lakeshire.github.io/tags/Json/"/>
+    
+      <category term="Java" scheme="http://lakeshire.github.io/tags/Java/"/>
     
   </entry>
   
