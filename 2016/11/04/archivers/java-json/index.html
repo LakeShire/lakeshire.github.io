@@ -1,0 +1,965 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=PT Mono:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Android,Java,Json," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="湖畔镇" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="本文介绍Java中的Json相关类">
+<meta name="keywords" content="Android,Java,Json">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java——Json&amp;Gson">
+<meta property="og:url" content="http://lakeshire.github.io/2016/11/04//archivers/java-json/index.html">
+<meta property="og:site_name" content="湖畔镇">
+<meta property="og:description" content="本文介绍Java中的Json相关类">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-28T03:17:55.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java——Json&amp;Gson">
+<meta name="twitter:description" content="本文介绍Java中的Json相关类">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://lakeshire.github.io/2016/11/04//archivers/java-json/"/>
+
+
+
+
+
+  <title> Java——Json&Gson | 湖畔镇 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta custom-logo">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">湖畔镇</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <h1 class="site-subtitle" itemprop="description"></h1>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://lakeshire.github.io/2016/11/04/archivers/java-json/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="刘晗">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="湖畔镇">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="湖畔镇" src="/images/avatar.jpg">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                Java——Json&Gson
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-04T12:00:00+08:00">
+                2016-11-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+ 
+        
+
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文介绍Java中的Json相关类</p>
+<a id="more"></a>
+<h2 id="Java的Json包"><a href="#Java的Json包" class="headerlink" title="Java的Json包"></a>Java的Json包</h2><p>在<code>org.json</code>包中</p>
+<p>最重要的是<code>JSONObject</code>和<code>JSONArray</code>两个结构，对应<code>JSON</code>对象和<code>JSON</code>数组</p>
+<h3 id="JSONObject"><a href="#JSONObject" class="headerlink" title="JSONObject"></a>JSONObject</h3><pre><code>JSONObject json = new JSONObject(&quot;{&apos;name&apos; : &apos;Alice&apos;, &apos;age&apos; : 20}&quot;);
+String name = json.getString(&quot;name&quot;);  
+int age = json.getInt(&quot;age&quot;);  
+</code></pre><p>从<code>JSON</code>字符串获得<code>JSONObject</code>，从<code>JSON</code>对象中获得属性</p>
+<pre><code>//  一个空的对象
+public JSONObject();
+
+//  传入键值对
+public JSONObject(Map copyFrom);
+
+//  传入JSON字符串
+public JSONObject(String json) throws JSONException;
+
+//  传入一个Token
+public JSONObject(JSONTokener readFrom) throws JSONException;
+
+//  应该是从一个已有的对象里取得对应的键值对来形成一个新对象
+public JSONObject(JSONObject copyFrom, String[] names) throws JSONException;
+</code></pre><p>一组构造函数 </p>
+<h3 id="JSONArray"><a href="#JSONArray" class="headerlink" title="JSONArray"></a>JSONArray</h3><pre><code>JSONArray array = new JSONArray(&quot;[{&apos;name&apos; : &apos;Alice&apos;, &apos;age&apos; : 20}, {&apos;name&apos; : &apos;Eric&apos;, &apos;age&apos; : 15}]&quot;);  
+for (int i = 0; i &lt; array.length(); i++){  
+    JSONObject json = array.getJSONObject(i).
+    String name = json.getString(&quot;name&quot;);  
+    int age = json.getInt(&quot;age&quot;);  
+} 
+</code></pre><p>从字符串获得<code>JSONArray</code>，遍历其中的<code>JSONObject</code></p>
+<pre><code>public JSONArray() {
+public JSONArray(Collection copyFrom);
+public JSONArray(String json) throws JSONException;
+public JSONArray(Object array) throws JSONException;
+public JSONArray(JSONTokener readFrom) throws JSONException;
+</code></pre><p>也有一组不同的构造函数</p>
+<p>可以嵌套使用，通过<code>getJSONArray()</code>获得数组，遍历数组获得<code>JSONObject</code></p>
+<h3 id="JSONStringer"><a href="#JSONStringer" class="headerlink" title="JSONStringer"></a>JSONStringer</h3><p>用来快速构建<code>JSON</code>字符串</p>
+<pre><code>JSONStringer stringer = new JSONStringer();  
+String str = stringer.object().key(&quot;name&quot;).value(&quot;Eric&quot;).key(&quot;age&quot;).value(20).endObject().toString();
+</code></pre><h3 id="JSONToken"><a href="#JSONToken" class="headerlink" title="JSONToken"></a>JSONToken</h3><p><code>JSONTokener</code>方法获得一个对象，根据括号类型或引号决定是什么(<code>JSONObject</code>或<code>JSONArray</code>或字符串)</p>
+<pre><code>//  可以从文件中读取一个JSONObject
+JSONObject obj = new JSONObject( new JSONTokener(java.io.Reader));
+
+//  可以从文件中读取一个JSONArray
+JSONArray obj = new JSONArray( new JSONTokener(java.io.Reader)); 
+</code></pre><h3 id="JSONWriter"><a href="#JSONWriter" class="headerlink" title="JSONWriter"></a>JSONWriter</h3><p>用来输出<code>JSON</code></p>
+<pre><code>PrintWriter out = new PrintWriter(System.out);  
+new JSONWriter(out).object().key(&quot;name&quot;).value(&quot;Alice&quot;).endObject();  
+out.flush();  
+out.close();  
+</code></pre><h2 id="GSON"><a href="#GSON" class="headerlink" title="GSON"></a>GSON</h2><h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h3><pre><code>Gson gson = new Gson();
+
+//  基础类型
+int i = gson.fromJson(&quot;100&quot;, int.class);
+double d = gson.fromJson(&quot;99.99&quot;, double.class);
+boolean b = gson.fromJson(&quot;true&quot;, boolean.class);
+String s = gson.fromJson(&quot;Hello&quot;, String.class);
+</code></pre><p>定义一个类</p>
+<pre><code>public class User {
+    public String name;
+    public int id;
+}
+</code></pre><p>解析</p>
+<pre><code>Gson gson = new Gson();
+User user = gson.fromJson(&quot;{&apos;name&apos; : &apos;Alice&apos;, &apos;id&apos; : 1}&quot;, User.class);
+</code></pre><p>生成</p>
+<pre><code>User user = new User;
+user.name = &apos;Eric&apos;;
+user.id = 1;
+Gson gson = new Gson();
+String string = gson.toJson(user);
+</code></pre><h4 id="SerializedName"><a href="#SerializedName" class="headerlink" title="SerializedName"></a>SerializedName</h4><p>后台开发经常会用到下划线命名变量，这时需要使用<code>@SerializedName</code>来标记一下对应关系</p>
+<pre><code>{&quot;name&quot; : &quot;Alice&quot;, &quot;email_address&quot; : &quot;alice@example.com&quot;}
+</code></pre><p>这时的类应该是</p>
+<pre><code>public class User {
+    public String name;
+
+    @SerializedName(&quot;email_address&quot;)
+    public String emailAddress;
+}
+</code></pre><p>另外可以提供备选名</p>
+<pre><code>@SerializedName(&quot;email_address&quot;, alternate = {&quot;email&quot;})
+public String emailAddress;
+</code></pre><h4 id="对象数组"><a href="#对象数组" class="headerlink" title="对象数组"></a>对象数组</h4><pre><code>Gson gson = new Gson();
+String string = &quot;[&apos;Android&apos;, &apos;Java&apos;, &apos;PHP&apos;]&quot;;
+String[] langs = gson.fromJson(string, String[].class);
+</code></pre><p>因为泛型擦除机制，列表不能这样用，需要使用<code>TypeToken</code></p>
+<pre><code>List&lt;String&gt; langs = gson.fromJson(string, new TypeToken&lt;List&lt;String&gt;&gt;(){}.getType());
+</code></pre><h4 id="引入泛型"><a href="#引入泛型" class="headerlink" title="引入泛型"></a>引入泛型</h4><p>泛型的引入可以减少无关的代码，很多时候后台返回的结果是这样的</p>
+<pre><code>{&quot;code&quot; : &quot;0&quot;, &quot;message&quot; : &quot;success&quot;, &quot;data&quot; : {}}
+</code></pre><p><code>data</code>中的东西可能不一样，但不需要每个都定义一个类，定义泛型类就好了</p>
+<pre><code>public class Result&lt;T&gt; {
+    public int code;
+    public String message;
+    public T data;
+}
+</code></pre><p>返回的东西是个<code>User</code>就写<code>Result&lt;User&gt;</code>，是个<code>List&lt;User&gt;</code>就写<code>Result&lt;List&lt;User&gt;&gt;</code></p>
+<h3 id="自定义"><a href="#自定义" class="headerlink" title="自定义"></a>自定义</h3><h4 id="手动反序列化"><a href="#手动反序列化" class="headerlink" title="手动反序列化"></a>手动反序列化</h4><pre><code>String json = &quot;{&apos;name&apos; : &apos;Alice&apos;, &apos;age&apos; : 24}&quot;;
+User user = new User();
+JsonReader reader = new JsonReader(new StringReader(json));
+reader.beginObject(); 
+while (reader.hasNext()) {
+    String s = reader.nextName();
+    switch (s) {
+        case &quot;name&quot;:
+            user.name = reader.nextString();
+            break;
+        case &quot;age&quot;:
+            user.age = reader.nextInt();
+            break;
+    }
+}
+reader.endObject();
+</code></pre><p>自动方式最后也是通过<code>JsonReader</code>来实现的</p>
+<h4 id="手动序列化"><a href="#手动序列化" class="headerlink" title="手动序列化"></a>手动序列化</h4><pre><code>JsonWriter writer = new JsonWriter(new OutputStreamWriter(System.out));
+writer.beginObject().name(&quot;name&quot;).value(&quot;Alice&quot;).name(&quot;age&quot;).value(24).endObject();
+writer.flush();
+</code></pre><h4 id="GsonBuilder"><a href="#GsonBuilder" class="headerlink" title="GsonBuilder"></a>GsonBuilder</h4><p>可以用来自定义<code>Gson</code></p>
+<pre><code>Gson gson = new GsonBuilder().create();
+</code></pre><p><code>Gson</code>默认不输出<code>null</code>值，可以用<code>serializeNulls()</code>来配置</p>
+<p>通过<code>setDateFormat(&quot;yyyy-MM-dd&quot;)</code>格式化日期</p>
+<p><code>disableInnerClassSerialization()</code>禁止序列化内部类</p>
+<h3 id="字段过滤"><a href="#字段过滤" class="headerlink" title="字段过滤"></a>字段过滤</h3><p>字段过滤是比较常用的技巧，在处理业务逻辑时可能需要在设置的<code>POJO</code>中加入一些字段，但显然在序列化的过程中是不需要的，并且如果序列化还可能带来一个问题就是循环引用</p>
+<h4 id="Expose注解"><a href="#Expose注解" class="headerlink" title="@Expose注解"></a>@Expose注解</h4><p>这个注解必须和<code>GsonBuilder</code>结合使用，需要导出的加该注解，不需要的不加</p>
+<pre><code>public class Category {
+    @Expose 
+    public int id;
+
+    @Expose 
+    public String name;
+
+    @Expose 
+    public List&lt;Category&gt; children;
+
+    public Category parent; 
+}
+</code></pre><p>序列化的方法也要改</p>
+<pre><code>Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+</code></pre><h4 id="基于版本"><a href="#基于版本" class="headerlink" title="基于版本"></a>基于版本</h4><p>使用<code>@Since</code>和<code>@Until</code>注解导出指定版本的字段，与<code>setVersion()</code>一起使用</p>
+<pre><code>class SinceUntilSample {
+
+    //  版本不小于4时导出
+    @Since(4)
+    public String since;
+
+    //  版本不大于5时导出
+    @Until(5)
+    public String until;
+}
+
+Gson gson = new GsonBuilder().setVersion(version).create();
+</code></pre><h4 id="基于访问修饰符"><a href="#基于访问修饰符" class="headerlink" title="基于访问修饰符"></a>基于访问修饰符</h4><pre><code>Gson gson = new GsonBuilder().excludeFieldsWithModifiers(Modifier.FINAL, Modifier.STATIC, Modifier.PRIVATE).create();
+</code></pre><h4 id="基于策略"><a href="#基于策略" class="headerlink" title="基于策略"></a>基于策略</h4><pre><code>Gson gson = new GsonBuilder().addSerializationExclusionStrategy(new ExclusionStrategy() {
+    @Override
+    public boolean shouldSkipField(FieldAttributes f) {
+        if (&quot;finalField&quot;.equals(f.getName())) {
+            return true;
+        }
+
+        Expose expose = f.getAnnotation(Expose.class); 
+        if (expose != null &amp;&amp; expose.deserialize() == false) {     return true;
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean shouldSkipClass(Class&lt;?&gt; clazz) {
+        return (clazz == int.class || clazz == Integer.class);
+    }
+}).create();
+</code></pre><h3 id="终极：TypeAdapter"><a href="#终极：TypeAdapter" class="headerlink" title="终极：TypeAdapter"></a>终极：TypeAdapter</h3><pre><code>public abstract class TypeAdapter&lt;T&gt; {
+    public abstract void write(JsonWriter out, T value) throws IOException;
+    public abstract T read(JsonReader in) throws IOException;
+    ......
+}
+</code></pre><p>这个类接管某种类型的序列化和反序列化</p>
+<pre><code>public class UserTypeAdapter extends TypeAdapter&lt;User&gt; {
+
+    @Override
+    public void write(JsonWriter out, User value) throws IOException {
+        out.beginObject();
+        out.name(&quot;name&quot;).value(value.name);
+        out.name(&quot;age&quot;).value(value.age);
+        out.endObject();
+    }
+
+    @Override
+    public User read(JsonReader in) throws IOException {
+        User user = new User();
+        in.beginObject();
+        while (in.hasNext()) {
+            switch (in.nextName()) {
+                case &quot;name&quot;:
+                    user.name = in.nextString();
+                    break;
+                case &quot;age&quot;:
+                    user.age = in.nextInt();
+                    break;
+            }
+        }
+        in.endObject();
+        return user;
+    }
+}
+
+Gson gson = new GsonBuilder().registerTypeAdapter(User.class, new UserTypeAdapter()).create();
+</code></pre><p>这个类的处理优先级最高，会覆盖之前的所有注解</p>
+<pre><code>class JsonDeserializer&lt;T&gt;() {
+    @Override
+    public T deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException;
+}
+
+class JsonSerializer&lt;T&gt;() {
+    @Override
+    public JsonElement serialize(T src, Type typeOfSrc, JsonSerializationContext context);
+};
+</code></pre><p>如果只想接管其中一个过程，则只需要实现上面的一个</p>
+<pre><code>Gson gson = new GsonBuilder().registerTypeAdapterFactory(new TypeAdapterFactory() {
+
+    @Override
+    public &lt;T&gt; TypeAdapter&lt;T&gt; create(Gson gson, TypeToken&lt;T&gt; type) {
+        ......
+    }
+
+}).create();
+</code></pre><p>对应的工厂，获取对应<code>type</code>的<code>TypeAdapter</code></p>
+<pre><code>@JsonAdapter(UserTypeAdapter.class)
+public class User {
+    ......
+}
+</code></pre><p>使用<code>@JsonAdapter</code>注解可以省去注册的代码</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+  
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/Json/" rel="tag"># Json</a>
+          
+        </div>
+      
+
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+         
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/11/02/archivers/java-butterknife/" rel="next" title="ButterKnife框架解析">
+                <i class="fa fa-chevron-left"></i> ButterKnife框架解析
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/11/08/archivers/gson/" rel="prev" title="Gson源码分析">
+                Gson源码分析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="刘晗" />
+          <p class="site-author-name" itemprop="name">刘晗</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java的Json包"><span class="nav-number">1.</span> <span class="nav-text">Java的Json包</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JSONObject"><span class="nav-number">1.1.</span> <span class="nav-text">JSONObject</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSONArray"><span class="nav-number">1.2.</span> <span class="nav-text">JSONArray</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSONStringer"><span class="nav-number">1.3.</span> <span class="nav-text">JSONStringer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSONToken"><span class="nav-number">1.4.</span> <span class="nav-text">JSONToken</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSONWriter"><span class="nav-number">1.5.</span> <span class="nav-text">JSONWriter</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GSON"><span class="nav-number">2.</span> <span class="nav-text">GSON</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本用法"><span class="nav-number">2.1.</span> <span class="nav-text">基本用法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SerializedName"><span class="nav-number">2.1.1.</span> <span class="nav-text">SerializedName</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对象数组"><span class="nav-number">2.1.2.</span> <span class="nav-text">对象数组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#引入泛型"><span class="nav-number">2.1.3.</span> <span class="nav-text">引入泛型</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义"><span class="nav-number">2.2.</span> <span class="nav-text">自定义</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#手动反序列化"><span class="nav-number">2.2.1.</span> <span class="nav-text">手动反序列化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#手动序列化"><span class="nav-number">2.2.2.</span> <span class="nav-text">手动序列化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GsonBuilder"><span class="nav-number">2.2.3.</span> <span class="nav-text">GsonBuilder</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字段过滤"><span class="nav-number">2.3.</span> <span class="nav-text">字段过滤</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Expose注解"><span class="nav-number">2.3.1.</span> <span class="nav-text">@Expose注解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基于版本"><span class="nav-number">2.3.2.</span> <span class="nav-text">基于版本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基于访问修饰符"><span class="nav-number">2.3.3.</span> <span class="nav-text">基于访问修饰符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基于策略"><span class="nav-number">2.3.4.</span> <span class="nav-text">基于策略</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#终极：TypeAdapter"><span class="nav-number">2.4.</span> <span class="nav-text">终极：TypeAdapter</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">刘晗</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io" rel="external nofollow">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid="></script>
+      <!-- UY END -->
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+
+</body>
+</html>

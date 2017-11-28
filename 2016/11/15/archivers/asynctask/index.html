@@ -1,0 +1,1004 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=PT Mono:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Android,AsyncTask,线程通信," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="湖畔镇" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="AsyncTask源码看似比较独立和简单，分析一下">
+<meta name="keywords" content="Android,AsyncTask,线程通信">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AsyncTask源码初步分析">
+<meta property="og:url" content="http://lakeshire.github.io/2016/11/15//archivers/asynctask/index.html">
+<meta property="og:site_name" content="湖畔镇">
+<meta property="og:description" content="AsyncTask源码看似比较独立和简单，分析一下">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://7xt3ho.com1.z0.glb.clouddn.com/Runnable.jpg">
+<meta property="og:updated_time" content="2017-11-28T03:04:18.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AsyncTask源码初步分析">
+<meta name="twitter:description" content="AsyncTask源码看似比较独立和简单，分析一下">
+<meta name="twitter:image" content="http://7xt3ho.com1.z0.glb.clouddn.com/Runnable.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://lakeshire.github.io/2016/11/15//archivers/asynctask/"/>
+
+
+
+
+
+  <title> AsyncTask源码初步分析 | 湖畔镇 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta custom-logo">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">湖畔镇</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <h1 class="site-subtitle" itemprop="description"></h1>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://lakeshire.github.io/2016/11/15/archivers/asynctask/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="刘晗">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="湖畔镇">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="湖畔镇" src="/images/avatar.jpg">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                AsyncTask源码初步分析
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-15T12:00:00+08:00">
+                2016-11-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+ 
+        
+
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><code>AsyncTask</code>源码看似比较独立和简单，分析一下</p>
+<a id="more"></a>
+<h2 id="AsyncTask"><a href="#AsyncTask" class="headerlink" title="AsyncTask"></a>AsyncTask</h2><pre><code>public AsyncTask() {
+    mWorker = new WorkerRunnable&lt;Params, Result&gt;() {
+        public Result call() throws Exception {
+            mTaskInvoked.set(true);
+            Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
+
+            //  这里调用后台运行
+            Result result = doInBackground(mParams);
+            Binder.flushPendingCommands();
+
+            //  发送结果
+            return postResult(result);
+        }
+    };
+
+    mFuture = new FutureTask&lt;Result&gt;(mWorker) {
+        @Override
+        protected void done() {
+            try {
+                postResultIfNotInvoked(get());
+            } catch (InterruptedException e) {
+                android.util.Log.w(LOG_TAG, e);
+            } catch (ExecutionException e) {
+                throw new RuntimeException(&quot;An error occurred while executing doInBackground()&quot;,
+                        e.getCause());
+            } catch (CancellationException e) {
+                postResultIfNotInvoked(null);
+            }
+        }
+    };
+}
+</code></pre><p>构造函数，分别构造了一个<code>WorkerRunnable</code>和一个<code>FutureTask</code><br><code>WorkerRunnable</code>就是任务，里面保存了<code>Params</code>，在执行结束后返回<code>Result</code><br><code>FutureTask</code>包装了一下任务，实际调度的是它，它会运行那个<code>WorkerRunnable</code>，得到返回结果在<code>done()</code>中处理</p>
+<pre><code>private static abstract class WorkerRunnable&lt;Params, Result&gt; implements Callable&lt;Result&gt; {
+        Params[] mParams;
+}
+</code></pre><h3 id="线程相关接口和类"><a href="#线程相关接口和类" class="headerlink" title="线程相关接口和类"></a>线程相关接口和类</h3><p><img src="http://7xt3ho.com1.z0.glb.clouddn.com/Runnable.jpg" alt=""></p>
+<pre><code>//  可被执行的命令，不返回结果
+public interface Runnable {
+    public void run();
+}
+
+//  一个任务，能够返回结果，可能抛出异常
+public interface Callable&lt;V&gt; {
+    V call() throws Exception;
+}
+
+//  Future代表了一个异步任务的结果
+//  有方法检查任务是否完成、等待完成、获得任务结果
+//  结果只能当任务完成时通过get()获得，必要的话会阻塞直到就绪
+public interface Future&lt;V&gt; {
+    boolean cancel(boolean mayInterruptIfRunning);
+    boolean isCancelled();
+    boolean isDone();
+    V get() throws InterruptedException, ExecutionException;
+    V get(long timeout, TimeUnit unit)
+        throws InterruptedException, ExecutionException, TimeoutException;
+}
+
+//  一个可运行的Future
+//  run()的成功执行导致Future的完成，并且允许访问其结果
+public interface RunnableFuture&lt;V&gt; extends Runnable, Future&lt;V&gt; {
+    void run();
+}
+
+//  一个可取消的异步任务
+//  可以用来包裹Runnable或Callable
+//  因为实现了Runnable，所以可以提交给一个Executor处理
+//  可以开始和结束任务，查看任务结果
+public class FutureTask&lt;V&gt; implements RunnableFuture&lt;V&gt; {
+    public FutureTask(Callable&lt;V&gt; callable) {
+        ......
+    }
+
+    public FutureTask(Runnable runnable, V result) {
+        ......
+    }
+
+    ......
+}
+</code></pre><h3 id="工作流"><a href="#工作流" class="headerlink" title="工作流"></a>工作流</h3><p>通过<code>execute()</code>执行，返回任务的引用，调用者可以保持引用</p>
+<pre><code>@MainThread
+public final AsyncTask&lt;Params, Progress, Result&gt; execute(Params... params) {
+    return executeOnExecutor(sDefaultExecutor, params);
+}
+
+
+@MainThread
+public final AsyncTask&lt;Params, Progress, Result&gt; executeOnExecutor(Executor exec, Params... params) {
+    if (mStatus != Status.PENDING) {
+        switch (mStatus) {
+            case RUNNING:
+                //  不能执行正在执行的任务
+                throw new IllegalStateException(&quot;Cannot execute task:&quot; + &quot; the task is already running.&quot;);
+            case FINISHED:
+                //  不能执行完成的任务
+                throw new IllegalStateException(&quot;Cannot execute task:&quot; + &quot; the task has already been executed &quot; + &quot;(a task can be executed only once)&quot;);
+        }
+    }
+
+    mStatus = Status.RUNNING;
+
+    //  准备执行，重写的方法
+    onPreExecute();
+
+    mWorker.mParams = params;
+
+    //  线程池执行
+    exec.execute(mFuture);
+
+    return this;
+}     
+</code></pre><p>线程池执行任务，<code>FutureTask.run()</code></p>
+<pre><code>public void run() {
+    if (state != NEW || !U.compareAndSwapObject(this, RUNNER, null, Thread.currentThread()))
+        return;
+    try {
+        Callable&lt;V&gt; c = callable;
+        if (c != null &amp;&amp; state == NEW) {
+            V result;
+            boolean ran;
+            try {
+                //  执行
+                result = c.call();
+                ran = true;
+            } catch (Throwable ex) {
+                result = null;
+                ran = false;
+                setException(ex);
+            }
+            if (ran)
+                //  设置结果
+                set(result);
+        }
+    } finally {
+        runner = null;
+        int s = state;
+        if (s &gt;= INTERRUPTING)
+            handlePossibleCancellationInterrupt(s);
+    }
+}
+
+protected void set(V v) {
+    if (U.compareAndSwapInt(this, STATE, NEW, COMPLETING)) {
+        outcome = v;
+        U.putOrderedInt(this, STATE, NORMAL);
+        finishCompletion();
+    }
+}
+
+private void finishCompletion() {
+    for (WaitNode q; (q = waiters) != null;) {
+        if (U.compareAndSwapObject(this, WAITERS, q, null)) {
+            for (;;) {
+                Thread t = q.thread;
+                if (t != null) {
+                    q.thread = null;
+                    LockSupport.unpark(t);
+                }
+                WaitNode next = q.next;
+                if (next == null)
+                    break;
+                q.next = null;
+                q = next;
+            }
+            break;
+        }
+    }
+
+    //  这个done()就是匿名类中重写的方法，表示完成后的处理
+    done();
+
+    callable = null;
+}
+</code></pre><p>完成后会调用这个，发消息从后台执行前台动作</p>
+<pre><code>private Result postResult(Result result) {
+    @SuppressWarnings(&quot;unchecked&quot;)
+    Message message = getHandler().obtainMessage(MESSAGE_POST_RESULT, new AsyncTaskResult&lt;Result&gt;(this, result));
+    message.sendToTarget();
+    return result;
+}
+</code></pre><p>那么一定有消息处理器</p>
+<pre><code>private static class InternalHandler extends Handler {
+    public InternalHandler() {
+        super(Looper.getMainLooper());
+    }
+
+    @SuppressWarnings({&quot;unchecked&quot;, &quot;RawUseOfParameterizedType&quot;})
+    @Override
+    public void handleMessage(Message msg) {
+        AsyncTaskResult&lt;?&gt; result = (AsyncTaskResult&lt;?&gt;) msg.obj;
+        switch (msg.what) {
+            case MESSAGE_POST_RESULT:
+                result.mTask.finish(result.mData[0]);
+                break;
+            case MESSAGE_POST_PROGRESS:
+                result.mTask.onProgressUpdate(result.mData);
+                break;
+        }
+    }
+}
+
+private void finish(Result result) {
+    if (isCancelled()) {
+        //  取消
+        onCancelled(result);
+    } else {
+        //  执行结束
+        onPostExecute(result);
+    }
+    mStatus = Status.FINISHED;
+}
+</code></pre><h3 id="线程注解"><a href="#线程注解" class="headerlink" title="线程注解"></a>线程注解</h3><p>如果你的方法只能在指定的线程类型中被调用，那么你就可以使用以下4个注解来标注它：</p>
+<ul>
+<li><code>@UiThread</code></li>
+<li><code>@MainThread</code></li>
+<li><code>@WorkerThread</code></li>
+<li><code>@BinderThread</code></li>
+</ul>
+<p>如果一个类中的所有方法都有相同的线程需求，那么你可以注解类本身。比如<code>android.view.View</code>，就被用<code>@UiThread</code>标注。</p>
+<p>关于线程注解使用的一个很好的例子就是<code>AsyncTask</code>：</p>
+<p>如果你在重写的<code>doInBackground()</code>方法里尝试调用<code>onProgressUpdate()</code>方法或者<code>View</code>的任何方法，就会马上把它标记为一个错误</p>
+<blockquote>
+<p><code>@UiThread</code>还是<code>@MainThread</code>?<br>在进程里只有一个主线程。这个就是<code>@MainThread</code>。同时这个线程也是一个<code>@UiThread</code>。比如<code>Activity</code>的主要窗口就运行在这个线程上。然而它也有能力为应用创建其他线程。这很少见，一般具备这样功能的都是系统进程。通常是把和生命周期有关的用<code>@MainThread</code>标注，和<code>View</code>层级结构相关的用<code>@UiThread</code>标注。但是由于<code>@MainThread</code>本质上是一个<code>@UiThread</code>，而大部分情况下<code>@UiThread</code>又是一个<code>@MainThread</code>，所以你能在一个可以调用<code>@MainThread</code>方法的地方也能调用<code>@UiThread</code>方法，反之亦然。</p>
+</blockquote>
+<h3 id="Executor"><a href="#Executor" class="headerlink" title="Executor"></a>Executor</h3><pre><code>private static volatile Executor sDefaultExecutor = SERIAL_EXECUTOR;
+
+//  这个执行器是串行的
+public static final Executor SERIAL_EXECUTOR = new SerialExecutor();
+
+private static final int CORE_POOL_SIZE = CPU_COUNT + 1;
+private static final int MAXIMUM_POOL_SIZE = CPU_COUNT * 2 + 1;
+
+//  这个执行器是并行的
+public static final Executor THREAD_POOL_EXECUTOR = new ThreadPoolExecutor(CORE_POOL_SIZE, MAXIMUM_POOL_SIZE, KEEP_ALIVE, TimeUnit.SECONDS, sPoolWorkQueue, sThreadFactory);
+
+private static class SerialExecutor implements Executor {
+    final ArrayDeque&lt;Runnable&gt; mTasks = new ArrayDeque&lt;Runnable&gt;();
+    Runnable mActive;
+
+    public synchronized void execute(final Runnable r) {
+        //  将任务加入队列
+        //  做了一下包装 任务在运行完成或异常后执行下一个 保证线性执行
+        mTasks.offer(new Runnable() {
+            public void run() {
+                try {
+                    r.run();
+                } finally {
+                    scheduleNext();
+                }
+            }
+        });
+        if (mActive == null) {
+            scheduleNext();
+        }
+    }
+
+    protected synchronized void scheduleNext() {
+        if ((mActive = mTasks.poll()) != null) {
+            THREAD_POOL_EXECUTOR.execute(mActive);
+        }
+    }
+}
+
+//  这个方法可以指定使用的执行器
+@MainThread
+public final AsyncTask&lt;Params, Progress, Result&gt; executeOnExecutor(Executor exec, Params... params);
+</code></pre><p>最初的版本，<code>AsyncTask</code>在单个后台线程上顺序执行<br>从<code>API4(1.6)</code>开始，变成了允许多个任务并行进行的线程池<br>从<code>API11(3.0)</code>开始，任务在一个单一线程执行以避免并行操作引起的错误<br>如果你需要并行执行，可以使用<code>executeOnExecutor()</code>，传入<code>THREAD_POOL_EXECUTOR</code></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><code>AsyncTask</code>是一个简单的在工作线程处理任务的方式，通过线程池调度任务（默认或者指定），后台任务的执行结果通过<code>Handler</code>机制发消息给<code>UI线程</code>更新界面</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+  
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+            <a href="/tags/AsyncTask/" rel="tag"># AsyncTask</a>
+          
+            <a href="/tags/线程通信/" rel="tag"># 线程通信</a>
+          
+        </div>
+      
+
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+         
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/11/14/archivers/android-okhttp/" rel="next" title="OkHttp源码分析">
+                <i class="fa fa-chevron-left"></i> OkHttp源码分析
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/11/15/archivers/handler/" rel="prev" title="Handler机制相关源码分析(Java层)">
+                Handler机制相关源码分析(Java层) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="刘晗" />
+          <p class="site-author-name" itemprop="name">刘晗</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#AsyncTask"><span class="nav-number">1.</span> <span class="nav-text">AsyncTask</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#线程相关接口和类"><span class="nav-number">1.1.</span> <span class="nav-text">线程相关接口和类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#工作流"><span class="nav-number">1.2.</span> <span class="nav-text">工作流</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程注解"><span class="nav-number">1.3.</span> <span class="nav-text">线程注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Executor"><span class="nav-number">1.4.</span> <span class="nav-text">Executor</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">2.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">刘晗</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io" rel="external nofollow">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid="></script>
+      <!-- UY END -->
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+
+</body>
+</html>

@@ -1,0 +1,803 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=PT Mono:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="DLNA,Cling," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="湖畔镇" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="对Cling类库所做的封装">
+<meta name="keywords" content="DLNA,Cling">
+<meta property="og:type" content="article">
+<meta property="og:title" content="封装DLNA开源库">
+<meta property="og:url" content="http://lakeshire.github.io/2017/02/21//archivers/cling-xmly/index.html">
+<meta property="og:site_name" content="湖畔镇">
+<meta property="og:description" content="对Cling类库所做的封装">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-28T03:15:26.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="封装DLNA开源库">
+<meta name="twitter:description" content="对Cling类库所做的封装">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://lakeshire.github.io/2017/02/21//archivers/cling-xmly/"/>
+
+
+
+
+
+  <title> 封装DLNA开源库 | 湖畔镇 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta custom-logo">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">湖畔镇</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <h1 class="site-subtitle" itemprop="description"></h1>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://lakeshire.github.io/2017/02/21/archivers/cling-xmly/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="刘晗">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="湖畔镇">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="湖畔镇" src="/images/avatar.jpg">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                封装DLNA开源库
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-21T18:00:00+08:00">
+                2017-02-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+ 
+        
+
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>对Cling类库所做的封装</p>
+<a id="more"></a>
+<h1 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h1><h2 id="BaseDeviceItem"><a href="#BaseDeviceItem" class="headerlink" title="BaseDeviceItem"></a>BaseDeviceItem</h2><p>设备基类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BaseDeviceItem</span> </span>&#123;</span><br><span class="line">    <span class="comment">//  DLNA设备类型</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">int</span> mDlnaType;</span><br><span class="line">    <span class="comment">//  AV服务</span></span><br><span class="line">    <span class="keyword">public</span> Service mAVservice;</span><br><span class="line">    <span class="comment">//  RC服务</span></span><br><span class="line">    <span class="keyword">protected</span> Service mRCservice;</span><br><span class="line">    <span class="comment">//  DLNA设备</span></span><br><span class="line">    <span class="keyword">protected</span> DeviceItem mDeviceItem;</span><br><span class="line">    <span class="comment">//  模块表</span></span><br><span class="line">    <span class="keyword">protected</span> HashMap&lt;String, IBaseModule&gt; mModules;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="BaseBindableDeviceItem"><a href="#BaseBindableDeviceItem" class="headerlink" title="BaseBindableDeviceItem"></a>BaseBindableDeviceItem</h3><p>有绑定专辑功能的设备，持有一个<code>BaseItemBindableModel</code></p>
+<h4 id="BaseItemBindableModel"><a href="#BaseItemBindableModel" class="headerlink" title="BaseItemBindableModel"></a>BaseItemBindableModel</h4><p>绑定专辑模型</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//  每个键上绑定的专辑列表</span></span><br><span class="line"><span class="keyword">protected</span> HashMap&lt;Integer, AlbumM&gt; mAlbums;</span><br><span class="line"><span class="comment">//  名字</span></span><br><span class="line"><span class="keyword">protected</span> List&lt;String&gt; mKeyNames;</span><br><span class="line"><span class="comment">//  图标</span></span><br><span class="line"><span class="keyword">protected</span> List&lt;Integer&gt; mKeyImages;</span><br></pre></td></tr></table></figure>
+<h4 id="CommonDevice"><a href="#CommonDevice" class="headerlink" title="CommonDevice"></a>CommonDevice</h4><p>支持喜马拉雅协议的通用设备</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">CommonDeviceItem</span> <span class="keyword">extends</span> <span class="title">BaseBindableDeviceItem</span> </span>&#123;</span><br><span class="line">    <span class="comment">//  PQ服务</span></span><br><span class="line">	<span class="keyword">protected</span> Service mPQservice;</span><br><span class="line">	<span class="comment">//  MM服务</span></span><br><span class="line">	<span class="keyword">protected</span> Service mMMservice;</span><br><span class="line">	<span class="comment">//  当前播放的数据结构</span></span><br><span class="line">	<span class="keyword">protected</span> BaseCurrentPlayingModel mCurrentPlayingModel = <span class="keyword">new</span> BaseCurrentPlayingModel();</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>BaseCurrentPlayingModel</code>保存当前播放的数据结构，如当前页，当前列表，当前曲目数deng</p>
+<h2 id="LinkedDeviceModel"><a href="#LinkedDeviceModel" class="headerlink" title="LinkedDeviceModel"></a>LinkedDeviceModel</h2><ul>
+<li>持有一个BaseDeviceItem</li>
+<li>管理播放状态：播放、停止</li>
+<li>管理音量</li>
+<li>透过它获得设备的AV和RC服务</li>
+</ul>
+<h2 id="IDlnaController"><a href="#IDlnaController" class="headerlink" title="IDlnaController"></a>IDlnaController</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IDlnaController</span> </span>&#123;</span><br><span class="line">    <span class="comment">//  基本信息：设备类型、UDN</span></span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">getDeviceType</span><span class="params">()</span></span>;</span><br><span class="line">    String[] getCheckedUdn();</span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">isThisDeviceType</span><span class="params">(BaseDeviceItem deviceItem)</span></span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//  设备管理</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">addDeivce</span><span class="params">(BaseDeviceItem myDeviceItem)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">boolean</span> <span class="title">removeDeivce</span><span class="params">(BaseDeviceItem myDeviceItem)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">clearDeivce</span><span class="params">()</span></span>;</span><br><span class="line">	<span class="function">List&lt;BaseDeviceItem&gt; <span class="title">getAllDevices</span><span class="params">()</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">boolean</span> <span class="title">isThisDevice</span><span class="params">(BaseDeviceItem deviceItem)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//  模块管理</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">initModules</span><span class="params">()</span></span>;</span><br><span class="line">	<span class="function">IBaseModule <span class="title">getModule</span><span class="params">(String moduleName)</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">setModule</span><span class="params">(IBaseModule baseModule)</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">onCommandFailed</span><span class="params">(ActionModel model)</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//  获取设备信息，如绑定专辑、内置声音</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">initDeviceInfo</span><span class="params">(BaseDeviceItem deviceItem, IActionCallBack callBack)</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 在默认的推送后面加上额外的操作，如订阅更多种类的事件</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">tuisongExtra</span><span class="params">(BasePlayManageController basePlayManageController)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//  播放声音</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">playSound</span><span class="params">(BaseDeviceItem baseDeviceItem, ActionModel model)</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//  切换到本地</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">change2Bendi</span><span class="params">(BasePlayManageController basePlayManageController)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="BaseDlnaController"><a href="#BaseDlnaController" class="headerlink" title="BaseDlnaController"></a>BaseDlnaController</h3><p>DLNA控制器基类，实现<code>IDlnaController</code>接口，维护了设备列表、模块表、<code>ControlPoint</code>，功能还需要子类实现</p>
+<h4 id="CommonController"><a href="#CommonController" class="headerlink" title="CommonController"></a>CommonController</h4><p>实现了通用的功能</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">tuisongExtra</span><span class="params">(BasePlayManageController basePlayManageController)</span> </span>&#123;</span><br><span class="line">    CommonDeviceItem commonDeviceItem = (CommonDeviceItem) basePlayManageController.getLinkedDeviceModel().getNowDeviceItem();</span><br><span class="line">    <span class="keyword">if</span> (commonDeviceItem.getPQservice() != <span class="keyword">null</span>) &#123;</span><br><span class="line">        basePlayManageController.setPlayQueueSubscriptionCallback(<span class="keyword">new</span> MyPlaySubscriptionCallback(commonDeviceItem.getPQservice(), <span class="number">600</span>, basePlayManageController));</span><br><span class="line">        getControlPoint().execute(basePlayManageController.getPlayQueueSubscriptionCallback());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (commonDeviceItem.getMMservice() != <span class="keyword">null</span>) &#123;</span><br><span class="line">        basePlayManageController.setMediaManagerSubscriptionCallback(<span class="keyword">new</span> MyPlaySubscriptionCallback(commonDeviceItem.getMMservice(), <span class="number">600</span>, basePlayManageController));</span><br><span class="line">        getControlPoint().execute(basePlayManageController.getMediaManagerSubscriptionCallback());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>tuisongExtra()</code>里主要订阅了播放列表<code>PQService</code>和媒体管理<code>MMService</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">change2Bendi</span><span class="params">(BasePlayManageController basePlayManageController)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (basePlayManageController.getPlayQueueSubscriptionCallback() != <span class="keyword">null</span>) &#123;</span><br><span class="line">        basePlayManageController.getPlayQueueSubscriptionCallback().end();</span><br><span class="line">        basePlayManageController.setPlayQueueSubscriptionCallback(<span class="keyword">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (basePlayManageController.getMediaManagerSubscriptionCallback() != <span class="keyword">null</span>) &#123;</span><br><span class="line">        basePlayManageController.getMediaManagerSubscriptionCallback().end();</span><br><span class="line">        basePlayManageController.setMediaManagerSubscriptionCallback(<span class="keyword">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>change2Bendi()</code>里进行了退订</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">playSound</span><span class="params">(BaseDeviceItem baseDeviceItem, ActionModel model)</span> </span>&#123;</span><br><span class="line">    BaseTuiSongModule tuiSongModule = (BaseTuiSongModule) getModule(BaseTuiSongModule.NAME);</span><br><span class="line">    <span class="keyword">if</span> (tuiSongModule == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    tuiSongModule.tuisong(baseDeviceItem, model);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>playSound()</code>通过<code>BaseTuiSongModule</code>的<code>tuisong()</code>实现</p>
+<h2 id="DlnaControllerFactory"><a href="#DlnaControllerFactory" class="headerlink" title="DlnaControllerFactory"></a>DlnaControllerFactory</h2><p>通过这个工厂类生成了控制器</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DlnaControllerFactory</span> </span>&#123;</span><br><span class="line">    List&lt;IDlnaControllerCreator&gt; mCreators;</span><br><span class="line">    ...</span><br><span class="line">    <span class="comment">//  调用所有构造器的设备添加回调</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">buildController</span><span class="params">(BaseDeviceItem baseDeviceItem)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; mCreators.size(); i++) &#123;</span><br><span class="line">			mCreators.get(i).onDeviceAdded(baseDeviceItem);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>保存了一组控制器的构造器，创建时根据控制器的类型选择合适的构造器构造控制器</p>
+<h3 id="IDlnaControllerCreator"><a href="#IDlnaControllerCreator" class="headerlink" title="IDlnaControllerCreator"></a>IDlnaControllerCreator</h3><p>控制器构造器接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IDlnaControllerCreator</span> </span>&#123;</span><br><span class="line">    <span class="comment">//  设备添加回调</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onDeviceAdded</span><span class="params">(BaseDeviceItem baseDeviceItem)</span></span>;</span><br><span class="line">    <span class="comment">//  创建控制器</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">buildController</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="comment">//  子类实现，返回控制器类型</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">getControllerType</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="AbsControllerCreator"><a href="#AbsControllerCreator" class="headerlink" title="AbsControllerCreator"></a>AbsControllerCreator</h4><p>一个抽象的实现类，构造函数再<code>DlnaManager</code>中添加了一个控制器<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AbsControllerCreator</span> <span class="keyword">implements</span> <span class="title">IDlnaControllerCreator</span> </span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> Context mContext;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AbsControllerCreator</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">        DlnaManager.getInstance(context).addControllerCreator(<span class="keyword">this</span>);</span><br><span class="line">        mContext = context;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="CometController"><a href="#CometController" class="headerlink" title="CometController"></a>CometController</h5><p>举个<code>Comet</code>设备的例子</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CometControllerCreator</span> <span class="keyword">extends</span> <span class="title">AbsControllerCreator</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onDeviceAdded</span><span class="params">(BaseDeviceItem baseDeviceItem)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//  获得设备UDN</span></span><br><span class="line">        String udn = baseDeviceItem.getDevice().getIdentity().getUdn().toString();</span><br><span class="line">        <span class="comment">//  判断UDN是否包含COMET设备的头信息</span></span><br><span class="line">        <span class="keyword">if</span> (udn.contains(CometController.DEVICE_COMET_HEADER)) &#123;</span><br><span class="line">            baseDeviceItem.setDlnaType(DeviceType.comet);</span><br><span class="line">            DlnaManager.getInstance(mContext).getController(DeviceType.comet).addDeivce(baseDeviceItem);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getControllerType</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> DeviceType.comet;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="BaseDlnaModule"><a href="#BaseDlnaModule" class="headerlink" title="BaseDlnaModule"></a>BaseDlnaModule</h2><p>DLNA功能模块基础类<br>功能的实现都差不多，通过发送的<code>ActionCallback</code>不同来区分</p>
+<ul>
+<li>BasePlayModule</li>
+<li>BaseDownloadModule</li>
+<li>BaseDlnaKeyModule</li>
+<li>BaseTuisongModule</li>
+<li>BaseManageTFModule</li>
+<li>BaseBindModule</li>
+</ul>
+<h1 id="DlnaManager"><a href="#DlnaManager" class="headerlink" title="DlnaManager"></a>DlnaManager</h1><p>DLNA功能的管理器，持有一个<code>CoreController</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DlnaManager</span> </span>&#123;</span><br><span class="line">    <span class="comment">//  核心控制器</span></span><br><span class="line">    <span class="keyword">public</span> CoreController mCoreController;</span><br><span class="line">    <span class="comment">//  播放事件管理</span></span><br><span class="line">    <span class="keyword">private</span> PlayManageController mPlayManageController; </span><br><span class="line">    <span class="keyword">private</span> OperationStorageModel mOperationStroageModel;</span><br><span class="line">    <span class="keyword">private</span> HashMap&lt;Integer, IDlnaController&gt; mContrllerMap;</span><br><span class="line">    <span class="keyword">private</span> CopyOnWriteArrayList&lt;OnDeviceChangedListener&gt; mOnDeviceChangedListeners;</span><br><span class="line">    <span class="keyword">private</span> CopyOnWriteArrayList&lt;OnKeyEventListener&gt; mOnkeyEventListeners;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>设备管理</li>
+<li>控制器管理</li>
+<li>播放控制</li>
+</ul>
+<h2 id="CoreController"><a href="#CoreController" class="headerlink" title="CoreController"></a>CoreController</h2><p>核心控制器，<code>BasePlayManageController</code>的子类</p>
+<h3 id="绑定服务"><a href="#绑定服务" class="headerlink" title="绑定服务"></a>绑定服务</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">bindService</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">    deviceListRegistryListener = <span class="keyword">new</span> DeviceListRegistryListener();</span><br><span class="line">    mIsBind = mContext.bindService(<span class="keyword">new</span> Intent(mContext, DmcUpnpService.class), serviceConnection, Context.BIND_AUTO_CREATE);</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> ServiceConnection serviceConnection = <span class="keyword">new</span> ServiceConnection() &#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onServiceConnected</span><span class="params">(ComponentName className, IBinder service)</span> </span>&#123;</span><br><span class="line">        ...</span><br><span class="line">        upnpService = (UpnpServiceBinder) service;</span><br><span class="line">        <span class="comment">//  为这个服务提供CoreUpnpServiceListener</span></span><br><span class="line">        upnpService.setProcessor(coreUpnpServiceListener);</span><br><span class="line">        ...    </span><br><span class="line">        <span class="comment">//  在Registry中添加DeviceListRegistryListener</span></span><br><span class="line">        upnpService.getRegistry().addListener(deviceListRegistryListener);</span><br><span class="line">        <span class="comment">//  移除所有的远端和本地设备</span></span><br><span class="line">        upnpService.getRegistry().removeAllRemoteDevices(<span class="keyword">true</span>);</span><br><span class="line">        upnpService.getRegistry().removeAllLocalDevices();</span><br><span class="line">        <span class="comment">//  搜索设备</span></span><br><span class="line">        searchDevice();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onServiceDisconnected</span><span class="params">(ComponentName className)</span> </span>&#123;</span><br><span class="line">        upnpService = <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>初始化，绑定到<code>DmcUpnpService</code></p>
+<h4 id="CoreUpnpServiceListener"><a href="#CoreUpnpServiceListener" class="headerlink" title="CoreUpnpServiceListener"></a>CoreUpnpServiceListener</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">CoreUpnpServiceListener</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onNetworkChanged</span><span class="params">(NetworkInterface ni)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onRouterError</span><span class="params">(String message)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onRouterDisabled</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onRouterEnabled</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>监听网络状态和路由状态</p>
+<h4 id="DeviceListRegistryListener"><a href="#DeviceListRegistryListener" class="headerlink" title="DeviceListRegistryListener"></a>DeviceListRegistryListener</h4><p>实现接口<code>RegistryListener</code>，这个接口主要用来通知设备的添加、删除和更新</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">RegistryListener</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">remoteDeviceDiscoveryStarted</span><span class="params">(Registry registry, RemoteDevice device)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">remoteDeviceDiscoveryFailed</span><span class="params">(Registry registry, RemoteDevice device, Exception ex)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">remoteDeviceAdded</span><span class="params">(Registry registry, RemoteDevice device)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">remoteDeviceUpdated</span><span class="params">(Registry registry, RemoteDevice device)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">remoteDeviceRemoved</span><span class="params">(Registry registry, RemoteDevice device)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">localDeviceAdded</span><span class="params">(Registry registry, LocalDevice device)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">localDeviceRemoved</span><span class="params">(Registry registry, LocalDevice device)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">beforeShutdown</span><span class="params">(Registry registry)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">afterShutdown</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="搜索设备"><a href="#搜索设备" class="headerlink" title="搜索设备"></a>搜索设备</h3><p>通过<code>startScanThread()</code>和<code>stopScanThread()</code>方法<br>创建<code>ScanThread</code>搜索设备，最终调用<code>upnpService.getControlPoint().search()</code></p>
+<h3 id="设备管理"><a href="#设备管理" class="headerlink" title="设备管理"></a>设备管理</h3><p>通过<code>removeDevice()</code>和<code>removeAllDevices()</code>移除设备<br>最终调用<code>Registry</code>中的移除设备的方法</p>
+<h3 id="按键处理"><a href="#按键处理" class="headerlink" title="按键处理"></a>按键处理</h3><p>实现了<code>MyPlaySubscriptionCallback.OnPlayKeyHandler</code>接口<br>通过<code>BaseDlnaKeyModule</code>把<code>GENASubscription</code>结构转化为<code>KeyEvent</code>，然后调用<code>OnCoreControllerListener.onKeyAciton()</code></p>
+<h4 id="OnCoreControllerListener"><a href="#OnCoreControllerListener" class="headerlink" title="OnCoreControllerListener"></a>OnCoreControllerListener</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">OnCoreControllerListener</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onDeviceAdded</span><span class="params">(BaseDeviceItem baseDeviceItem)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onDeviceRemoved</span><span class="params">(BaseDeviceItem baseDeviceItem)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onNetworkChanged</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onKeyAciton</span><span class="params">(KeyEvent keyEvent)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>暴露给<code>DlnaManager</code>的接口，处理设备添加、设备删除、网络变化和按键事件</p>
+<h3 id="播放控制"><a href="#播放控制" class="headerlink" title="播放控制"></a>播放控制</h3><p>包括推送到设备、切换到本地、(继续)播放、上一曲、下一曲、暂停、停止</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">tuisongDevice</span><span class="params">(BaseDeviceItem baseDeviceItem)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!isUpnpServiceCanUse()) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//  如果当前没有操作的设备就创建一个</span></span><br><span class="line">    <span class="keyword">if</span> (mLinkedDeviceModel == <span class="keyword">null</span>) &#123;</span><br><span class="line">        mLinkedDeviceModel = <span class="keyword">new</span> LinkedDeviceModel();</span><br><span class="line">    &#125;</span><br><span class="line">    mLinkedDeviceModel.setNowDeviceItem(baseDeviceItem);</span><br><span class="line">    <span class="comment">//  获得一个控制器</span></span><br><span class="line">    mNowDlnaController = mDlnaManager.getController(baseDeviceItem.getDlnaType());</span><br><span class="line">    <span class="keyword">if</span> (mNowDlnaController == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//这里推送需要重新重新新建订阅，两台设备切换的情况，一直只会订阅第一台设备</span></span><br><span class="line">    mPlaySubscriptionCallback = <span class="keyword">new</span> MyPlaySubscriptionCallback(mLinkedDeviceModel.getAvService(), <span class="number">600</span>, <span class="keyword">this</span>);</span><br><span class="line">    upnpService.getControlPoint().execute(mPlaySubscriptionCallback);</span><br><span class="line">    mNowDlnaController.tuisongExtra(<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>首先通过<code>tuisongDevice()</code>确定要操作的设备，获得该设备类型的控制器，然后调用<code>IDlnaController.tuisongExtra()</code></p>
+<h3 id="音量控制"><a href="#音量控制" class="headerlink" title="音量控制"></a>音量控制</h3><h3 id="进度条控制"><a href="#进度条控制" class="headerlink" title="进度条控制"></a>进度条控制</h3><p>提供了<code>setSeekBar</code>设置进度条，以及<code>PositionThread</code>来周期性获得播放进度</p>
+<h3 id="BasePlayManageController"><a href="#BasePlayManageController" class="headerlink" title="BasePlayManageController"></a>BasePlayManageController</h3><ul>
+<li>持有一个<code>LinkedDeviceModel</code>，记录正在操作的设备</li>
+<li>订阅事件相关处理</li>
+<li>实现了<code>MyPlaySubscriptionCallback.OnPlayKeyHandler</code>接口（并没实现，仍需要子类实现）</li>
+</ul>
+<h2 id="DmcUpnpService"><a href="#DmcUpnpService" class="headerlink" title="DmcUpnpService"></a>DmcUpnpService</h2><p>通过绑定这个服务调用<code>UpnpService</code>提供的功能，返回<code>AndroidUpnpService</code>接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">AndroidUpnpService</span> </span>&#123;</span><br><span class="line">    <span class="function">UpnpService <span class="title">get</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function">UpnpServiceConfiguration <span class="title">getConfiguration</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function">Registry <span class="title">getRegistry</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function">ControlPoint <span class="title">getControlPoint</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过<code>createUpnpService()</code>创建一个UPnP服务，提供配置、路由等信息</p>
+<h1 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h1><h2 id="搜索设备-1"><a href="#搜索设备-1" class="headerlink" title="搜索设备"></a>搜索设备</h2><h2 id="发送命令"><a href="#发送命令" class="headerlink" title="发送命令"></a>发送命令</h2><h2 id="按键事件"><a href="#按键事件" class="headerlink" title="按键事件"></a>按键事件</h2>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+  
+        <div class="post-tags">
+          
+            <a href="/tags/DLNA/" rel="tag"># DLNA</a>
+          
+            <a href="/tags/Cling/" rel="tag"># Cling</a>
+          
+        </div>
+      
+
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+         
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/02/13/archivers/cling/" rel="next" title="DLNA开源库——Cling">
+                <i class="fa fa-chevron-left"></i> DLNA开源库——Cling
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/02/24/archivers/android-studio-gradle-tips/" rel="prev" title="AndroidStudio——Gradle小贴士">
+                AndroidStudio——Gradle小贴士 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="刘晗" />
+          <p class="site-author-name" itemprop="name">刘晗</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数据结构"><span class="nav-number">1.</span> <span class="nav-text">数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#BaseDeviceItem"><span class="nav-number">1.1.</span> <span class="nav-text">BaseDeviceItem</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#BaseBindableDeviceItem"><span class="nav-number">1.1.1.</span> <span class="nav-text">BaseBindableDeviceItem</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#BaseItemBindableModel"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">BaseItemBindableModel</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CommonDevice"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">CommonDevice</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LinkedDeviceModel"><span class="nav-number">1.2.</span> <span class="nav-text">LinkedDeviceModel</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IDlnaController"><span class="nav-number">1.3.</span> <span class="nav-text">IDlnaController</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#BaseDlnaController"><span class="nav-number">1.3.1.</span> <span class="nav-text">BaseDlnaController</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CommonController"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">CommonController</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DlnaControllerFactory"><span class="nav-number">1.4.</span> <span class="nav-text">DlnaControllerFactory</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#IDlnaControllerCreator"><span class="nav-number">1.4.1.</span> <span class="nav-text">IDlnaControllerCreator</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#AbsControllerCreator"><span class="nav-number">1.4.1.1.</span> <span class="nav-text">AbsControllerCreator</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#CometController"><span class="nav-number">1.4.1.1.1.</span> <span class="nav-text">CometController</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BaseDlnaModule"><span class="nav-number">1.5.</span> <span class="nav-text">BaseDlnaModule</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DlnaManager"><span class="nav-number">2.</span> <span class="nav-text">DlnaManager</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CoreController"><span class="nav-number">2.1.</span> <span class="nav-text">CoreController</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#绑定服务"><span class="nav-number">2.1.1.</span> <span class="nav-text">绑定服务</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CoreUpnpServiceListener"><span class="nav-number">2.1.1.1.</span> <span class="nav-text">CoreUpnpServiceListener</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DeviceListRegistryListener"><span class="nav-number">2.1.1.2.</span> <span class="nav-text">DeviceListRegistryListener</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#搜索设备"><span class="nav-number">2.1.2.</span> <span class="nav-text">搜索设备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设备管理"><span class="nav-number">2.1.3.</span> <span class="nav-text">设备管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#按键处理"><span class="nav-number">2.1.4.</span> <span class="nav-text">按键处理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#OnCoreControllerListener"><span class="nav-number">2.1.4.1.</span> <span class="nav-text">OnCoreControllerListener</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#播放控制"><span class="nav-number">2.1.5.</span> <span class="nav-text">播放控制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#音量控制"><span class="nav-number">2.1.6.</span> <span class="nav-text">音量控制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进度条控制"><span class="nav-number">2.1.7.</span> <span class="nav-text">进度条控制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BasePlayManageController"><span class="nav-number">2.1.8.</span> <span class="nav-text">BasePlayManageController</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DmcUpnpService"><span class="nav-number">2.2.</span> <span class="nav-text">DmcUpnpService</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#流程"><span class="nav-number">3.</span> <span class="nav-text">流程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#搜索设备-1"><span class="nav-number">3.1.</span> <span class="nav-text">搜索设备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发送命令"><span class="nav-number">3.2.</span> <span class="nav-text">发送命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#按键事件"><span class="nav-number">3.3.</span> <span class="nav-text">按键事件</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">刘晗</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io" rel="external nofollow">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid="></script>
+      <!-- UY END -->
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+
+</body>
+</html>

@@ -1,0 +1,904 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=PT Mono:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Java,集合," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="湖畔镇" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="keywords" content="Java,集合">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java——集合框架">
+<meta property="og:url" content="http://lakeshire.github.io/2016/10/27//archivers/java-collection/index.html">
+<meta property="og:site_name" content="湖畔镇">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://7xt3ho.com1.z0.glb.clouddn.com/java-collection.jpg">
+<meta property="og:updated_time" content="2017-11-28T03:05:13.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java——集合框架">
+<meta name="twitter:image" content="http://7xt3ho.com1.z0.glb.clouddn.com/java-collection.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://lakeshire.github.io/2016/10/27//archivers/java-collection/"/>
+
+
+
+
+
+  <title> Java——集合框架 | 湖畔镇 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta custom-logo">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">湖畔镇</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <h1 class="site-subtitle" itemprop="description"></h1>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://lakeshire.github.io/2016/10/27/archivers/java-collection/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="刘晗">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="湖畔镇">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="湖畔镇" src="/images/avatar.jpg">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                Java——集合框架
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-10-27T12:00:00+08:00">
+                2016-10-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+ 
+        
+
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://7xt3ho.com1.z0.glb.clouddn.com/java-collection.jpg" alt=""></p>
+<a id="more"></a>
+<h2 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h2><p>三种集合：规则集<code>Set</code>（一组不重复的元素）、线性表<code>List</code>（元素构成的有序集合）、队列<code>Queue</code>（先进先出方式处理的集合）</p>
+<h3 id="Collection接口"><a href="#Collection接口" class="headerlink" title="Collection接口"></a>Collection接口</h3><p><code>Collection</code>接口是处理对象集合的根接口，<code>AbstractCollection</code>类是提供<code>Collection</code>接口部分实现的便利类</p>
+<pre><code>boolean add(T o);
+boolean addAll(Collection&lt;? extends T&gt; c);
+void clear();
+boolean contains(Object o);
+boolean containsAll(Collection&lt;?&gt; c);
+boolean equals(Object o);
+int hashCode();
+boolean isEmpty();
+Iterator&lt;T&gt; iterator();
+boolean remove(Object o);
+boolean removeAll(Collection&lt;?&gt; c);
+boolean retainAll(Collection&lt;?&gt; c);
+int size();
+T[] toArray();
+</code></pre><h4 id="Iterator"><a href="#Iterator" class="headerlink" title="Iterator"></a>Iterator</h4><pre><code>boolean hasNext();
+T next();
+void remove();
+</code></pre><h3 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h3><p><code>Set</code>接口扩展了<code>Collection</code>，实现<code>Set</code>的具体类必须确保没有重复元素</p>
+<p><code>AbstractSet</code>是个便利类，它扩展<code>AbstractCollection</code>类并实现<code>Set</code>接口</p>
+<p><code>Set</code>接口的具体类是：散列类<code>HashSet</code>、链式散列集<code>LinkedHashSet</code>、树形集<code>TreeSet</code></p>
+<ul>
+<li><p><code>HashSet</code></p>
+<p>  用来存储互不相同的任何元素</p>
+</li>
+<li><p><code>LinkedHashSet</code></p>
+<p>  用链表实现来扩展<code>HashSet</code>类，其中的元素可以按照插入时的顺序提取</p>
+</li>
+<li><p><code>TreeSet</code></p>
+<p>  <code>SortedSet</code>是<code>Set</code>的一个子接口，它可以确保规则集中的元素是有序的</p>
+<pre><code>T first();
+T last();
+SortedSet&lt;T&gt; headSet(T toElement);
+SortedSet&lt;T&gt; tailSet(T fromElement);
+</code></pre><p>  <code>NavigableSet</code>扩展了<code>SortedSet</code></p>
+<pre><code>T pollFirst();
+T pollLast();
+T lower(T e);
+T higher(T e);
+T floor(T e);
+T ceiling(T e);
+</code></pre><p>  <code>TreeSet</code>是<code>SortedSet</code>接口的一个具体类，只要对象是可以互相比较的，就可以添加到一个树形集中</p>
+</li>
+</ul>
+<pre><code>可比较对象：
+
+* 使用`Comparable`接口
+* 如果没有使用`Comparable`接口，可以指定比较器
+</code></pre><h3 id="比较器接口Comparator"><a href="#比较器接口Comparator" class="headerlink" title="比较器接口Comparator"></a>比较器接口<code>Comparator</code></h3><p>有两个方法<code>compare()</code>和<code>equals()</code>，比如</p>
+<pre><code>public class GeometricComparator implements Comparator&lt;GeometricObject&gt; {
+
+    public int compare(GeometricObject o1, GeometricObject 02) {
+        ...
+    }
+}
+
+Set&lt;GetmeticObject&gt; set = new TreeSet&lt;GeometricObject&gt;(new GeometricComparator());
+
+...
+</code></pre><h3 id="线性表"><a href="#线性表" class="headerlink" title="线性表"></a>线性表</h3><p>线性表允许存储重复的元素，允许指定他们存储的位置</p>
+<p><code>List</code>接口扩展了<code>Collection</code>接口，增加了面向位置的操作</p>
+<pre><code>boolean add(int index, T e);
+boolean add(Collection&lt;? extends T&gt; c, int index);
+T get(int index);
+int indexOf(Object e);
+int lastIndexOf(Object e);
+ListIterator&lt;T&gt; listIterator();
+ListIterator&lt;T&gt; listIterator(int startIndex);
+T remove(int index);
+T set(int index, T e);
+List&lt;T&gt; subList(int from, int to);
+</code></pre><h4 id="ListIterator"><a href="#ListIterator" class="headerlink" title="ListIterator"></a>ListIterator</h4><p>支持双向遍历的迭代器</p>
+<pre><code>void add(T o);
+boolean hasPrevious();
+int nextIndex();
+T previous();
+int previousIndex();
+void set(T o);
+</code></pre><p>数组线性表类<code>ArrayList</code>通过数组创建，适合随机访问元素而不是插入；链表类<code>LinkedList</code>通过链表创建，适合插入和删除操作</p>
+<h3 id="Collections"><a href="#Collections" class="headerlink" title="Collections"></a>Collections</h3><p>操作线性表和集合的静态方法</p>
+<pre><code>void sort(List list);
+void sort(List list, Comparator comparator);
+void reverse(List list);
+Comparator reverseOrder();
+void shuffle(List list);
+void shuffle(List list, Random random);
+
+//  搜索方法要求线性表是已排序的
+int binarySearch(List list, Object key);
+int binarySearch(List list, Object key, Comparator comparator);
+
+void copy(List des, List src);
+void nCopies(int n, Object o);
+
+void fill(List list, Object o);
+
+Object max(Collection collection);
+Object max(Collection collection, Comparator comparator);
+Object min(Collection collection);
+Object min(Collection collection, Comparator comparator);
+
+boolean disjoint(Collection c1, Collection c2);
+int frequency(Collection collection, Object object);
+</code></pre><p>规则集比线性表更加高效，如果用规则集就足够则使用规则集，如果程序不需要特别的顺序，就选择散列集  </p>
+<p>在线性表中除结尾处做插入删除，链式线性表比数组线性表高效</p>
+<h3 id="Vector和Stack"><a href="#Vector和Stack" class="headerlink" title="Vector和Stack"></a>Vector和Stack</h3><p><code>Vertor</code>实现了<code>List</code>接口，跟线性表的区别是同步操作的处理，如果不需要同步，最好使用<code>ArrayList</code>，会快很多</p>
+<pre><code>void addElement(T o);
+int capacity();
+void copyInto(Object[] array);
+T elementAt(int index);
+Enumeration&lt;T&gt; elements();
+void ensureCapacity();
+T firstElement();
+void insertElementAt(T o, int index);
+T lastElement();
+void removeAllElements();
+boolean removeElement(Object o);
+void removeElementAt(int index);
+void setElementAt(T o, int index);
+void setSize(int newSize);
+void trimToSize();
+</code></pre><p><code>Stack</code>是<code>Vector</code>的扩展</p>
+<pre><code>boolean empty();
+T peek();
+T pop();
+T push(T o);
+int search(Object o);
+</code></pre><h3 id="队列和优先队列"><a href="#队列和优先队列" class="headerlink" title="队列和优先队列"></a>队列和优先队列</h3><p>队列是先进先出的数据结构，优先队列中元素被赋予优先级</p>
+<p><code>Queue</code>接口用附加的插入提取和检验操作来扩展<code>Collection</code></p>
+<pre><code>boolean offer(T e);
+T poll();
+T remove();
+T peek();
+T element();
+</code></pre><p>双端队列<code>Deque</code>接口用附加的从队列两端插入和删除元素的办法扩展<code>Queue</code>接口</p>
+<p><code>LinkedList</code>实现了<code>List</code>和<code>Deque</code>接口，可以用它创建一个队列</p>
+<p><code>PriorityQueue</code>类实现一个优先队列</p>
+<h2 id="图"><a href="#图" class="headerlink" title="图"></a>图</h2><p>按照键值存储元素的容器，不能有重复的键值，图的类型有三种：散列图<code>HashMap</code>、链式散列图<code>LinkedHashMap</code>和树形图<code>TreeMap</code></p>
+<p><code>Map</code>接口提供了查询、更新、获取集合键值的方法</p>
+<pre><code>void clear();
+boolean containsKey(Object key);
+boolean containsValue(Object value);
+Set&lt;Map.Entry&lt;K, V&gt;&gt; entrySet();
+V get(Object key);
+boolean isEmpty();
+Set&lt;K&gt; keySet();
+V put(K key, V value);
+void putAll(Map&lt;? extends K, ? extends V&gt; map);
+V remove(Object key);
+int size();
+Collection&lt;V&gt; values();
+</code></pre><p><code>Entry</code>是<code>Map</code>接口的内部接口</p>
+<pre><code>K getKey();
+V getValue();
+void setValue(V value);
+</code></pre><p><code>AbstractMap</code>类是一个便利类，它实现了<code>Map</code>接口中除了<code>entrySet()</code>之外的所有方法</p>
+<p><code>SortedMap</code>接口扩展了<code>Map</code>接口，保持映射以升序排列</p>
+<pre><code>K firstKey();
+K lastKey();
+Comparator&lt;? super K&gt; comparator();
+SortedMap&lt;K, V&gt; headMap(K to);
+SortedMap&lt;K, V&gt; tailMap(K from);
+</code></pre><p><code>NavigableMap</code>扩展了<code>SortedMap</code>，以提供导航方法</p>
+<pre><code>K floorKey(K key);
+K ceilingKey(K key);
+K lowerKey(K key);
+K higherKey(K key);
+Map.EntrySet&lt;K, V&gt; pollFirstEntry();
+Map.EntrySet&lt;K, V&gt; pollLastEntry();
+</code></pre><p><code>TreeMap</code>实现<code>NavigableMap</code>接口，扩展了<code>AbstractMap</code>类</p>
+<p><code>HashMap</code>扩展了<code>AbstractMap</code>类，<code>LinkedHashMap</code>扩展了<code>HashMap</code>类</p>
+<p>不需要保持顺序用<code>HashMap</code>，需要保持顺序用<code>LinkedHashMap</code>，需要按键值排序，使用<code>TreeMap</code></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+  
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/集合/" rel="tag"># 集合</a>
+          
+        </div>
+      
+
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+         
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/26/archivers/java-multi-thread/" rel="next" title="Java——多线程">
+                <i class="fa fa-chevron-left"></i> Java——多线程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/10/31/archivers/java-rtti/" rel="prev" title="Java——运行时类型信息">
+                Java——运行时类型信息 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="刘晗" />
+          <p class="site-author-name" itemprop="name">刘晗</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#集合"><span class="nav-number">1.</span> <span class="nav-text">集合</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Collection接口"><span class="nav-number">1.1.</span> <span class="nav-text">Collection接口</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Iterator"><span class="nav-number">1.1.1.</span> <span class="nav-text">Iterator</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Set"><span class="nav-number">1.2.</span> <span class="nav-text">Set</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#比较器接口Comparator"><span class="nav-number">1.3.</span> <span class="nav-text">比较器接口Comparator</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线性表"><span class="nav-number">1.4.</span> <span class="nav-text">线性表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ListIterator"><span class="nav-number">1.4.1.</span> <span class="nav-text">ListIterator</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Collections"><span class="nav-number">1.5.</span> <span class="nav-text">Collections</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Vector和Stack"><span class="nav-number">1.6.</span> <span class="nav-text">Vector和Stack</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#队列和优先队列"><span class="nav-number">1.7.</span> <span class="nav-text">队列和优先队列</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图"><span class="nav-number">2.</span> <span class="nav-text">图</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">刘晗</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io" rel="external nofollow">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid="></script>
+      <!-- UY END -->
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+
+</body>
+</html>

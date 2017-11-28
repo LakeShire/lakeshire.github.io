@@ -1,0 +1,920 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=PT Mono:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Android,Gradle," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="湖畔镇" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="本文罗列一些Gradle的资料">
+<meta name="keywords" content="Android,Gradle">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Gradle相关资料">
+<meta property="og:url" content="http://lakeshire.github.io/2017/03/15//archivers/gradle-related/index.html">
+<meta property="og:site_name" content="湖畔镇">
+<meta property="og:description" content="本文罗列一些Gradle的资料">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-28T03:12:36.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Gradle相关资料">
+<meta name="twitter:description" content="本文罗列一些Gradle的资料">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://lakeshire.github.io/2017/03/15//archivers/gradle-related/"/>
+
+
+
+
+
+  <title> Gradle相关资料 | 湖畔镇 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta custom-logo">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">湖畔镇</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <h1 class="site-subtitle" itemprop="description"></h1>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://lakeshire.github.io/2017/03/15/archivers/gradle-related/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="刘晗">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="湖畔镇">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="湖畔镇" src="/images/avatar.jpg">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                Gradle相关资料
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-15T12:00:00+08:00">
+                2017-03-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+ 
+        
+
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文罗列一些Gradle的资料</p>
+<a id="more"></a>
+<h2 id="深入理解Gradle"><a href="#深入理解Gradle" class="headerlink" title="深入理解Gradle"></a><a href="http://blog.csdn.net/innost/article/details/48228651" target="_blank" rel="noopener">深入理解Gradle</a></h2><p>这篇文章是从API的角度做的教程，可以更清楚的了解Gradle</p>
+<h2 id="Gradle脚本基础全攻略"><a href="#Gradle脚本基础全攻略" class="headerlink" title="Gradle脚本基础全攻略"></a><a href="http://blog.csdn.net/yanbober/article/details/49314255" target="_blank" rel="noopener">Gradle脚本基础全攻略</a></h2><p>这个基本就是官方文档的翻译版，讲述了实现一些特性的方法</p>
+<h2 id="Groovy脚本基础全攻略"><a href="#Groovy脚本基础全攻略" class="headerlink" title="Groovy脚本基础全攻略"></a><a href="http://blog.csdn.net/yanbober/article/details/49047515" target="_blank" rel="noopener">Groovy脚本基础全攻略</a></h2><p>Gradle是基于Groovy的DSL，可以通过这篇文章简单学习一下，更多参见<a href="http://www.groovy-lang.org/index.html" target="_blank" rel="noopener">Groovy官方网站</a></p>
+<h2 id="Gradle-User-Guide"><a href="#Gradle-User-Guide" class="headerlink" title="Gradle User Guide"></a><a href="https://docs.gradle.org/3.4.1/userguide/userguide.html" target="_blank" rel="noopener">Gradle User Guide</a></h2><p>很详细的用户指南，就是看起来比较累</p>
+<h2 id="Gradle-API"><a href="#Gradle-API" class="headerlink" title="Gradle API"></a><a href="https://docs.gradle.org/3.4.1/javadoc/" target="_blank" rel="noopener">Gradle API</a></h2><p>Gradle的API手册</p>
+<h2 id="Gradle-DSL"><a href="#Gradle-DSL" class="headerlink" title="Gradle DSL"></a><a href="https://docs.gradle.org/3.4.1/dsl/" target="_blank" rel="noopener">Gradle DSL</a></h2><p>Gradle的DSL，差不多脚本块里面会用到的东西都可以这里查</p>
+<h2 id="Gradle-Android-DSL"><a href="#Gradle-Android-DSL" class="headerlink" title="Gradle Android DSL"></a><a href="http://google.github.io/android-gradle-dsl/current/index.html" target="_blank" rel="noopener">Gradle Android DSL</a></h2><p>Gradle Android插件的DSL</p>
+<h2 id="一个模板脚本"><a href="#一个模板脚本" class="headerlink" title="一个模板脚本"></a>一个模板脚本</h2><p>提供了很多特性，可以参考和直接使用，参见<a href="https://developer.android.google.cn/studio/build/gradle-tips.html" target="_blank" rel="noopener">Gradle Tips and Recipes</a></p>
+<pre><code>apply plugin: &apos;com.android.application&apos;
+
+//  配置阶段清空结果文件夹
+def init() {
+    def outputDir = new File(project.rootDir, &apos;output&apos;)
+    outputDir.listFiles().each {
+        it.delete()
+    }
+}
+init()
+
+//  只能写为顶层工程的属性
+rootProject.ext {
+    compileSdkVersion = 25
+}
+
+android {
+    //  访问工程范围的属性
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion &quot;25.0.2&quot;
+
+    defaultConfig {
+        applicationId &quot;lakeshire.gitlab.com.myapplication&quot;
+        minSdkVersion 14
+        targetSdkVersion 25
+
+        //  manifest可以使用这些
+        def filesAuthorityValue = applicationId + &apos;.files&apos;
+        manifestPlaceholders = [ filesAuthority : filesAuthorityValue ]
+
+        //  标识版本
+        versionCode 1
+        //  用户可见的版本号
+        versionName &quot;1.0&quot;
+        testInstrumentationRunner &quot;android.support.test.runner.AndroidJUnitRunner&quot;
+    }
+
+    signingConfigs {
+        //  发布版的签名配置
+        release {
+            storeFile file(&quot;../my-release-key.jks&quot;)
+            storePassword &quot;password&quot;
+            keyAlias &quot;alias&quot;
+            keyPassword &quot;password&quot;
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile(&apos;proguard-android.txt&apos;), &apos;proguard-rules.pro&apos;
+        }
+    }
+
+    //  指定两个产品风味的维度
+    flavorDimensions &apos;mode&apos;, &apos;api&apos;
+
+    productFlavors {
+        free {
+            dimension &apos;mode&apos;
+            versionNameSuffix &apos;-free&apos;
+        }
+        pay {
+            dimension &apos;mode&apos;
+            versionNameSuffix &apos;-pay&apos;
+        }
+        minApi24 {
+            dimension &quot;api&quot;
+            minSdkVersion &apos;24&apos;
+            versionCode 30000 + android.defaultConfig.versionCode
+            versionNameSuffix &quot;-minApi24&quot;
+        }
+        minApi21 {
+            dimension &quot;api&quot;
+            minSdkVersion &apos;21&apos;
+            versionCode 10000  + android.defaultConfig.versionCode
+            versionNameSuffix &quot;-minApi21&quot;
+        }
+    }
+
+    sourceSets {
+        //  改变文件的位置
+        main {
+            java.srcDirs = [&apos;other/java&apos;]
+            //  不能包含冲突的文件
+            res.srcDirs = [&apos;src/other/res&apos;]
+            manifest.srcFile &apos;src/main/AndroidManifest.xml&apos;
+            //  最常见的Eclipse工程转化为AS工程SO文件在这里找
+            jniLibs.srcDirs = [&apos;libs&apos;]
+        }
+
+        androidTest {
+            setRoot &apos;src/tests&apos;
+        }
+    }
+
+    //  产生分离的apk 可用来减小安装包 对应的包只包含相关的资源什么的
+    splits {
+        density {
+            enable true
+            exclude &quot;ldpi&quot;, &quot;mdpi&quot;
+            //  默认是排除，也可以先清理再包括
+            //  reset()
+            //  include &quot;hdpi&quot;, &quot;xhdpi&quot;, &quot;xxhdpi&quot;, &quot;xxxhdpi&quot;
+            compatibleScreens &apos;normal&apos;, &apos;large&apos;, &apos;xlarge&apos;
+        }
+
+        abi {
+            enable true
+            //  默认所有ABI都包括，清理
+            reset()
+            include &quot;x86&quot;, &quot;armeabi-v7a&quot;, &quot;mips&quot;
+            //  需要生成一个包括所有ABI的APK
+            universalApk true
+        }
+    }
+
+    //  过滤变体
+    variantFilter { variant -&gt;
+        def names = variant.flavors*.name
+        if (names.contains(&quot;minApi21&quot;) || names.contains(&quot;free&quot;)) {
+            setIgnore(true)
+        }
+    }
+
+    dexOptions {
+        maxProcessCount 8
+        javaMaxHeapSize &quot;2g&quot;
+        preDexLibraries true
+    }
+}
+
+dependencies {
+    compile fileTree(include: [&apos;*.jar&apos;], dir: &apos;libs&apos;)
+    androidTestCompile(&apos;com.android.support.test.espresso:espresso-core:2.2.2&apos;, {
+        exclude group: &apos;com.android.support&apos;, module: &apos;support-annotations&apos;
+    })
+    //  仓库
+    compile &apos;com.android.support:appcompat-v7:25.1.1&apos;
+    compile &apos;com.android.support:design:25.1.1&apos;
+    testCompile &apos;junit:junit:4.12&apos;
+    //  本地模块
+    compile project(&apos;:mylibrary&apos;)
+    //  AAR
+    compile(name: &apos;play-services-7.8.87&apos;, ext: &apos;aar&apos;)
+}
+
+//  对每个变体 找出对应任务 在任务完成后拷贝安装包到最终目录
+afterEvaluate {
+    project.android.applicationVariants.each { variant -&gt;
+        def assembleTaskName = &quot;assemble${variant.name.capitalize()}&quot;
+        def assembleTask = project.tasks.findByName(assembleTaskName)
+        if (assembleTask != null) {
+            assembleTask.doLast {
+                copyApk(variant)
+            }
+        }
+    }
+}
+
+//  拷贝安装包 只拷贝release版本 并重命名
+def copyApk(def variant) {
+    variant.outputs.each { output -&gt;
+        if (output.outputFile.name.contains(&apos;release&apos;) &amp;&amp; output.outputFile.name.endsWith(&apos;apk&apos;)) {
+            println &apos;================ Copy Release APK ================&apos;
+            println output.outputFile.name
+            def time = new Date().format(&quot;yyyyMMddHHmmss&quot;)
+            def mainName = output.outputFile.name.split(&quot;\\.&quot;)[0]
+            def dstName =  mainName + &apos;-&apos; + output.versionCode + &apos;-&apos; + time + &apos;.apk&apos;
+            def src = output.outputFile
+            def dst = new File(&quot;${project.rootDir}/output&quot;, dstName)
+            dst.withOutputStream { os -&gt;
+                src.withOutputStream { is -&gt;
+                    os &lt;&lt; is
+                }
+            }
+        }
+    }
+}
+</code></pre>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+  
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+            <a href="/tags/Gradle/" rel="tag"># Gradle</a>
+          
+        </div>
+      
+
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+         
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/13/archivers/android-performance/" rel="next" title="Android性能优化典范">
+                <i class="fa fa-chevron-left"></i> Android性能优化典范
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/20/archivers/git-related/" rel="prev" title="Git相关">
+                Git相关 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="刘晗" />
+          <p class="site-author-name" itemprop="name">刘晗</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#深入理解Gradle"><span class="nav-number">1.</span> <span class="nav-text">深入理解Gradle</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gradle脚本基础全攻略"><span class="nav-number">2.</span> <span class="nav-text">Gradle脚本基础全攻略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Groovy脚本基础全攻略"><span class="nav-number">3.</span> <span class="nav-text">Groovy脚本基础全攻略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gradle-User-Guide"><span class="nav-number">4.</span> <span class="nav-text">Gradle User Guide</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gradle-API"><span class="nav-number">5.</span> <span class="nav-text">Gradle API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gradle-DSL"><span class="nav-number">6.</span> <span class="nav-text">Gradle DSL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gradle-Android-DSL"><span class="nav-number">7.</span> <span class="nav-text">Gradle Android DSL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一个模板脚本"><span class="nav-number">8.</span> <span class="nav-text">一个模板脚本</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">刘晗</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io" rel="external nofollow">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid="></script>
+      <!-- UY END -->
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+
+</body>
+</html>

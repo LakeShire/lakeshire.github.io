@@ -1,0 +1,1197 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=PT Mono:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Android,开源库,Json," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="湖畔镇" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="Gson是Google开发的Java API,用于转换Java对象和Json对象">
+<meta name="keywords" content="Android,开源库,Json">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Gson源码分析">
+<meta property="og:url" content="http://lakeshire.github.io/2016/11/08//archivers/gson/index.html">
+<meta property="og:site_name" content="湖畔镇">
+<meta property="og:description" content="Gson是Google开发的Java API,用于转换Java对象和Json对象">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://7xt3ho.com1.z0.glb.clouddn.com/json_1.jpg">
+<meta property="og:image" content="http://7xt3ho.com1.z0.glb.clouddn.com/json_2.jpg">
+<meta property="og:updated_time" content="2017-11-28T03:17:35.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Gson源码分析">
+<meta name="twitter:description" content="Gson是Google开发的Java API,用于转换Java对象和Json对象">
+<meta name="twitter:image" content="http://7xt3ho.com1.z0.glb.clouddn.com/json_1.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://lakeshire.github.io/2016/11/08//archivers/gson/"/>
+
+
+
+
+
+  <title> Gson源码分析 | 湖畔镇 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta custom-logo">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">湖畔镇</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <h1 class="site-subtitle" itemprop="description"></h1>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://lakeshire.github.io/2016/11/08/archivers/gson/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="刘晗">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="湖畔镇">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="湖畔镇" src="/images/avatar.jpg">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                Gson源码分析
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-08T12:00:00+08:00">
+                2016-11-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+ 
+        
+
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Gson是Google开发的Java API,用于转换Java对象和Json对象</p>
+<a id="more"></a>
+<h2 id="Gson源码分析"><a href="#Gson源码分析" class="headerlink" title="Gson源码分析"></a>Gson源码分析</h2><h3 id="Gson"><a href="#Gson" class="headerlink" title="Gson"></a>Gson</h3><p><code>Gson</code>的构造函数接收很多参数，<code>Gson()</code>提供了一些默认的值</p>
+<p>主要有两个方法<code>toJson()</code>和<code>fromJson()</code></p>
+<p><code>toJson()</code>最终调用的是下面这个方法    </p>
+<pre><code>public void toJson(Object src, Type typeOfSrc, JsonWriter writer) throws JsonIOException {
+    TypeAdapter adapter = this.getAdapter(TypeToken.get(typeOfSrc));
+
+    boolean oldLenient = writer.isLenient();
+    writer.setLenient(true);
+
+    boolean oldHtmlSafe = writer.isHtmlSafe();
+    writer.setHtmlSafe(this.htmlSafe);
+
+    boolean oldSerializeNulls = writer.getSerializeNulls();
+    writer.setSerializeNulls(this.serializeNulls);
+
+    try {
+        adapter.write(writer, src);
+    } catch (IOException var12) {
+        throw new JsonIOException(var12);
+    } finally {
+        writer.setLenient(oldLenient);
+        writer.setHtmlSafe(oldHtmlSafe);
+        writer.setSerializeNulls(oldSerializeNulls);
+    }
+}
+</code></pre><p><code>fromJson()</code>最终调用的是下面这个方法</p>
+<pre><code>public &lt;T&gt; T fromJson(JsonReader reader, Type typeOfT) throws JsonIOException, JsonSyntaxException {
+    boolean isEmpty = true;
+    boolean oldLenient = reader.isLenient();
+    reader.setLenient(true);
+
+    TypeAdapter typeAdapter;
+    try {
+        reader.peek();
+        isEmpty = false;
+        TypeToken e = TypeToken.get(typeOfT);
+        typeAdapter = this.getAdapter(e);
+        Object object = typeAdapter.read(reader);
+        Object var8 = object;
+        return var8;
+    } catch (EOFException var14) {
+        if(!isEmpty) {
+            throw new JsonSyntaxException(var14);
+        }
+
+        typeAdapter = null;
+    } catch (IllegalStateException var15) {
+        throw new JsonSyntaxException(var15);
+    } catch (IOException var16) {
+        throw new JsonSyntaxException(var16);
+    } finally {
+        reader.setLenient(oldLenient);
+    }
+
+    return typeAdapter;
+}
+</code></pre><p>都是通过<code>TypeAdapter</code>的<code>read()</code>和<code>write()</code>完成</p>
+<p>通过<code>getAdapter()</code>方法获得对应类型的适配器</p>
+<pre><code>public &lt;T&gt; TypeAdapter&lt;T&gt; getAdapter(TypeToken&lt;T&gt; type) {
+
+    //  首先查找缓存，节省时间
+    TypeAdapter cached = (TypeAdapter)this.typeTokenCache.get(type);
+
+    if(cached != null) {
+        return cached;
+    } else {
+        //  threadCalls是一个type-adapter表
+        Object threadCalls = (Map)this.calls.get();
+        boolean requiresThreadLocalCleanup = false;
+
+        if(threadCalls == null) {
+            threadCalls = new HashMap();
+            this.calls.set(threadCalls);
+            requiresThreadLocalCleanup = true;
+        }
+
+        //  从列表中拿到对应type的adapter
+        Gson.FutureTypeAdapter ongoingCall = (Gson.FutureTypeAdapter)((Map)threadCalls).get(type);
+        if(ongoingCall != null) {
+            return ongoingCall;
+        } else {
+            try {
+                // 没有就遍历工厂列表，创建一个合适的TypeAdapter
+                Gson.FutureTypeAdapter call = new Gson.FutureTypeAdapter();
+                ((Map)threadCalls).put(type, call);
+                Iterator i$ = this.factories.iterator();
+                TypeAdapter candidate;
+                do {
+                    if(!i$.hasNext()) {
+                        throw new IllegalArgumentException(&quot;GSON cannot handle &quot; + type);
+                    }
+                    TypeAdapterFactory factory = (TypeAdapterFactory)i$.next();
+                    candidate = factory.create(this, type);
+                } while(candidate == null);
+                    call.setDelegate(candidate);
+                    this.typeTokenCache.put(type, candidate);
+                    TypeAdapter var10 = candidate;
+                    return var10;
+            } finally {
+                //  清理：从列表中移除这个type对应的adapter，为什么？
+                ((Map)threadCalls).remove(type);
+                if(requiresThreadLocalCleanup) {
+                    //  为何会在这里做移除？
+                    this.calls.remove();
+                }
+
+            }
+        }
+    }
+}
+</code></pre><p>这个方法涉及到多线程的处理，不太易懂，使用了一个<code>ThreadLocal</code>来存放<code>Type-Adapter</code>列表</p>
+<h3 id="TypeAdapter"><a href="#TypeAdapter" class="headerlink" title="TypeAdapter"></a>TypeAdapter</h3><pre><code>public abstract class TypeAdapter&lt;T&gt; {
+    public abstract void write(JsonWriter var1, T var2) throws IOException;
+
+    public abstract T read(JsonReader var1) throws IOException;
+
+    ......
+}
+</code></pre><p>一个抽象的泛型类，用来执行序列化和反序列化，关键的方法是<code>write()</code>和<code>read()</code></p>
+<p>这个东西和创建它的工厂基本是最重要的结构</p>
+<pre><code>public interface TypeAdapterFactory {
+    &lt;T&gt; TypeAdapter&lt;T&gt; create(Gson var1, TypeToken&lt;T&gt; var2);
+}
+</code></pre><p>工厂接口的<code>create()</code>负责创建<code>TypeAdapter</code></p>
+<pre><code>private final List&lt;TypeAdapterFactory&gt; factories;
+</code></pre><p><code>Gson</code>类中有个工厂的列表，在构造函数中被添加很多的工厂</p>
+<pre><code>INTEGER = new TypeAdapter() {
+    public Number read(JsonReader in) throws IOException {
+        if(in.peek() == JsonToken.NULL) {
+            in.nextNull();
+            return null;
+        } else {
+            try {
+                return Integer.valueOf(in.nextInt());
+            } catch (NumberFormatException var3) {
+                throw new JsonSyntaxException(var3);
+            }
+        }
+    }
+
+    public void write(JsonWriter out, Number value) throws IOException {
+        out.value(value);
+    }
+};
+
+INTEGER_FACTORY = newFactory(Integer.TYPE, Integer.class, INTEGER);
+</code></pre><p>上面是解析<code>int</code>的<code>TypeAdapter</code>，里面是通过<code>JsonReader</code>和<code>JsonWriter</code>读写</p>
+<h3 id="JsonReader"><a href="#JsonReader" class="headerlink" title="JsonReader"></a>JsonReader</h3><pre><code>public JsonReader(Reader in);
+</code></pre><p>构造函数接收<code>Reader</code>作为参数</p>
+<pre><code>public void beginObject() throws IOException {
+    int p = this.peeked;
+    if(p == 0) {
+        p = this.doPeek();
+    }
+
+    if(p == 1) {
+        this.push(3);
+        this.peeked = 0;
+    } else {
+        throw new IllegalStateException(&quot;Expected BEGIN_OBJECT but was &quot; + this.peek() + &quot; at line &quot; + this.getLineNumber() + &quot; column &quot; + this.getColumnNumber());
+    }
+}
+</code></pre><p>标记对象的开始，提取，如果是对象开始，则进栈3（<code>PEEKED_BEGIN_ARRAY</code>），如果不是则抛出异常</p>
+<pre><code>public void endObject() throws IOException {
+    int p = this.peeked;
+    if(p == 0) {
+        p = this.doPeek();
+    }
+
+    if(p == 2) {
+        --this.stackSize;
+        this.peeked = 0;
+    } else {
+        throw new IllegalStateException(&quot;Expected END_OBJECT but was &quot; + this.peek() + &quot; at line &quot; + this.getLineNumber() + &quot; column &quot; + this.getColumnNumber());
+    }
+}
+</code></pre><p>标记对象的结束</p>
+<pre><code>public void beginArray() throws IOException {
+    int p = this.peeked;
+    if(p == 0) {
+        p = this.doPeek();
+    }
+
+    if(p == 3) {
+        this.push(1);
+        this.peeked = 0;
+    } else {
+        throw new IllegalStateException(&quot;Expected BEGIN_ARRAY but was &quot; + this.peek() + &quot; at line &quot; + this.getLineNumber() + &quot; column &quot; + this.getColumnNumber());
+    }
+}
+</code></pre><p> 标记数组的开始，提取，如果是数组开始，则进栈1（<code>PEEKED_BEGIN_OBJECT</code>），如果不是则抛异常</p>
+<pre><code>public void endArray() throws IOException {
+    int p = this.peeked;
+    if(p == 0) {
+        p = this.doPeek();
+    }
+
+    if(p == 4) {
+        --this.stackSize;
+        this.peeked = 0;
+    } else {
+        throw new IllegalStateException(&quot;Expected END_ARRAY but was &quot; + this.peek() + &quot; at line &quot; + this.getLineNumber() + &quot; column &quot; + this.getColumnNumber());
+    }
+}
+</code></pre><p>标记数组的结束</p>
+<pre><code>public boolean hasNext() throws IOException {
+    int p = this.peeked;
+    if(p == 0) {
+        p = this.doPeek();
+    }
+
+    return p != 2 &amp;&amp; p != 4;
+}
+</code></pre><p>判断是否有下一个元素，如果不是对象结束和数组结束则有下一个元素，注意这里在提取后没有<code>this.peeked = 0</code>，所以下一次操作不会再提取一次，而是使用取得的值</p>
+<pre><code>public String nextName() throws IOException {
+    int p = this.peeked;
+    if(p == 0) {
+        p = this.doPeek();
+    }
+
+    String result;
+    if(p == 14) {   //  PEEKED_UNQUOTED_NAME
+        result = this.nextUnquotedValue();
+    } else if(p == 12) {    //  PEEKED_SINGLE_QUOTED_NAME
+        result = this.nextQuotedValue(&apos;\&apos;&apos;);
+    } else {
+        if(p != 13) {   //  PEEKED_DOUBLE_QUOTED_NAME
+            throw new IllegalStateException(&quot;Expected a name but was &quot; + this.peek() + &quot; at line &quot; + this.getLineNumber() + &quot; column &quot; + this.getColumnNumber());
+        }
+
+        result = this.nextQuotedValue(&apos;\&quot;&apos;);
+    }
+
+    this.peeked = 0;
+    return result;
+}
+</code></pre><p>下一个键，三种形式：无引号、单引号、双引号</p>
+<p>然后是<code>nextXX()</code>系列函数，读取下一个值，读取完成后会设置<code>this.peeked = 0</code>复位</p>
+<pre><code>private int doPeek() throws IOException {
+    //  获得当前栈顶
+    int peekStack = this.stack[this.stackSize - 1];
+    int c;
+
+    if(peekStack == 1) {    //  PEEKED_BEGIN_OBJECT
+        //  再次进入切换为结束构造对象
+        this.stack[this.stackSize - 1] = 2; //  PEEKED_END_OBJECT
+    } else if(peekStack == 2) { //  PEEKED_END_OBJECT
+        c = this.nextNonWhitespace(true);
+        switch(c) {
+        case 44:    //  逗号
+            break;
+        case 59:    //  分号
+            this.checkLenient();
+            break;
+        case 93:    //  右方括号
+            return this.peeked = 4; //  PEEKED_END_ARRAY
+        default:
+            throw this.syntaxError(&quot;Unterminated array&quot;);
+        }
+    } else {
+        if(peekStack == 3 || peekStack == 5) {  //  PEEKED_BEGIN_ARRAY || PEEKED_TRUE
+        //  切换为结束数组
+        //  两种情况，一是目前是开始数组，二是完成一个键值对
+            this.stack[this.stackSize - 1] = 4; //  PEEKED_END_ARRAY
+
+            //  完成键值对的情况，可能有更多键值对，可能就结束了
+            if(peekStack == 5) {
+                c = this.nextNonWhitespace(true);
+                switch(c) {
+                case 44:    //  逗号
+                    break;
+                case 59:    //  分号
+                    this.checkLenient();
+                    break;
+                case 125:   //  右大括号
+                    return this.peeked = 2; //  PEEKED_END_OBJECT
+                default:
+                    throw this.syntaxError(&quot;Unterminated object&quot;);
+                }
+            }
+
+            c = this.nextNonWhitespace(true);
+            switch(c) {
+            case 34:    //  双引号
+                return this.peeked = 13;    //  PEEKED_DOUBLE_QUOTED_NAME
+            case 39:    //  单引号
+                this.checkLenient();
+                return this.peeked = 12;    //  PEEKED_SINGLE_QUOTED_NAME
+            case 125:   //  右大括号
+                if(peekStack != 5) {
+                    return this.peeked = 2; //  PEEKED_END_OBJECT
+                }
+                throw this.syntaxError(&quot;Expected name&quot;);
+            default:
+                this.checkLenient();
+                --this.pos;
+                if(this.isLiteral((char)c)) {
+                    return this.peeked = 14;    //  PEEKED_UNQUOTED_NAME
+                }
+                throw this.syntaxError(&quot;Expected name&quot;);
+            }
+        }
+
+        if(peekStack == 4) {    //  PEEKED_END_ARRAY
+            this.stack[this.stackSize - 1] = 5; //  PEEKED_TRUE
+            c = this.nextNonWhitespace(true);
+            switch(c) {
+            case 58:    //  冒号
+                break;
+            case 61:    //  逗号
+                this.checkLenient();
+                if((this.pos &lt; this.limit || this.fillBuffer(1)) &amp;&amp; this.buffer[this.pos] == 62) {
+                    ++this.pos;
+                }
+                break;
+            default:
+                throw this.syntaxError(&quot;Expected \&apos;:\&apos;&quot;);
+            }
+        } else if(peekStack == 6) { //  PEEKED_FALSE
+            if(this.lenient) {
+                this.consumeNonExecutePrefix();
+            }
+
+            this.stack[this.stackSize - 1] = 7; //  PEEKED_NULL
+        } else if(peekStack == 7) { //  PEEKED_NULL
+            c = this.nextNonWhitespace(false);
+            if(c == -1) {
+                return this.peeked = 17;    //  PEEKED_EOF
+            }
+
+            this.checkLenient();
+            --this.pos;
+        } else if(peekStack == 8) { //  PEEKED_SINGLE_QUOTED
+            throw new IllegalStateException(&quot;JsonReader is closed&quot;);
+        }
+    }
+
+    c = this.nextNonWhitespace(true);
+    switch(c) {
+    case 34:    //  双引号
+        if(this.stackSize == 1) {
+            this.checkLenient();
+        }
+
+        return this.peeked = 9; //  PEEKED_DOUBLE_QUOTED
+    case 39:    //  单引号
+        this.checkLenient();
+        return this.peeked = 8; //  PEEKED_SINGLE_QUOTED
+    case 91:    //  左方括号
+        return this.peeked = 3; //  PEEKED_BEGIN_ARRAY
+    case 93:    //  右方括号
+        if(peekStack == 1) {    //  PEEKED_BEGIN_OBJECT
+            return this.peeked = 4; //  PEEKED_END_ARRAY
+        }
+    case 44:    //  逗号
+    case 59:    //  分号
+        if(peekStack != 1 &amp;&amp; peekStack != 2) {  //  PEEKED_BEGIN_OBJECT &amp;&amp; PEEKED_END_OBJECT
+            throw this.syntaxError(&quot;Unexpected value&quot;);
+        }
+
+        this.checkLenient();
+        --this.pos;
+        return this.peeked = 7; //  PEEKED_NULL
+    case 123:   //  左大括号
+        return this.peeked = 1; //  PEEKED_BEGIN_OBJECT
+    default:
+        --this.pos;
+        if(this.stackSize == 1) {
+            this.checkLenient();
+        }
+
+        int result = this.peekKeyword();
+        if(result != 0) {
+            return result;
+        } else {
+            result = this.peekNumber();
+            if(result != 0) {
+                return result;
+            } else if(!this.isLiteral(this.buffer[this.pos])) {
+                throw this.syntaxError(&quot;Expected value&quot;);
+            } else {
+                this.checkLenient();
+                return this.peeked = 10;
+            }
+        }
+    }
+}
+</code></pre><p><code>doPeek()</code>分为两个阶段，首先分析栈顶元素，栈顶元素指示了当前的分析阶段，然后如果前面没返回的话则继续分析下一个字符</p>
+<p><code>beginObject</code>会给栈顶赋值<code>PEEKED_BEGIN_ARRAY</code>，表示开始构造数组?</p>
+<p><code>beginArray</code>会给栈顶赋值<code>PEEKED_BEGIN_OBJECT</code>，表示开始构造对象?</p>
+<p><strong>流程比较难以理解，首先要了解<code>stack</code>的确切意思</strong></p>
+<p>简单的字符串</p>
+<p><img src="http://7xt3ho.com1.z0.glb.clouddn.com/json_1.jpg" alt=""></p>
+<p>带数组的字符串</p>
+<p><img src="http://7xt3ho.com1.z0.glb.clouddn.com/json_2.jpg" alt=""></p>
+<h3 id="JsonWriter"><a href="#JsonWriter" class="headerlink" title="JsonWriter"></a>JsonWriter</h3><p><code>JsonWriter</code>就简单一些，主要是这些方法:</p>
+<pre><code>public JsonWriter beginArray() throws IOException;
+public JsonWriter endArray() throws IOException;
+public JsonWriter beginObject() throws IOException;
+public JsonWriter endObject() throws IOException;
+public JsonWriter name(String name) throws IOException;
+public JsonWriter value(String value) throws IOException;
+</code></pre><h3 id="GsonBuilder"><a href="#GsonBuilder" class="headerlink" title="GsonBuilder"></a>GsonBuilder</h3><p><code>Gson</code>对象的构造器，可以自己进行配置，最终通过<code>create()</code>获得<code>Gson</code>对象</p>
+<pre><code>public GsonBuilder setVersion(double ignoreVersionsAfter);
+</code></pre><p>忽略给定数字之后的版本号</p>
+<pre><code>public GsonBuilder excludeFieldsWithModifiers(int... modifiers);
+</code></pre><p>忽略给定的限定符</p>
+<pre><code>public GsonBuilder excludeFieldsWithoutExposeAnnotation();
+</code></pre><p>忽略不带<code>Expose</code>注解的域</p>
+<pre><code>public GsonBuilder setFieldNamingPolicy(FieldNamingPolicy namingConvention);
+public GsonBuilder setFieldNamingStrategy(FieldNamingStrategy fieldNamingStrategy);
+</code></pre><p>设置命名策略</p>
+<pre><code>public GsonBuilder setExclusionStrategies(ExclusionStrategy... strategies);
+</code></pre><p>设置排除策略</p>
+<pre><code>public GsonBuilder addSerializationExclusionStrategy(ExclusionStrategy strategy);
+public GsonBuilder addDeserializationExclusionStrategy(ExclusionStrategy strategy);
+</code></pre><p>对序列化和反序列化分别设置排除策略</p>
+<pre><code>public GsonBuilder registerTypeAdapter(Type type, Object typeAdapter);
+</code></pre><p>注册类型适配器，可能是<code>InstanceCreator</code>(这个东西在<code>Gson</code>构造函数中提供给各个<code>TypeAdapter</code>，具体干什么的不清楚)、<code>JsonSerializer</code>、<code>JsonDeserializer</code>、<code>TypeAdapter</code></p>
+<h3 id="Excluder"><a href="#Excluder" class="headerlink" title="Excluder"></a>Excluder</h3><p>这个类实现了<code>TypeAdapterFactory</code>接口，可以做一些排除规则</p>
+<p>可以设置版本号、限定符、是否处理内部类、要求暴露</p>
+<p><code>Gson</code>的构造函数里设置了一个默认的<code>Excluder</code>，也可以在<code>GsonBuilder</code>中自己修改</p>
+<pre><code>factories.add(new ReflectiveTypeAdapterFactory(this.constructorConstructor, fieldNamingPolicy, excluder));
+</code></pre><p>在构造函数中加入了<code>TypeAdapter</code>工厂列表</p>
+<p>明显<code>ReflectiveTypeAdapterFactory</code>就是处理反射相关的东西</p>
+<pre><code>ReflectiveTypeAdapterFactory.BoundField field = (ReflectiveTypeAdapterFactory.BoundField)this.boundFields.get(e);
+    if(field != null &amp;&amp; field.deserialized) {
+        field.read(in, instance);
+    } else {
+        in.skipValue();
+    }
+</code></pre><p>上面是<code>read()</code>中的一段，显然<code>skip</code>了一些不想要的域</p>
+<p>也有个接口<code>ExclusionStrategy</code>，指定了需要跳过的域和类</p>
+<pre><code>public interface ExclusionStrategy {
+    boolean shouldSkipField(FieldAttributes var1);
+
+    boolean shouldSkipClass(Class&lt;?&gt; var1);
+}
+</code></pre><p>构造的时候可以提供排除策略</p>
+<pre><code>public GsonBuilder setExclusionStrategies(ExclusionStrategy... strategies);
+</code></pre><p>调用了下面这个函数</p>
+<pre><code>public Excluder withExclusionStrategy(ExclusionStrategy exclusionStrategy, boolean serialization, boolean deserialization)
+</code></pre><h3 id="FieldNamingStrategy"><a href="#FieldNamingStrategy" class="headerlink" title="FieldNamingStrategy"></a>FieldNamingStrategy</h3><p>名称映射策略</p>
+<pre><code>public interface FieldNamingStrategy {
+    String translateName(Field var1);
+}
+</code></pre><p>有一个实现的枚举<code>FieldNamingPolicy</code>，提供了五种：</p>
+<ul>
+<li><code>IDENTITY</code></li>
+<li><code>UPPER_CAMEL_CASE</code></li>
+<li><code>UPPER_CAMEL_CASE_WITH_SPACES</code></li>
+<li><code>LOWER_CASE_WITH_UNDERSCORES</code></li>
+<li><code>LOWER_CASE_WITH_DASHES</code></li>
+</ul>
+<p>也是在<code>ReflectiveTypeAdapterFactory</code>中被使用</p>
+<pre><code>private String getFieldName(Field f) {
+    SerializedName serializedName = (SerializedName)f.getAnnotation(SerializedName.class);
+    return serializedName == null?this.fieldNamingPolicy.translateName(f):serializedName.value();
+}
+</code></pre><p>可以看到，如果没有给出序列化的名字，就使用命名策略来处理，否则使用我们给出的名字</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+  
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+            <a href="/tags/开源库/" rel="tag"># 开源库</a>
+          
+            <a href="/tags/Json/" rel="tag"># Json</a>
+          
+        </div>
+      
+
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+         
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/11/04/archivers/java-json/" rel="next" title="Java——Json&Gson">
+                <i class="fa fa-chevron-left"></i> Java——Json&Gson
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/11/14/archivers/android-okhttp/" rel="prev" title="OkHttp源码分析">
+                OkHttp源码分析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="刘晗" />
+          <p class="site-author-name" itemprop="name">刘晗</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Gson源码分析"><span class="nav-number">1.</span> <span class="nav-text">Gson源码分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Gson"><span class="nav-number">1.1.</span> <span class="nav-text">Gson</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TypeAdapter"><span class="nav-number">1.2.</span> <span class="nav-text">TypeAdapter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JsonReader"><span class="nav-number">1.3.</span> <span class="nav-text">JsonReader</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JsonWriter"><span class="nav-number">1.4.</span> <span class="nav-text">JsonWriter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GsonBuilder"><span class="nav-number">1.5.</span> <span class="nav-text">GsonBuilder</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Excluder"><span class="nav-number">1.6.</span> <span class="nav-text">Excluder</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FieldNamingStrategy"><span class="nav-number">1.7.</span> <span class="nav-text">FieldNamingStrategy</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">刘晗</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io" rel="external nofollow">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid="></script>
+      <!-- UY END -->
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+
+</body>
+</html>

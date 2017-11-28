@@ -1,0 +1,843 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=PT Mono:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Android,Canvas,绘图," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="湖畔镇" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="本文介绍Android中View绘制相关内容">
+<meta name="keywords" content="Android,Canvas,绘图">
+<meta property="og:type" content="article">
+<meta property="og:title" content="绘图相关总结">
+<meta property="og:url" content="http://lakeshire.github.io/2016/09/05//archivers/android-canvas-summary/index.html">
+<meta property="og:site_name" content="湖畔镇">
+<meta property="og:description" content="本文介绍Android中View绘制相关内容">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-28T03:18:44.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="绘图相关总结">
+<meta name="twitter:description" content="本文介绍Android中View绘制相关内容">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://lakeshire.github.io/2016/09/05//archivers/android-canvas-summary/"/>
+
+
+
+
+
+  <title> 绘图相关总结 | 湖畔镇 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta custom-logo">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">湖畔镇</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <h1 class="site-subtitle" itemprop="description"></h1>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://lakeshire.github.io/2016/09/05/archivers/android-canvas-summary/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="刘晗">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="湖畔镇">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="湖畔镇" src="/images/avatar.jpg">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                绘图相关总结
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-09-05T12:00:00+08:00">
+                2016-09-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+ 
+        
+
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文介绍Android中View绘制相关内容</p>
+<a id="more"></a>
+<h3 id="Canvas"><a href="#Canvas" class="headerlink" title="Canvas"></a>Canvas</h3><p>画板</p>
+<h3 id="Bitmap"><a href="#Bitmap" class="headerlink" title="Bitmap"></a>Bitmap</h3><p>画布</p>
+<h4 id="BitmapFactory"><a href="#BitmapFactory" class="headerlink" title="BitmapFactory"></a>BitmapFactory</h4><p>构造<code>Bitmap</code>的工厂类</p>
+<h5 id="BitmapFactory-Options"><a href="#BitmapFactory-Options" class="headerlink" title="BitmapFactory.Options"></a>BitmapFactory.Options</h5><p>构造<code>Bitmap</code>的配置</p>
+<h5 id="BitmapRegionDecoder"><a href="#BitmapRegionDecoder" class="headerlink" title="BitmapRegionDecoder"></a>BitmapRegionDecoder</h5><p>用来解码图片的一个矩形区域，当原始图片很大而你只想要其中一部分时特别有用</p>
+<h3 id="Drawable"><a href="#Drawable" class="headerlink" title="Drawable"></a>Drawable</h3><p>可以被绘制的东西</p>
+<ul>
+<li>BitmapDrawable<br>  可以被绘制的<code>Bitmap</code></li>
+<li>AnimatedVectorDrawable<br>  <strong>不清楚</strong></li>
+<li>DrawableWrapper<br>  单个子元素的容器<ul>
+<li>RotateDrawable<br>  可以用level定义旋转状态，对应<code>&lt;rotate&gt;</code></li>
+<li>SacleDrawable<br>  可以用level定义缩放状态，对应<code>&lt;scale&gt;</code></li>
+<li>ClipDrawable<br>  可以用level定义裁剪其他图片的程度，对应<code>&lt;clip&gt;</code></li>
+<li>InsetDrawable<br>  定义边距，当View需要比它边界小的背景时使用，对应<code>&lt;inset&gt;</code></li>
+</ul>
+</li>
+<li>LayerDrawable<br>  多图层，对应<code>&lt;layer-list&gt;</code><ul>
+<li>TransitionDrawable<br>  用于两个层之间渐变过度，对应<code>&lt;transition&gt;</code></li>
+<li>RippleDrawable<br>  波纹效果</li>
+</ul>
+</li>
+<li>PictureDrawable<br>  包含<code>Picture</code></li>
+<li>NinePatchDrawable<br>  可缩放</li>
+<li>ShapeDrawable<br>  绘制基本形状，对应<code>&lt;shape&gt;</code><ul>
+<li>PaintDrawable<br>  用给定<code>Paint</code>绘制边界</li>
+</ul>
+</li>
+<li>RoundedBitmapDrawable<br>  带圆角的<code>BitmapDrawable</code></li>
+<li>ColorDrawable<br>  单纯的颜色，对应<code>&lt;color&gt;</code></li>
+<li>VectorDrawable<br>  <strong>不清楚</strong></li>
+<li>GradientDrawable<br>  渐变色，对应<code>&lt;shape&gt;</code></li>
+<li>DrawableContainer<br>  包含若干drawable，根据情况选择一个使用<ul>
+<li>AnimationDrawable<br>  动画，对应<code>&lt;animation-list&gt;</code></li>
+<li>LevelListDrawable<br>  一组drawable，每个有对应的level，根据level选择使用，对应<code>&lt;level-list&gt;</code></li>
+<li>StateListDrawable<br>  一组drawable，每个有对应的state，根据state选择使用，对应<code>&lt;selector&gt;</code><ul>
+<li>AnimatedStateListDrawable<br>状态帧转换加入动画</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Region"><a href="#Region" class="headerlink" title="Region"></a>Region</h3><p>绘制区域</p>
+<h4 id="RegionIterator"><a href="#RegionIterator" class="headerlink" title="RegionIterator"></a>RegionIterator</h4><p>区域迭代器，因为一个区域是由很多矩形模拟的，通过这个来迭代获得</p>
+<h3 id="Point-amp-PontF"><a href="#Point-amp-PontF" class="headerlink" title="Point&amp;PontF"></a>Point&amp;PontF</h3><p>点</p>
+<h3 id="Rect-amp-RectF"><a href="#Rect-amp-RectF" class="headerlink" title="Rect&amp;RectF"></a>Rect&amp;RectF</h3><p>矩形</p>
+<h3 id="Shape"><a href="#Shape" class="headerlink" title="Shape"></a>Shape</h3><p>形状</p>
+<ul>
+<li>PathShape<br>  路径形状</li>
+<li>RectShape<br>  矩形<ul>
+<li>ArcShape<br>  弧形</li>
+<li>OvalShape<br>  圆形</li>
+<li>RoundRectShape<br>  圆角矩形</li>
+</ul>
+</li>
+</ul>
+<h3 id="Path"><a href="#Path" class="headerlink" title="Path"></a>Path</h3><p>路径</p>
+<h3 id="PathMeasure"><a href="#PathMeasure" class="headerlink" title="PathMeasure"></a>PathMeasure</h3><p>路径测量类，可以测量路径的长度，取路径的一段，判断路径是否闭合等</p>
+<h3 id="Paint"><a href="#Paint" class="headerlink" title="Paint"></a>Paint</h3><p>画笔</p>
+<ul>
+<li>TextPaint<br>  专门绘制文字的画笔</li>
+</ul>
+<h4 id="FontMetrics"><a href="#FontMetrics" class="headerlink" title="FontMetrics"></a>FontMetrics</h4><p>测量字体的内部类</p>
+<h3 id="Typeface"><a href="#Typeface" class="headerlink" title="Typeface"></a>Typeface</h3><p>字体和字体风格</p>
+<h3 id="ColorFilter"><a href="#ColorFilter" class="headerlink" title="ColorFilter"></a>ColorFilter</h3><p>颜色过滤器</p>
+<ul>
+<li>ColorMatrixColorFilter<br>  颜色矩阵过滤器</li>
+<li>LightingColorFilter<br>  光照过滤器，提供倍乘和颜色的偏移，方便的指定是否显示某颜色通道，显示多少</li>
+<li>PorterDuffColorFilter<br>  使用指定颜色和<code>port-duff</code>模式构造过滤器</li>
+</ul>
+<h3 id="PathEffect"><a href="#PathEffect" class="headerlink" title="PathEffect"></a>PathEffect</h3><p>路径效果</p>
+<ul>
+<li>CornerPathEffect<br>  圆角效果</li>
+<li>DashPathEffect<br>  虚线</li>
+<li>DiscretePathEffect<br>  随机离散路径，生锈钢丝效果</li>
+<li>ComposePathEffect<br>  组合路径</li>
+<li>SumPathEffect<br>  路径效果相加</li>
+<li>PathDashPathEffect<br>  使用给定的图案作为路径</li>
+</ul>
+<h3 id="DrawFilter"><a href="#DrawFilter" class="headerlink" title="DrawFilter"></a>DrawFilter</h3><p>暂时定义<code>Paint</code>，可以开启或取消抗锯齿，或者改变颜色</p>
+<ul>
+<li>PaintFlagsDrawFilter<br>  先清除flag中的几位，再设置几位的<code>DrawFilter</code></li>
+</ul>
+<h3 id="Shader"><a href="#Shader" class="headerlink" title="Shader"></a>Shader</h3><p>类似着色器的概念，使用<code>Paint.setShader()</code></p>
+<ul>
+<li>BitmapShader<br>  把<code>Bitmap</code>当做纹理绘制，可以重复、镜像和拉伸</li>
+<li>LinearGradient<br>  线性渐变</li>
+<li>RadialGradient<br>  径向渐变</li>
+<li>SweepGradient<br>  扫描渐变</li>
+<li>ComposeShader<br>  两种<code>Shader</code>的组合</li>
+</ul>
+<h3 id="MaskFilter"><a href="#MaskFilter" class="headerlink" title="MaskFilter"></a>MaskFilter</h3><p>在绘制前在alpha通道上使用变换</p>
+<ul>
+<li>BlurMaskFilter<br>  模糊效果</li>
+<li>EmbossMaskFilter<br>  浮雕效果</li>
+</ul>
+<h3 id="XferMode"><a href="#XferMode" class="headerlink" title="XferMode"></a>XferMode</h3><p>为<code>Paint</code>指定变换模式</p>
+<ul>
+<li>AvoidXferMode<br>只在目标颜色上或之外绘制</li>
+<li>PixelXferMode<br>像素级异或</li>
+<li>PorterDuffXferMode<br>使用<code>porter-duff</code>模式变换</li>
+</ul>
+<h3 id="Picture"><a href="#Picture" class="headerlink" title="Picture"></a>Picture</h3><p>记录绘图调用，可以回放到画板上，效率比较高</p>
+<h3 id="Camera"><a href="#Camera" class="headerlink" title="Camera"></a>Camera</h3><p>可用来计算3D变换，生成矩阵</p>
+<h3 id="Maxtrix"><a href="#Maxtrix" class="headerlink" title="Maxtrix"></a>Maxtrix</h3><p>坐标变换的3*3矩阵</p>
+<h4 id="ColorMatrix"><a href="#ColorMatrix" class="headerlink" title="ColorMatrix"></a>ColorMatrix</h4><p>颜色矩阵</p>
+<h3 id="Movie"><a href="#Movie" class="headerlink" title="Movie"></a>Movie</h3><p>显示<code>GIF</code>动画的类</p>
+<h3 id="Color"><a href="#Color" class="headerlink" title="Color"></a>Color</h3><p>颜色</p>
+<h3 id="PixelFormat"><a href="#PixelFormat" class="headerlink" title="PixelFormat"></a>PixelFormat</h3><p>像素格式</p>
+<h3 id="ImageFormat"><a href="#ImageFormat" class="headerlink" title="ImageFormat"></a>ImageFormat</h3><p>图像格式</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+  
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+            <a href="/tags/Canvas/" rel="tag"># Canvas</a>
+          
+            <a href="/tags/绘图/" rel="tag"># 绘图</a>
+          
+        </div>
+      
+
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+         
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/07/11/archivers/mvp/" rel="next" title="Android-MVP">
+                <i class="fa fa-chevron-left"></i> Android-MVP
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/09/05/archivers/android-animation-related/" rel="prev" title="动画相关">
+                动画相关 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="刘晗" />
+          <p class="site-author-name" itemprop="name">刘晗</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Canvas"><span class="nav-number">1.</span> <span class="nav-text">Canvas</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bitmap"><span class="nav-number">2.</span> <span class="nav-text">Bitmap</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#BitmapFactory"><span class="nav-number">2.1.</span> <span class="nav-text">BitmapFactory</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#BitmapFactory-Options"><span class="nav-number">2.1.1.</span> <span class="nav-text">BitmapFactory.Options</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#BitmapRegionDecoder"><span class="nav-number">2.1.2.</span> <span class="nav-text">BitmapRegionDecoder</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Drawable"><span class="nav-number">3.</span> <span class="nav-text">Drawable</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Region"><span class="nav-number">4.</span> <span class="nav-text">Region</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#RegionIterator"><span class="nav-number">4.1.</span> <span class="nav-text">RegionIterator</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Point-amp-PontF"><span class="nav-number">5.</span> <span class="nav-text">Point&PontF</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Rect-amp-RectF"><span class="nav-number">6.</span> <span class="nav-text">Rect&RectF</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Shape"><span class="nav-number">7.</span> <span class="nav-text">Shape</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Path"><span class="nav-number">8.</span> <span class="nav-text">Path</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PathMeasure"><span class="nav-number">9.</span> <span class="nav-text">PathMeasure</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Paint"><span class="nav-number">10.</span> <span class="nav-text">Paint</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#FontMetrics"><span class="nav-number">10.1.</span> <span class="nav-text">FontMetrics</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Typeface"><span class="nav-number">11.</span> <span class="nav-text">Typeface</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ColorFilter"><span class="nav-number">12.</span> <span class="nav-text">ColorFilter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PathEffect"><span class="nav-number">13.</span> <span class="nav-text">PathEffect</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DrawFilter"><span class="nav-number">14.</span> <span class="nav-text">DrawFilter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Shader"><span class="nav-number">15.</span> <span class="nav-text">Shader</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MaskFilter"><span class="nav-number">16.</span> <span class="nav-text">MaskFilter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#XferMode"><span class="nav-number">17.</span> <span class="nav-text">XferMode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Picture"><span class="nav-number">18.</span> <span class="nav-text">Picture</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Camera"><span class="nav-number">19.</span> <span class="nav-text">Camera</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Maxtrix"><span class="nav-number">20.</span> <span class="nav-text">Maxtrix</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ColorMatrix"><span class="nav-number">20.1.</span> <span class="nav-text">ColorMatrix</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Movie"><span class="nav-number">21.</span> <span class="nav-text">Movie</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Color"><span class="nav-number">22.</span> <span class="nav-text">Color</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PixelFormat"><span class="nav-number">23.</span> <span class="nav-text">PixelFormat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ImageFormat"><span class="nav-number">24.</span> <span class="nav-text">ImageFormat</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">刘晗</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io" rel="external nofollow">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid="></script>
+      <!-- UY END -->
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+
+</body>
+</html>

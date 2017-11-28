@@ -1,0 +1,810 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=PT Mono:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Android,性能优化," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="湖畔镇" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="收集一些布局优化技巧，持续更新……">
+<meta name="keywords" content="Android,性能优化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android布局优化">
+<meta property="og:url" content="http://lakeshire.github.io/2016/11/15//archivers/layout-optimize/index.html">
+<meta property="og:site_name" content="湖畔镇">
+<meta property="og:description" content="收集一些布局优化技巧，持续更新……">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-28T03:03:56.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android布局优化">
+<meta name="twitter:description" content="收集一些布局优化技巧，持续更新……">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://lakeshire.github.io/2016/11/15//archivers/layout-optimize/"/>
+
+
+
+
+
+  <title> Android布局优化 | 湖畔镇 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta custom-logo">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">湖畔镇</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <h1 class="site-subtitle" itemprop="description"></h1>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://lakeshire.github.io/2016/11/15/archivers/layout-optimize/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="刘晗">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="湖畔镇">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="湖畔镇" src="/images/avatar.jpg">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                Android布局优化
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-15T17:00:00+08:00">
+                2016-11-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+ 
+        
+
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>收集一些布局优化技巧，持续更新……</p>
+<a id="more"></a>
+<h3 id="include标签"><a href="#include标签" class="headerlink" title="include标签"></a>include标签</h3><p>可以复用布局，统一修改管理，典型的比如标题栏，也可以在<code>&lt;include&gt;</code>标签中重新设置<code>layout</code>属性</p>
+<h3 id="merge标签"><a href="#merge标签" class="headerlink" title="merge标签"></a>merge标签</h3><p>用来去除不必要的视图层级</p>
+<p>如果仅仅是添加子视图到父视图进行显示，而不指定任何针对父视图的布局属性，可以使用</p>
+<p>另外，假如需要在<code>LinearLayout</code>里面嵌入一个布局，而恰恰这个布局的根节点也是<code>LinearLayout</code>，这样就多了一层没有用的嵌套，无疑这样只会拖慢程序速度，也需要使用</p>
+<p><code>&lt;merge&gt;</code>标签只能作为<code>xml</code>的根元素</p>
+<h3 id="TextView同时显示文字与图片"><a href="#TextView同时显示文字与图片" class="headerlink" title="TextView同时显示文字与图片"></a>TextView同时显示文字与图片</h3><p>一般是一个<code>ImageView</code>加一个<code>TextView</code>，其实可以用<code>TextView</code>直接搞定</p>
+<pre><code>public void setCompoundDrawables(@Nullable Drawable left, @Nullable Drawable top, @Nullable Drawable right, @Nullable Drawable bottom);
+</code></pre><p>设置四个方向的<code>drawable</code></p>
+<pre><code>public void setCompoundDrawablePadding(int pad);
+</code></pre><p>设置图片和文字的距离</p>
+<h3 id="利用TextView的行间距"><a href="#利用TextView的行间距" class="headerlink" title="利用TextView的行间距"></a>利用TextView的行间距</h3><p><code>android:lineSpaceingExtra</code>属性可以改变行间距，还有<code>android:lineSpacingMultiplier</code>设定行距倍数</p>
+<p>遇到多行文本，行间有一定距离的场景，就不需要多个<code>TextView</code>了</p>
+<h3 id="一个TextView中不同的样式"><a href="#一个TextView中不同的样式" class="headerlink" title="一个TextView中不同的样式"></a>一个TextView中不同的样式</h3><p>如果一段文字中有多种样式，一般就是分成几个<code>TextView</code>去做</p>
+<p>但是也可以通过<code>Spannable</code>或<code>Html.fromHtml()</code>实现</p>
+<pre><code>String text;
+SpannableStringBuilder style = new SpannableStringBuilder(text);
+</code></pre><p><code>SpannableStringBuilder.setSpan()</code></p>
+<pre><code>public void setSpan(Object what, int start, int end, int flags);
+</code></pre><p>设置的东西都是<code>CharacterStyle</code>的子类，比如<code>AbsoluteSizeSpan</code>定义字体大小，<code>ForegroundColorSpan</code>定义字体颜色等等</p>
+<p><code>CharacterStyle</code></p>
+<ul>
+<li><code>ForegroundColorSpan</code></li>
+<li><code>MaskFilterSpan</code></li>
+<li><code>SuggestionSpan</code></li>
+<li><code>RasterizerSpan</code></li>
+<li><code>BackgroundColorSpan</code></li>
+<li><code>StrikethroughSpan</code></li>
+<li><code>UnderlineSpan</code></li>
+<li><code>ClickableSpan</code><ul>
+<li><code>URLSpan</code></li>
+</ul>
+</li>
+<li><code>MetricAffectingSpan</code><ul>
+<li><code>SubscriptSpan</code></li>
+<li><code>StyleSpan</code></li>
+<li><code>AbsoluteSizeSpan</code></li>
+<li><code>RelativeSizeSpan</code></li>
+<li><code>TextAppearanceSpan</code></li>
+<li><code>SuperscriptSpan</code></li>
+<li><code>LocaleSpan</code></li>
+<li><code>ScaleXSpan</code></li>
+<li><code>TypefaceSpan</code></li>
+<li><code>ReplacementSpan</code><ul>
+<li><code>DynamicDrawableSpan</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>最后设置给<code>TextView</code></p>
+<pre><code>mTextView.setText(style);
+</code></pre><h3 id="ViewStub"><a href="#ViewStub" class="headerlink" title="ViewStub"></a>ViewStub</h3><p><code>ViewStub</code>是个轻量级的<code>View</code>，不占用布局位置，可以实现按需加载，比如网络请求失败的提示页面</p>
+<p>一旦<code>ViewStub</code>可见或是被<code>inflate()</code>了，它就不存在了，被获得的<code>View</code>取代</p>
+<h3 id="LinearLayout的分割线"><a href="#LinearLayout的分割线" class="headerlink" title="LinearLayout的分割线"></a>LinearLayout的分割线</h3><p>比如两个按钮之间的一道分割线，一般都是用一个<code>View</code>，也可以直接使用<code>LinearLayout</code>的<code>android:divider</code>属性，<code>android:showDividers</code>可以设置显示位置，<code>android:dividerPadding</code>可以设置内边距</p>
+<h3 id="Space"><a href="#Space" class="headerlink" title="Space"></a>Space</h3><p>要为布局间添加间距，可以通过添加一个空的<code>View</code>，也可以通过设置<code>margin</code>，但前者影响性能，后者影响可读性，这时可以使用<code>Space</code>，它也很轻量</p>
+<h3 id="移除不必要的背景"><a href="#移除不必要的背景" class="headerlink" title="移除不必要的背景"></a>移除不必要的背景</h3><p>过多的背景叠加会导致过度绘制，会影响性能</p>
+<blockquote>
+<p>假设我们的<code>Activity</code>背景是白色，<code>Activity</code>的布局最终会加入<code>DecorView</code>中，那么这个<code>View</code>中的背景就没必要了，通过下面的代码</p>
+<pre><code>getWindow().setBackgroundDrawable(null);
+</code></pre></blockquote>
+<h3 id="使用TextSwitcher和ImageSwitcher平滑过渡"><a href="#使用TextSwitcher和ImageSwitcher平滑过渡" class="headerlink" title="使用TextSwitcher和ImageSwitcher平滑过渡"></a>使用TextSwitcher和ImageSwitcher平滑过渡</h3><p>很多时候文字改变的时候希望不那么突兀，平滑一点，可以使用这些类</p>
+<p>使用<code>TextSwitcher</code></p>
+<ol>
+<li>获得<code>TextSwitcher</code>对象</li>
+<li>通过<code>setFactory()</code>设置<code>ViewFactory</code>，实现<code>makeView()</code>方法，返回实际的<code>TextView</code></li>
+<li>通过<code>setInAnimation()</code>设置换入动画</li>
+<li>通过<code>setOutAnimation()</code>设置换出动画</li>
+</ol>
+<p><code>ImageSwitcher</code>也是同样的用法</p>
+<p>这两个控件的目的是使过度更自然，代码更易读，因此不要滥用它们</p>
+<h3 id="在onCreate中获得视图的宽高"><a href="#在onCreate中获得视图的宽高" class="headerlink" title="在onCreate中获得视图的宽高"></a>在onCreate中获得视图的宽高</h3><p>在<code>onCreate()</code>中调用<code>getWidth()</code>和<code>getHeight()</code>获得的都是0，可以使用<code>post()</code>方法</p>
+<pre><code>view.post(new Runnable() {
+    @Override
+    public void run() {
+        int height = view.getHeight();
+        int width = view.getWidth();
+    }
+});
+</code></pre>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+  
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+            <a href="/tags/性能优化/" rel="tag"># 性能优化</a>
+          
+        </div>
+      
+
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+         
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/11/15/archivers/handler/" rel="next" title="Handler机制相关源码分析(Java层)">
+                <i class="fa fa-chevron-left"></i> Handler机制相关源码分析(Java层)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/12/29/archivers/android-wear/" rel="prev" title="AndroidWear开发心得">
+                AndroidWear开发心得 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="刘晗" />
+          <p class="site-author-name" itemprop="name">刘晗</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#include标签"><span class="nav-number">1.</span> <span class="nav-text">include标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#merge标签"><span class="nav-number">2.</span> <span class="nav-text">merge标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TextView同时显示文字与图片"><span class="nav-number">3.</span> <span class="nav-text">TextView同时显示文字与图片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#利用TextView的行间距"><span class="nav-number">4.</span> <span class="nav-text">利用TextView的行间距</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一个TextView中不同的样式"><span class="nav-number">5.</span> <span class="nav-text">一个TextView中不同的样式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ViewStub"><span class="nav-number">6.</span> <span class="nav-text">ViewStub</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LinearLayout的分割线"><span class="nav-number">7.</span> <span class="nav-text">LinearLayout的分割线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Space"><span class="nav-number">8.</span> <span class="nav-text">Space</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#移除不必要的背景"><span class="nav-number">9.</span> <span class="nav-text">移除不必要的背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用TextSwitcher和ImageSwitcher平滑过渡"><span class="nav-number">10.</span> <span class="nav-text">使用TextSwitcher和ImageSwitcher平滑过渡</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在onCreate中获得视图的宽高"><span class="nav-number">11.</span> <span class="nav-text">在onCreate中获得视图的宽高</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">刘晗</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io" rel="external nofollow">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid="></script>
+      <!-- UY END -->
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+
+</body>
+</html>

@@ -1,0 +1,831 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=PT Mono:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Android,Wear," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="湖畔镇" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="Android Wear开发的踩坑史……">
+<meta name="keywords" content="Android,Wear">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AndroidWear开发心得">
+<meta property="og:url" content="http://lakeshire.github.io/2016/12/29//archivers/android-wear/index.html">
+<meta property="og:site_name" content="湖畔镇">
+<meta property="og:description" content="Android Wear开发的踩坑史……">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-28T03:15:56.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AndroidWear开发心得">
+<meta name="twitter:description" content="Android Wear开发的踩坑史……">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://lakeshire.github.io/2016/12/29//archivers/android-wear/"/>
+
+
+
+
+
+  <title> AndroidWear开发心得 | 湖畔镇 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta custom-logo">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">湖畔镇</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <h1 class="site-subtitle" itemprop="description"></h1>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://lakeshire.github.io/2016/12/29/archivers/android-wear/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="刘晗">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="湖畔镇">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="湖畔镇" src="/images/avatar.jpg">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                AndroidWear开发心得
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-29T17:00:00+08:00">
+                2016-12-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+ 
+        
+
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Android Wear开发的踩坑史……</p>
+<a id="more"></a>
+<h2 id="AndroidWear开发"><a href="#AndroidWear开发" class="headerlink" title="AndroidWear开发"></a>AndroidWear开发</h2><p>需要SDKTools 23.0.0以上以及<code>API20</code>以上的SDK</p>
+<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p>下载AndroidWear手机应用，最好是国际版，我用的华为手表，开机之后会有引导，可以扫描二维码下载对应的国际版AndroidWear，然后扫描设备，配对，同步一段时间，手表就能开始运行了</p>
+<blockquote>
+<p>后来把手表刷到2.0做开发，这个AndroidWear就连不上了，要使用Google的开发者预览版</p>
+</blockquote>
+<p>在手表上开启开发者选项，就是在<code>设置</code>-&gt;<code>关于</code>里面，点击版本号七次，然后在开发者选项里面开启<code>ADB调试</code>，同时也开一下<code>通过蓝牙调试</code></p>
+<p>进入手机的AndroidWear应用，右上角的<code>设置</code>里面，开启<code>通过蓝牙调试</code>,有两个连接，<code>主机</code>是电脑与手机的连接，<code>目标</code>是手机与手表的连接，在电脑的命令行输入命令进行连接，手表上确认后就可以调试了</p>
+<pre><code>adbforward tcp:4444 localabstract:/adb-hub
+adb connect localhost:4444
+</code></pre><blockquote>
+<p>有时候下面那条命令连不上，把<code>localhost</code>换成<code>127.0.0.1</code>试试</p>
+</blockquote>
+<h2 id="创建工程"><a href="#创建工程" class="headerlink" title="创建工程"></a>创建工程</h2><p>创建工程跟一般的Android工程差不多，注意除了<code>Phone and Tablet</code>之外多选一个<code>Wear</code>，这样你的工程就包含<code>mobile</code>和<code>wear</code>两个模块了，后者就是手表端的代码</p>
+<p>很多代码都通用，理论上把手机端的应用直接装手表上也能跑起来，但是界面就不能看了，所以还是需要遵守一下手表端的交互规范，但是这东西很新而且一直也在更新，很多东西说过时就过时，也是不用太纠结</p>
+<h3 id="GridViewPager"><a href="#GridViewPager" class="headerlink" title="GridViewPager"></a>GridViewPager</h3><p>多页的展示我用了这个，类似<code>ViewPager</code>，但是它是<code>2D</code>的更强大一点，然而我也没用到这个特性，配合<code>DotsPageIndicator</code>做指示器</p>
+<p>三个页面，我希望初始显示第2页，那么就要用到<code>setCurrentItem(0,1)</code>，但是没有效果，后来发现手表毕竟性能比较弱，可能是还没初始化完这个<code>GridViewPager</code>就进行设置导致无效，所以用了这段代码就好了</p>
+<pre><code>Runnable dirtyHack  = new Runnable() {
+    @Override
+    public void run() {
+        pager.setCurrentItem(0, 1);
+    }
+};
+</code></pre><h3 id="WearableListView"><a href="#WearableListView" class="headerlink" title="WearableListView"></a>WearableListView</h3><p>用于列表展示，然而并不是<code>ListView</code>的子类，而是<code>RecyclerView</code>的子类，这个类在<code>2.0</code>就废了</p>
+<h4 id="显示列表头"><a href="#显示列表头" class="headerlink" title="显示列表头"></a>显示列表头</h4><p>跟手机上的列表显示不同，手表上会自己做处理，把列表的第一项显示在屏幕中心，体验会好一点，上面还有一半的空白还专门有个函数<code>onTopEmptyRegionClick()</code>来处理这里的点击，但是我没找到有方法可以获得这个区域，往里面填充点我想要的列表头什么的，又没有<code>ListView</code>的比较方便的<code>addHeaderView()</code>的方法，<code>RecyclerView</code>根据项类型不同改变布局的话，有需要自己调整列表的偏移，总体来说这个需求就比较恶心，我就直接用了几层布局，反正列表初始显示时上方是露出的，滑动时覆盖掉也是可以达到预期</p>
+<h4 id="下拉刷新"><a href="#下拉刷新" class="headerlink" title="下拉刷新"></a>下拉刷新</h4><p>使用了<code>SwipeRefreshLayout</code>，试了其他的没成功，然后这个库好像刷新头就是那个旋转尖头，还能设置多种颜色挨着变，可定制性就不太高，不过对手表这种轻量的场合也就够了</p>
+<h4 id="加载更多"><a href="#加载更多" class="headerlink" title="加载更多"></a>加载更多</h4><p>没有找到实现方法，按照网上流行的<code>RecyclerView</code>加载更多的实现方法，需要用到某个<code>LayoutManager</code>，<code>WearableListView</code>里面继承了这个并且设置为了<code>private</code>，导致那个判定某项是否是最后一项的方法调不到，不想多折腾，在列表里面加入一个判断项，用来显示<code>加载更多</code>好了</p>
+<h4 id="列表项显示效果"><a href="#列表项显示效果" class="headerlink" title="列表项显示效果"></a>列表项显示效果</h4><p>圆形表盘引入的问题，一页显示三项，中间项较大，这样视觉效果会比较好，为此可以自定义一个布局，实现<code>WearableListView.OnCenterProximityListener</code>这个接口，在<code>onCenterPosition()</code>和<code>onNonCenterPosition()</code>两个函数里面做一下缩放的动画，类似冒泡的效果</p>
+<blockquote>
+<p>最初会有列表无法滑动的问题，可能是跟<code>GridViewPager</code>冲突了，用这句代码解决<code>listView.setGreedyTouchMode(true)</code>，也是很无语</p>
+</blockquote>
+<h3 id="WearableRecyclerView"><a href="#WearableRecyclerView" class="headerlink" title="WearableRecyclerView"></a>WearableRecyclerView</h3><p><code>2.0</code>推荐使用的列表，它可以显示一个弧状的列表，好处是可以显示更多的内容</p>
+<h3 id="数据传输"><a href="#数据传输" class="headerlink" title="数据传输"></a>数据传输</h3><p><code>2.0</code>以前的手表一般是依赖手机工作的，因为其自身不支持网络，所有的数据都从手机获得，所以数据传输方面的API特别重要，也很坑</p>
+<p>方法和类本身很简单，先连接到<code>GoogleApiClient</code>，注册<code>DataApi</code>和<code>MessageApi</code>的监听，就可以收发消息，也可以同步数据（相当于两端公用一个数据结构，一方的改动会推送到另一方）</p>
+<p>但是，它是基于<code>GooglePlayService</code>的，在国内基本处于不可用状态，华为官网提供了一个可用的版本，应该是做过处理了，然而能不能通信还是有很多坑点</p>
+<ol>
+<li><code>wear</code>和<code>mobile</code>用的库版本需要是一样的</li>
+<li>调试版本一般是可以通信的，发布版本有一定的要求</li>
+<li>蓝牙要保持连接，<code>AndroidWear</code>也要保持运行</li>
+<li>可以在没有<code>GooglePlayServiceFramework</code>的手机上工作（可能是华为的库做过处理）</li>
+</ol>
+<h2 id="打包发布"><a href="#打包发布" class="headerlink" title="打包发布"></a>打包发布</h2><p><code>2.0</code>以前<code>wear</code>的apk是附在<code>mobile</code>里面的，手机安装时推送到手表端，两种打包方式</p>
+<h3 id="自动打包"><a href="#自动打包" class="headerlink" title="自动打包"></a>自动打包</h3><p><code>mobile</code>的<code>build.gradle</code>里加入</p>
+<pre><code>dependencies {
+    wearApp project(&apos;:wear&apos;)
+}
+</code></pre><p>那个<code>:wear</code>就是手表的工程，然后<code>Build</code>-&gt;<code>Generate Signed APK</code>，这样的话就同时签名了</p>
+<h3 id="手动打包"><a href="#手动打包" class="headerlink" title="手动打包"></a>手动打包</h3><p><code>mobile</code>的<code>AndroidMenifest.xml</code>要包含<code>wear</code>的全部权限</p>
+<p>确保两个工程有同样的包名和版本号（可能都是不需要的，因为接下来需要提供一个描述文件，里面都有指定，没验证过）</p>
+<p>把正式版<code>wear</code>的apk拷贝到<code>res/raw</code>目录，假设命名为<code>wearable_app.apk</code></p>
+<p>创建<code>res/xml/wearable_app_desc.xml</code>文件</p>
+<pre><code>&lt;wearableApp package=&quot;[包名]&quot;
+    &lt;versionCode&gt;1&lt;/versionCode&gt;
+     &lt;versionName&gt;1.0&lt;/versionName&gt;
+     &lt;rawPathResId&gt;wearable_app&lt;/rawPathResId&gt;
+&lt;/wearableApp&gt;
+</code></pre><p>在<code>mobile</code>的<code>AndroidMenifest.xml</code>里的<code>&lt;application&gt;</code>标签里添加</p>
+<pre><code>&lt;meta-data android:name=&quot;com.google.android.wearable.beta.app&quot; android:resource=&quot;@xml/wearable_app_desc&quot; /&gt;
+</code></pre><p>构建正式版<code>mobile</code>应用</p>
+<p><code>2.0</code>就可以独立安装手表的apk了，我的最终配置是下面这样然后能够工作（主要指通信部分）：</p>
+<ol>
+<li>两边的包名相同</li>
+<li>两边的版本号不同</li>
+<li><code>mobile</code>并没有做手动打包的3／4／5步</li>
+</ol>
+<h3 id="杂七杂八的配置"><a href="#杂七杂八的配置" class="headerlink" title="杂七杂八的配置"></a>杂七杂八的配置</h3><p>做的过程并没有记得很清楚，所以一些配置可能并不是必要的，但是如果遇到奇怪的无法通信的错误可以试试</p>
+<p><code>AndroidMenifest.xml</code>中加入手表的特性</p>
+<p>手机端</p>
+<pre><code>&lt;uses-feature android:name=&quot;android.hardware.type.watch&quot; android:required=&quot;false&quot; /&gt;
+</code></pre><p>手表端</p>
+<pre><code>&lt;uses-feature android:name=&quot;android.hardware.type.watch&quot; /&gt;
+</code></pre><p>可能<code>wear</code>编译缺少库时，在<code>&lt;appliaction&gt;</code>标签下加入</p>
+<pre><code>&lt;uses-library android:name=&quot;com.google.android.wearable&quot; android:required=&quot;false&quot; /&gt;
+</code></pre><p>华为提供的库是个<code>aar</code>，需要在<code>build.gradle</code>中加入支持</p>
+<pre><code>android {
+    ......
+    repositories {
+        flatDir {
+            dirs : &apos;libs&apos;
+        }
+    }
+    ......    
+}
+
+dependencies {
+    ......
+    compile(name : &apos;play-services-7.8.87&apos;, ext : &apos;aar&apos;)
+    ......
+}
+</code></pre><h2 id="刷机升级到2-0"><a href="#刷机升级到2-0" class="headerlink" title="刷机升级到2.0"></a>刷机升级到<code>2.0</code></h2><ol>
+<li>进入开发者模式，打开<code>ADB调试</code></li>
+<li><code>adb devices</code>可以看到设备，看不到是连接问题，也可能是驱动问题，用MAC吧，我的就是连不上Windows</li>
+<li><code>adb reboot bootloader</code>进入BootLoader</li>
+<li><code>fastboot oem unlock</code>解锁</li>
+<li>在官网下载正确的镜像（华为的国内版镜像在最下面，请仔细）</li>
+<li>解压，执行命令<code>flash-all.sh</code>，等待镜像刷好，重启就好了</li>
+</ol>
+<blockquote>
+<p>关于第4步，我在集成友盟统计的时候，需要访问<code>/data</code>文件夹，但是一直提示没有权限，后来“奇迹般”的又好了，期间可能的操作就是我又进行了锁定操作<code>fastboot oem lock</code>，没有进一步验证过<br>刷机后，应用市场上的AndroidWear软件可能会在于手表端数据传输时出问题，应该用官网上提供的预览版软件</p>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+  
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+            <a href="/tags/Wear/" rel="tag"># Wear</a>
+          
+        </div>
+      
+
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+         
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/11/15/archivers/layout-optimize/" rel="next" title="Android布局优化">
+                <i class="fa fa-chevron-left"></i> Android布局优化
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/02/13/archivers/cling/" rel="prev" title="DLNA开源库——Cling">
+                DLNA开源库——Cling <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="刘晗" />
+          <p class="site-author-name" itemprop="name">刘晗</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#AndroidWear开发"><span class="nav-number">1.</span> <span class="nav-text">AndroidWear开发</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#环境搭建"><span class="nav-number">2.</span> <span class="nav-text">环境搭建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建工程"><span class="nav-number">3.</span> <span class="nav-text">创建工程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#GridViewPager"><span class="nav-number">3.1.</span> <span class="nav-text">GridViewPager</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WearableListView"><span class="nav-number">3.2.</span> <span class="nav-text">WearableListView</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#显示列表头"><span class="nav-number">3.2.1.</span> <span class="nav-text">显示列表头</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#下拉刷新"><span class="nav-number">3.2.2.</span> <span class="nav-text">下拉刷新</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#加载更多"><span class="nav-number">3.2.3.</span> <span class="nav-text">加载更多</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#列表项显示效果"><span class="nav-number">3.2.4.</span> <span class="nav-text">列表项显示效果</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WearableRecyclerView"><span class="nav-number">3.3.</span> <span class="nav-text">WearableRecyclerView</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据传输"><span class="nav-number">3.4.</span> <span class="nav-text">数据传输</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#打包发布"><span class="nav-number">4.</span> <span class="nav-text">打包发布</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#自动打包"><span class="nav-number">4.1.</span> <span class="nav-text">自动打包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#手动打包"><span class="nav-number">4.2.</span> <span class="nav-text">手动打包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#杂七杂八的配置"><span class="nav-number">4.3.</span> <span class="nav-text">杂七杂八的配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#刷机升级到2-0"><span class="nav-number">5.</span> <span class="nav-text">刷机升级到2.0</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">刘晗</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io" rel="external nofollow">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid="></script>
+      <!-- UY END -->
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+
+</body>
+</html>
