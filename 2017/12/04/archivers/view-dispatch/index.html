@@ -102,19 +102,19 @@
 
 
 
-<meta name="description" content="View的事件分发本文的起点是Activity里的dispatchTouchEvent()方法，整体的流程如下图  流程梳理Activity.java 12345678910public boolean dispatchTouchEvent(MotionEvent ev) &amp;#123;  // 通知用户与Act">
+<meta name="description" content="View的事件分发本文的起点是Activity里的dispatchTouchEvent()方法，整体的流程如下图">
 <meta name="keywords" content="Android,View">
 <meta property="og:type" content="article">
 <meta property="og:title" content="View的事件分发">
 <meta property="og:url" content="http://lakeshire.github.io/2017/12/04//archivers/view-dispatch/index.html">
 <meta property="og:site_name" content="湖畔镇">
-<meta property="og:description" content="View的事件分发本文的起点是Activity里的dispatchTouchEvent()方法，整体的流程如下图  流程梳理Activity.java 12345678910public boolean dispatchTouchEvent(MotionEvent ev) &amp;#123;  // 通知用户与Activity发生了交互  if (ev.getAction() == MotionEven">
+<meta property="og:description" content="View的事件分发本文的起点是Activity里的dispatchTouchEvent()方法，整体的流程如下图">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://7xt3ho.com1.z0.glb.clouddn.com/Flow%20Chart%20Demo.png">
-<meta property="og:updated_time" content="2017-12-04T09:05:18.000Z">
+<meta property="og:updated_time" content="2017-12-04T09:07:11.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="View的事件分发">
-<meta name="twitter:description" content="View的事件分发本文的起点是Activity里的dispatchTouchEvent()方法，整体的流程如下图  流程梳理Activity.java 12345678910public boolean dispatchTouchEvent(MotionEvent ev) &amp;#123;  // 通知用户与Activity发生了交互  if (ev.getAction() == MotionEven">
+<meta name="twitter:description" content="View的事件分发本文的起点是Activity里的dispatchTouchEvent()方法，整体的流程如下图">
 <meta name="twitter:image" content="http://7xt3ho.com1.z0.glb.clouddn.com/Flow%20Chart%20Demo.png">
 
 
@@ -374,6 +374,7 @@
       
         <h2 id="View的事件分发"><a href="#View的事件分发" class="headerlink" title="View的事件分发"></a>View的事件分发</h2><p>本文的起点是Activity里的<code>dispatchTouchEvent()</code>方法，整体的流程如下图</p>
 <p><img src="http://7xt3ho.com1.z0.glb.clouddn.com/Flow%20Chart%20Demo.png" alt=""></p>
+<a id="more"></a>
 <h3 id="流程梳理"><a href="#流程梳理" class="headerlink" title="流程梳理"></a>流程梳理</h3><p><em>Activity.java</em></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">dispatchTouchEvent</span><span class="params">(MotionEvent ev)</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 通知用户与Activity发生了交互</span></span><br><span class="line">  <span class="keyword">if</span> (ev.getAction() == MotionEvent.ACTION_DOWN) &#123;</span><br><span class="line">    onUserInteraction();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (getWindow().superDispatchTouchEvent(ev)) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> onTouchEvent(ev);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>获得Activity的<code>mWindow</code>，调用其<code>superDispatchTouchEvent()</code>方法</p>
