@@ -1,0 +1,952 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=PT Mono:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Android,DLNA," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="湖畔镇" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="DLNA开源库——Cling目前主流的智能网络设备解决方案有DLNA，AirPlay ，Miracast DLNA的全称是Digital Living Network Alliance(数字生活网络联盟)，旨在解决个人PC，消费电器，移动设备在内的无线网络和有线网络的互联互通">
+<meta name="keywords" content="Android,DLNA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DLNA开源库——Cling">
+<meta property="og:url" content="http://lakeshire.github.io/2017/12/12//archivers/dlna-cling/index.html">
+<meta property="og:site_name" content="湖畔镇">
+<meta property="og:description" content="DLNA开源库——Cling目前主流的智能网络设备解决方案有DLNA，AirPlay ，Miracast DLNA的全称是Digital Living Network Alliance(数字生活网络联盟)，旨在解决个人PC，消费电器，移动设备在内的无线网络和有线网络的互联互通">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-12-12T08:20:11.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="DLNA开源库——Cling">
+<meta name="twitter:description" content="DLNA开源库——Cling目前主流的智能网络设备解决方案有DLNA，AirPlay ，Miracast DLNA的全称是Digital Living Network Alliance(数字生活网络联盟)，旨在解决个人PC，消费电器，移动设备在内的无线网络和有线网络的互联互通">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://lakeshire.github.io/2017/12/12//archivers/dlna-cling/"/>
+
+
+
+
+
+  <title> DLNA开源库——Cling | 湖畔镇 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta custom-logo">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">湖畔镇</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <h1 class="site-subtitle" itemprop="description"></h1>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://lakeshire.github.io/2017/12/12/archivers/dlna-cling/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="刘晗">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="湖畔镇">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="湖畔镇" src="/images/avatar.jpg">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                DLNA开源库——Cling
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-12T12:00:00+08:00">
+                2017-12-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+ 
+        
+
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="DLNA开源库——Cling"><a href="#DLNA开源库——Cling" class="headerlink" title="DLNA开源库——Cling"></a>DLNA开源库——Cling</h2><p>目前主流的智能网络设备解决方案有<code>DLNA</code>，<code>AirPlay</code> ，<code>Miracast</code></p>
+<p>DLNA的全称是<code>Digital Living Network Alliance</code>(数字生活网络联盟)，旨在解决个人PC，消费电器，移动设备在内的无线网络和有线网络的互联互通</p>
+<a id="more"></a>
+<p>DLNA将其整个应用规定成5个功能组件，从下到上依次为：</p>
+<ol>
+<li>网络互连：802.3以太网，802.11WiFi，802.15蓝牙</li>
+<li>网络协议：IPV4</li>
+<li>设备的发现控制和管理：UPnP</li>
+<li>媒体传输：Http</li>
+<li>媒体格式</li>
+</ol>
+<p>DLNA不是一种协议，但包括了实现相关标准所需要的一系列协议栈，<code>UPnP</code>是其中的关键协议</p>
+<h3 id="DLNA原理"><a href="#DLNA原理" class="headerlink" title="DLNA原理"></a>DLNA原理</h3><p>参考<a href="http://www.jianshu.com/p/fbc7c700cdb5" target="_blank" rel="noopener">基于DLNA的移动端网络视频投屏技术初探</a></p>
+<p>要实现从移动端将网络视频投放至智能电视或机顶盒，首先要保证这些设备在同一个局域网的相同网段下，即共享同一个网关，这样所有设备都能够拥有独立的IP，从而具备相互通信的基础了</p>
+<h4 id="设备发现"><a href="#设备发现" class="headerlink" title="设备发现"></a>设备发现</h4><p>当一个新的<code>Control Point)</code>加入一个局域网时，为了获取当前网段里都有哪些智能设备，需要遵循<code>SSDP</code>向默认多播IP和端口发送获取信息的请求，这是一个UDP消息，所以建议在设备搜索过程多做几次发现请求，以免丢包带来的遗漏</p>
+<p>控制点可以获得的信息是：有一台设备，它的IP和端口号，设备描述文档(<code>DDD</code>)在什么位置、UUID是什么</p>
+<h4 id="请求设备描述文档"><a href="#请求设备描述文档" class="headerlink" title="请求设备描述文档"></a>请求设备描述文档</h4><p><code>DDD</code>以及后面要说到的服务描述文档 (<code>SDD, Service Description Document</code>)都是以XML格式返回给请求端的，这一步的通信则是基于TCP /HTTP进行可靠传输的。我们请求<code>Location</code>字段的内容即</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://10.2.9.152:49152/TxMediaRenderer_desc.xml</span><br></pre></td></tr></table></figure>
+<p>响应</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">root</span> <span class="attr">xmlns</span>=<span class="string">"urn:schemas-upnp-org:device-1-0"</span> <span class="attr">xmlns:dlna</span>=<span class="string">"urn:schemas-dlna-org:device-1-0"</span> <span class="attr">configId</span>=<span class="string">"499354"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">specVersion</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">major</span>&gt;</span>1<span class="tag">&lt;/<span class="name">major</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">minor</span>&gt;</span>1<span class="tag">&lt;/<span class="name">minor</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">specVersion</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">device</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">deviceType</span>&gt;</span>urn:schemas-upnp-org:device:MediaRenderer:1<span class="tag">&lt;/<span class="name">deviceType</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">friendlyName</span>&gt;</span>我的设备<span class="tag">&lt;/<span class="name">friendlyName</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">manufacturer</span>&gt;</span>Plutinosoft LLC<span class="tag">&lt;/<span class="name">manufacturer</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">manufacturerURL</span>&gt;</span>http://www.plutinosoft.com<span class="tag">&lt;/<span class="name">manufacturerURL</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">modelDescription</span>&gt;</span>Plutinosoft AV Media Renderer Device<span class="tag">&lt;/<span class="name">modelDescription</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">modelName</span>&gt;</span>AV Renderer Device<span class="tag">&lt;/<span class="name">modelName</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">modelURL</span>&gt;</span>http://www.plutinosoft.com/platinum<span class="tag">&lt;/<span class="name">modelURL</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">UDN</span>&gt;</span>uuid:9c443d47158b-dmr<span class="tag">&lt;/<span class="name">UDN</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dlna:X_DLNADOC</span> <span class="attr">xmlns:dlna</span>=<span class="string">"urn:schemas-dlna-org:device-1-0"</span>&gt;</span>DMR-1.50<span class="tag">&lt;/<span class="name">dlna:X_DLNADOC</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">serviceList</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">service</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">serviceType</span>&gt;</span>urn:schemas-upnp-org:service:AVTransport:1<span class="tag">&lt;/<span class="name">serviceType</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">serviceId</span>&gt;</span>urn:upnp-org:serviceId:AVTransport<span class="tag">&lt;/<span class="name">serviceId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">SCPDURL</span>&gt;</span>/AVTransport/9c443d47158b-dmr/scpd.xml<span class="tag">&lt;/<span class="name">SCPDURL</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">controlURL</span>&gt;</span>/AVTransport/9c443d47158b-dmr/control.xml<span class="tag">&lt;/<span class="name">controlURL</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">eventSubURL</span>&gt;</span>/AVTransport/9c443d47158b-dmr/event.xml<span class="tag">&lt;/<span class="name">eventSubURL</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">service</span>&gt;</span></span><br><span class="line">      ...</span><br><span class="line">    <span class="tag">&lt;/<span class="name">serviceList</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">device</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">root</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>返回设备的详细信息：设备名称、设备类型、UUID、服务列表，每个服务都有<code>serviceType</code>，<code>SCPDURL</code>，<code>serviceId</code>， <code>controlURL</code>和<code>eventSubURL</code></p>
+<h4 id="请求服务描述文档"><a href="#请求服务描述文档" class="headerlink" title="请求服务描述文档"></a>请求服务描述文档</h4><p>如何使用这个服务需要参考该服务的<code>SDD</code>。<code>SCPDURL</code>这个字段的内容就是请求<code>SDD</code>的路径地址，我们将其与之前在发现设备阶段获取到的响应消息中的Location字段内容中设备的IP和端口号拿过来，拼接成完整URL字符串</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://10.2.9.152:49152/AVTransport/9c443d47158b-dmr/scpd.xml</span><br></pre></td></tr></table></figure>
+<p>返回一个动作列表，一个服务会包含一个或多个功能请求动作</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">scpd</span> <span class="attr">xmlns</span>=<span class="string">"urn:schemas-upnp-org:service-1-0"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">specVersion</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">major</span>&gt;</span>1<span class="tag">&lt;/<span class="name">major</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">minor</span>&gt;</span>0<span class="tag">&lt;/<span class="name">minor</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">specVersion</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">actionList</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">action</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">name</span>&gt;</span>SetAVTransportURI<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">argumentList</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">argument</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">name</span>&gt;</span>InstanceID<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">direction</span>&gt;</span>in<span class="tag">&lt;/<span class="name">direction</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">relatedStateVariable</span>&gt;</span>A_ARG_TYPE_InstanceID<span class="tag">&lt;/<span class="name">relatedStateVariable</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">argument</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">argument</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">name</span>&gt;</span>CurrentURI<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">direction</span>&gt;</span>in<span class="tag">&lt;/<span class="name">direction</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">relatedStateVariable</span>&gt;</span>AVTransportURI<span class="tag">&lt;/<span class="name">relatedStateVariable</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">argument</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">argument</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">name</span>&gt;</span>CurrentURIMetaData<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">direction</span>&gt;</span>in<span class="tag">&lt;/<span class="name">direction</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">relatedStateVariable</span>&gt;</span>AVTransportURIMetaData<span class="tag">&lt;/<span class="name">relatedStateVariable</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">argument</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">argumentList</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">action</span>&gt;</span></span><br><span class="line">    ...</span><br><span class="line">  <span class="tag">&lt;<span class="name">serviceStateTable</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">stateVariable</span> <span class="attr">sendEvents</span>=<span class="string">"no"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">name</span>&gt;</span>AVTransportURI<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">dataType</span>&gt;</span>string<span class="tag">&lt;/<span class="name">dataType</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">stateVariable</span>&gt;</span></span><br><span class="line">    ...</span><br><span class="line">  <span class="tag">&lt;/<span class="name">serviceStateTable</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">scpd</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>如<code>SetAVTransportURI</code>这个请求的功能是将一个音视频资源的URI发送给渲染端。一个<code>Action</code>就好比一个API请求，你还需要传递一些要求的参数，这时就会用到该Action后面参数列表里规定的参数</p>
+<h4 id="服务动作请求"><a href="#服务动作请求" class="headerlink" title="服务动作请求"></a>服务动作请求</h4><p>有了动作所需要的全部信息，就可以按照DLNA规定的方式发给设备请求服务</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">POST /AVTransport/9c443d47158b-dmr/control.xml HTTP/1.1</span><br><span class="line">HOST: 10.2.9.152</span><br><span class="line">Content-Type: text/xml; charset="utf-8"</span><br><span class="line">SOAPAction: "urn:schemas-upnp-org:service:AVTransport:1#SetAVTransportURI"</span><br><span class="line">&lt;?xml version="1.0"?&gt;</span><br><span class="line">  <span class="tag">&lt;<span class="name">s:Envelope</span> <span class="attr">xmlns:s</span>=<span class="string">"http://schemas.xmlsoap.org/soap/envelope/"</span> <span class="attr">s:encodingStyle</span>=<span class="string">"http://schemas.xmlsoap.org/soap/encoding/"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">s:Body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">u:SetAVTransportURI</span> <span class="attr">xmlns:u</span>=<span class="string">"urn:schemas-upnp-org:service:AVTransport:1"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">InstanceID</span>&gt;</span>0<span class="tag">&lt;/<span class="name">InstanceID</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">CurrentURI</span>&gt;</span>yourAVURI<span class="tag">&lt;/<span class="name">CurrentURI</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">u:SetAVTransportURI</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">s:Body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">s:Envelope</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>响应</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Content-Type: text/xml; charset="utf-8"</span><br><span class="line">Date: Thu, 16 Feb 2017 09:09:45 GMT</span><br><span class="line">Server: OS/version UPnP/1.1 product/version</span><br><span class="line">&lt;?xml version="1.0"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">s:Envelope</span> <span class="attr">xmlns:s</span>=<span class="string">"http://schemas.xmlsoap.org/soap/envelope/"</span> <span class="attr">s:encodingStyle</span>=<span class="string">"http://schemas.xmlsoap.org/soap/encoding/"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">s:Body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">u:SetAVTransportURI</span> <span class="attr">xmlns:u</span>=<span class="string">"urn:schemas-upnp-org:service:AVTransport:1"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">u:SetAVTransportURIResponse</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">_xmlns:u</span>&gt;</span>"urn:schemas-upnp-org:service:AVTransport:1"<span class="tag">&lt;/<span class="name">_xmlns:u</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">u:SetAVTransportURIResponse</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">u:SetAVTransportURI</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">s:Body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">s:Envelope</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="UPnP工作原理"><a href="#UPnP工作原理" class="headerlink" title="UPnP工作原理"></a>UPnP工作原理</h3><p>UPnP的工作分为6个步骤……</p>
+<h4 id="寻址"><a href="#寻址" class="headerlink" title="寻址"></a>寻址</h4><p>当设备首次与网络建立连接后，利用DHCP服务，使设备得到一个IP地址。这个IP地址可以是DHCP系统指定的，也可以是由设备选择的。设备还可以使用Friendly Name，这就需要DNS来转换得到IP</p>
+<h4 id="发现"><a href="#发现" class="headerlink" title="发现"></a>发现</h4><p>当一个设备被添加到网络后，UPnP的发现协议允许该设备向网络上的控制点(Control Point, CP)通知自己拥有的服务。同样，当一个CP被添加到网络后，UPnP发现协议允许该CP搜索网络上可用的设备。这两种情况下的组播消息一般是设备和服务的基本信息，如设备类型，唯一标识符，状态参数等等。要注意设备信息和服务信息都是要组播出去的</p>
+<p>发现过程使用的协议是SSDP(Simple Service Discovery Protocol，简单服务发现协议)，采用UDP传输</p>
+<h4 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h4><p>描述分为两部分：一个是设备描述，另一个是服务描述</p>
+<h4 id="控制"><a href="#控制" class="headerlink" title="控制"></a>控制</h4><p>在设备描述部分，还有关于如何控制设备的描述，会给出一个Control URL，CP可以向这个URL发送不同的控制信息就可以控制了，然后设备也可以返回一个信息反馈。</p>
+<p>这种CP和设备之间沟通信息按照SOAP(Simple Object Access Protocol)的格式来写。消息体里面就可以写想调用的动作了，叫做Action Invocation，可能还要传参数，比如想播放一个视频，要把视频的URL传过去，设备收到后会响应，表示能不能执行调用，出错的话会返回一个错误代码</p>
+<h4 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h4><p>在服务进行的整个时间内，只要变量值发生了变化或者模式的状态发生了改变，就产生了一个事件，该事件服务提供者(某设备的某个服务)会把该事件向整个网络进行多播。而且，CP也可以事先向事件服务器订阅事件信息，保证将该CP感兴趣的事件及时准确地单播传送过来</p>
+<p>事件的订阅和推送这块用的通信协议是General Event Notification Architecture(GENA)，通过HTTP/TCP/IP传送。订阅过程如下：</p>
+<ol>
+<li>订阅。Subscriber发送订阅消息主要包含事件URL，服务ID号，这两个可以在设备服务描述信息中找到，以及寄送URL，还会包含一个订阅期限Duration</li>
+<li>成功订阅。Publisher收到订阅信息，如果同意订阅的话就会为每个新Subscriber生成一个唯一的ID并记录Subscriber的Duration和Delivery URL。还会记录一个顺序增长EventKey用来保证事件确实推送到Subscriber那里</li>
+<li>首次推送。订阅同意订阅之后还会向Subscriber发送一组初始变量或状态值，进行首次同步</li>
+<li>续订。Subscriber必须在订阅到期前发送Renewal续订</li>
+<li>订阅到期。订阅到期后Publisher会把Subscriber的信息删除，Subscriber又回到订阅前的状态。</li>
+<li>退订。Subscriber发送Cancel信息将会取消订阅。Subscriber因非正常退出网络的话，则不会退订直到订阅到期</li>
+<li>订阅操作失败信息。当订阅、续订和退订不能被Publisher接收或者出现错误时，Publisher会发送一个错误代码</li>
+</ol>
+<h4 id="表达"><a href="#表达" class="headerlink" title="表达"></a>表达</h4><p>只要得到了设备的URL，就可以取得该设备表达的URL，取得该设备表达的HTML，然后可以将此HTML纳入CP的本地浏览器上。这部分还包括与用户对话的界面，以及与用户进行会话的处理。因此设备表达可以理解成“遥控器”。这部分定义描述界面，规范界面以及传输界面内容。远程界面是供CP用户使用的，CP用户通过远程界面完成设备描述的获取，控制设备，订阅收取设备事件等等</p>
+<h3 id="Cling"><a href="#Cling" class="headerlink" title="Cling"></a>Cling</h3><p>Cling类库是由JAVA实现的DLNA/UPnP协议栈</p>
+<h4 id="重要组件"><a href="#重要组件" class="headerlink" title="重要组件"></a>重要组件</h4><h5 id="UpnpService"><a href="#UpnpService" class="headerlink" title="UpnpService"></a>UpnpService</h5><p>通过<code>UpnpService</code>接口获得<code>ControlPoint</code>，基于<code>ControlPoint</code>进行操作</p>
+<p><em>UpnpService.java</em></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UpnpService</span> </span>&#123;</span><br><span class="line">   <span class="function">UpnpServiceConfiguration <span class="title">getConfiguration</span><span class="params">()</span></span>;</span><br><span class="line">   <span class="function">ControlPoint <span class="title">getControlPoint</span><span class="params">()</span></span>;</span><br><span class="line">   <span class="function">ProtocolFactory <span class="title">getProtocolFactory</span><span class="params">()</span></span>;</span><br><span class="line">   <span class="function">Registry <span class="title">getRegistry</span><span class="params">()</span></span>;</span><br><span class="line">   <span class="function">Router <span class="title">getRouter</span><span class="params">()</span></span>;</span><br><span class="line">   <span class="function"><span class="keyword">void</span> <span class="title">shutdown</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>主要提供控制点、协议工厂、注册表、路由和配置信息，<code>UpnpServiceImpl</code>是<code>UpnpService</code>的实现类</p>
+<h5 id="ControlPoint"><a href="#ControlPoint" class="headerlink" title="ControlPoint"></a>ControlPoint</h5><p><em>ControlPoint.java</em></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ControlPoint</span> </span>&#123;</span><br><span class="line">    <span class="function">UpnpServiceConfiguration <span class="title">getConfiguration</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function">ProtocolFactory <span class="title">getProtocolFactory</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function">Registry <span class="title">getRegistry</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">search</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">search</span><span class="params">(UpnpHeader searchType)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">search</span><span class="params">(<span class="keyword">int</span> mxSeconds)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">search</span><span class="params">(UpnpHeader searchType, <span class="keyword">int</span> mxSeconds)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">execute</span><span class="params">(ActionCallback callback)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">execute</span><span class="params">(SubscriptionCallback callback)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>主要包含搜索和执行命令两个功能</p>
+<h5 id="UpnpServiceConfiguration"><a href="#UpnpServiceConfiguration" class="headerlink" title="UpnpServiceConfiguration"></a>UpnpServiceConfiguration</h5><p> UPnP协议栈的配置信息，<code>AndroidUpnpServiceConfiguration</code>是Android平台上的实现类，继承了<code>DefaultUpnpServiceConfiguration</code></p>
+<h5 id="ProtocoFactory"><a href="#ProtocoFactory" class="headerlink" title="ProtocoFactory"></a>ProtocoFactory</h5><p>UPnP协议的工厂类，用于根据收到的协议或是本地设备的信息，创建一个可执行的协议</p>
+<h5 id="Registry"><a href="#Registry" class="headerlink" title="Registry"></a>Registry</h5><p>设备资源管理器，用于设备、资源、订阅消息的管理，包括添加、更新、移除、查询</p>
+<h4 id="情景分析"><a href="#情景分析" class="headerlink" title="情景分析"></a>情景分析</h4><h5 id="搜索设备"><a href="#搜索设备" class="headerlink" title="搜索设备"></a>搜索设备</h5><p><code>ControlPoint()</code>进行<code>search()</code>，需要两个东西：</p>
+<ol>
+<li>通过<code>UpnpServiceConfiguration.getAsyncProtocolExecutor()</code>获得的UPnP协议栈的异步线程池</li>
+<li>通过<code>ProtocoFactory.createSendingSearch()</code>获得的执行内容即搜索动作</li>
+</ol>
+<p>得到的搜索命令就是<code>SendingSearch</code></p>
+<p><em>SendingSearch.java</em></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">execute</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  OutgoingSearchRequest msg = <span class="keyword">new</span> OutgoingSearchRequest(searchTarget, getMxSeconds());</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; getBulkRepeat(); i++) &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      getUpnpService().getRouter().send(msg);</span><br><span class="line">      Thread.sleep(getBulkIntervalMilliseconds());</span><br><span class="line">    &#125; <span class="keyword">catch</span> (InterruptedException ex) &#123;</span><br><span class="line">      </span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 可见搜索就是是构造了一个<code>OutgoingSearchRequest</code>，它是一个<code>OutgoingDatagramMessage</code>，可见是一个UDP数据报消息，然后循环发送了若干次</p>
+<p><code>Router.send()</code> 开始了网络传输过程</p>
+<p><em>RouterImpl.java</em></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">send</span><span class="params">(OutgoingDatagramMessage msg)</span></span>&#123;</span><br><span class="line">   <span class="keyword">for</span> (DatagramIO datagramIO : getDatagramIOs().values()) &#123;</span><br><span class="line">      datagramIO.send(msg);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在所有的UDP端口上发送消息</p>
+<p><em>DatagramIOImpl.java</em></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">synchronized</span> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title">send</span><span class="params">(OutgoingDatagramMessage message)</span></span>&#123;</span><br><span class="line">    DatagramPacket packet = datagramProcessor.write(message);</span><br><span class="line">    send(packet);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>先由<code>DatagramProcessor</code>  把传入的<code>OutgoingDatagramMessage</code>转化成了一个<code>DatagramPacket</code>，然后发送出去</p>
+<p><em>DatagramIOImpl.java</em></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">synchronized</span> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title">send</span><span class="params">(DatagramPacket datagram)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        socket.send(datagram);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException ex) &#123;</span><br><span class="line">       </span><br><span class="line">    &#125; <span class="keyword">catch</span> (RuntimeException ex) &#123;</span><br><span class="line">        <span class="keyword">throw</span> ex;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception ex) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(ex);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>调用了<code>DatagramSocket.send()</code>发送消息</p>
+<p><code>DatagramIOImpl</code> 是一个<code>Runnable</code>，在运行时一直接收数据报</p>
+<p><em>DatagramIOImpl.java</em></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">byte</span>[] buf = <span class="keyword">new</span> <span class="keyword">byte</span>[getConfiguration().getMaxDatagramBytes()];</span><br><span class="line">      DatagramPacket datagram = <span class="keyword">new</span> DatagramPacket(buf, buf.length);</span><br><span class="line">      socket.receive(datagram);</span><br><span class="line">      router.received(datagramProcessor.read(localAddress.getAddress(), datagram));</span><br><span class="line">    &#125; <span class="keyword">catch</span> (SocketException ex) &#123;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (UnsupportedDataException ex) &#123;</span><br><span class="line">      </span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception ex) &#123;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (!socket.isClosed()) &#123;</span><br><span class="line">      socket.close();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">catch</span> (Exception ex) &#123;</span><br><span class="line">    </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>DatagramSocket.receive()</code>接收数据报，<code>Router.received()</code>处理接收的数据报</p>
+<p><em>RouterImpl.java</em></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">received</span><span class="params">(IncomingDatagramMessage msg)</span></span>&#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    ReceivingAsync protocol = getProtocolFactory().createReceivingAsync(msg);</span><br><span class="line">    <span class="keyword">if</span> (protocol == <span class="keyword">null</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">    &#125;    </span><br><span class="line">    getConfiguration().getAsyncProtocolExecutor().execute(protocol);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (ProtocolCreationException ex) &#123;</span><br><span class="line">    </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过<code>ProtocolFactory.createReceivingAsync()</code>创建一个异步消息，并放入异步线程池中</p>
+<p><em>ProtocolFactory.java</em></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> ReceivingAsync <span class="title">createReceivingAsync</span><span class="params">(IncomingDatagramMessage message)</span> <span class="keyword">throws</span> ProtocolCreationException </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (message.getOperation() <span class="keyword">instanceof</span> UpnpRequest) &#123;</span><br><span class="line">    IncomingDatagramMessage&lt;UpnpRequest&gt; incomingRequest = message;</span><br><span class="line">    <span class="keyword">switch</span> (incomingRequest.getOperation().getMethod()) &#123;</span><br><span class="line">      <span class="keyword">case</span> NOTIFY:</span><br><span class="line">        <span class="keyword">return</span> isByeBye(incomingRequest) || isSupportedServiceAdvertisement(incomingRequest) ? <span class="keyword">new</span> ReceivingNotification(getUpnpService(), incomingRequest) : <span class="keyword">null</span>;</span><br><span class="line">      <span class="keyword">case</span> MSEARCH:</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ReceivingSearch(getUpnpService(), incomingRequest);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (message.getOperation() <span class="keyword">instanceof</span> UpnpResponse) &#123;</span><br><span class="line">    IncomingDatagramMessage&lt;UpnpResponse&gt; incomingResponse = message;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ReceivingSearchResponse(getUpnpService(), incomingResponse);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">throw</span> <span class="keyword">new</span> ProtocolCreationException(<span class="string">"Protocol for incoming datagram message not found: "</span> + message);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>根据消息是UPnP请求还是UPnP响应，创建不同的接受消息<code>ReceivingNotification</code>/<code>ReceivingSearch</code>/<code>ReceivingSearchResponse</code>，这里是接收的<code>ReceivingSearchResponse</code>（搜索响应，不是搜索命令）</p>
+<p><em>ReceivingSearchResponse</em></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">execute</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (getInputMessage().getHeaders().containsKey(<span class="string">"Easylink"</span>)) &#123;</span><br><span class="line">    matchEasylink(getInputMessage());</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span> (!getInputMessage().isSearchResponseMessage()) &#123;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  UDN udn = getInputMessage().getRootDeviceUDN();</span><br><span class="line">  <span class="keyword">if</span> (udn == <span class="keyword">null</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  RemoteDeviceIdentity rdIdentity = <span class="keyword">new</span> RemoteDeviceIdentity(getInputMessage());</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span> (getUpnpService().getRegistry().update(rdIdentity)) &#123;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  RemoteDevice rd;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    rd = <span class="keyword">new</span> RemoteDevice(rdIdentity);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (ValidationException ex) &#123;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span> (rdIdentity.getDescriptorURL() == <span class="keyword">null</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span> (rdIdentity.getMaxAgeSeconds() == <span class="keyword">null</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  getUpnpService().getConfiguration().getAsyncProtocolExecutor().execute(<span class="keyword">new</span> RetrieveRemoteDescriptors(getUpnpService(), rd));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>先处理EasyLink消息，然后更新设备列表，最后发送消息请求设备描述文件</p>
+<p><em>RegistryImpl.java</em></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">synchronized</span> <span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">update</span><span class="params">(RemoteDeviceIdentity rdIdentity)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> remoteItems.update(rdIdentity);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="发送命令"><a href="#发送命令" class="headerlink" title="发送命令"></a>发送命令</h5><p><code>ControlPoint()</code>通过<code>execute()</code>发送命令，同样的，也需要两个东西：</p>
+<ol>
+<li>通过<code>UpnpServiceConfiguration.getSyncProtocolExecutor()</code>获得命令的同步线程池</li>
+<li>获得命令，通常传入的<code>ActionCallback</code>就是，它是一个<code>Runnable</code></li>
+</ol>
+<p><em>ActionCallback.java</em></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  Service service = actionInvocation.getAction().getService();</span><br><span class="line">  <span class="keyword">if</span> (service <span class="keyword">instanceof</span> LocalService) &#123;</span><br><span class="line">    LocalService localService = (LocalService) service;</span><br><span class="line">    localService.getExecutor(actionInvocation.getAction()).execute(actionInvocation);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (actionInvocation.getFailure() != <span class="keyword">null</span>) &#123;</span><br><span class="line">      failure(actionInvocation, <span class="keyword">null</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      success(actionInvocation);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (service <span class="keyword">instanceof</span> RemoteService) &#123;</span><br><span class="line">    <span class="keyword">if</span> (getControlPoint() == <span class="keyword">null</span>) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">"Callback must be executed through ControlPoint"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    RemoteService remoteService = (RemoteService) service;</span><br><span class="line">    URL controLURL = remoteService.getDevice().normalizeURI(remoteService.getControlURI());</span><br><span class="line">    SendingAction prot = getControlPoint().getProtocolFactory().createSendingAction(actionInvocation, controLURL);</span><br><span class="line">    prot.run();</span><br><span class="line">    </span><br><span class="line">    IncomingActionResponseMessage response = prot.getOutputMessage();</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (response == <span class="keyword">null</span>) &#123;</span><br><span class="line">      failure(actionInvocation, <span class="keyword">null</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (response.getOperation().isFailed()) &#123;</span><br><span class="line">      failure(actionInvocation, response.getOperation());</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      success(actionInvocation);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>首先获得服务，如果是本地服务，就用本地的线程池执行，等待响应；如果是远程服务，拿到控制URL，构造命令发送并等待响应</p>
+<p><code>ActionInvocation.getAction().getService()</code>如何获得服务？</p>
+<p>是执行命令的时候由外部传入的，以播放命令为例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">getControlPoint().execute(<span class="keyword">new</span> PlayActionCallback(device.getAVservice()) &#123;</span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">failure</span><span class="params">(ActionInvocation invocation, UpnpResponse response, String arg2)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">success</span><span class="params">(ActionInvocation invocation)</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 可见是从设备获得了所需的服务，通过<code>Device.findDevice()</code> 找到对应描述的服务</p>
+<p>然后通过<code>ProtocolFactory.createSendingAction()</code>创建发送命令，并执行</p>
+<p><em>SendingAction.java</em></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> IncomingActionResponseMessage <span class="title">executeSync</span><span class="params">()</span> </span>&#123;</span><br><span class="line">   <span class="keyword">return</span> invokeRemote(getInputMessage());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">protected</span> IncomingActionResponseMessage <span class="title">invokeRemote</span><span class="params">(OutgoingActionRequestMessage requestMessage)</span> </span>&#123;</span><br><span class="line">  Device device = actionInvocation.getAction().getService().getDevice();</span><br><span class="line">  </span><br><span class="line">  IncomingActionResponseMessage responseMessage = <span class="keyword">null</span>;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    StreamResponseMessage streamResponse = sendRemoteRequest(requestMessage);</span><br><span class="line">    <span class="keyword">if</span> (streamResponse == <span class="keyword">null</span>) &#123;</span><br><span class="line">      actionInvocation.setFailure(<span class="keyword">new</span> ActionException(ErrorCode.ACTION_FAILED, <span class="string">"Connection error or no response received"</span>));</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    responseMessage = <span class="keyword">new</span> IncomingActionResponseMessage(streamResponse);</span><br><span class="line">    <span class="keyword">if</span> (responseMessage.isFailedNonRecoverable()) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> ActionException(ErrorCode.ACTION_FAILED, <span class="string">"Non-recoverable remote execution failure: "</span> + responseMessage.getOperation().getResponseDetails());</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (responseMessage.isFailedRecoverable()) &#123;</span><br><span class="line">      handleResponseFailure(responseMessage);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      handleResponse(responseMessage);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> responseMessage;</span><br><span class="line">  &#125; <span class="keyword">catch</span> (ActionException ex) &#123;</span><br><span class="line">    actionInvocation.setFailure(ex);</span><br><span class="line">    <span class="keyword">if</span> (responseMessage == <span class="keyword">null</span> || !responseMessage.getOperation().isFailed()) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span> IncomingActionResponseMessage(<span class="keyword">new</span> UpnpResponse(UpnpResponse.Status.INTERNAL_SERVER_ERROR));</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> responseMessage;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">protected</span> StreamResponseMessage <span class="title">sendRemoteRequest</span><span class="params">(OutgoingActionRequestMessage requestMessage)</span> <span class="keyword">throws</span> ActionException </span>&#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    getUpnpService().getConfiguration().getSoapActionProcessor().writeBody(requestMessage, actionInvocation);</span><br><span class="line">    <span class="keyword">return</span> getUpnpService().getRouter().send(requestMessage);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (UnsupportedDataException ex) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> ActionException(ErrorCode.ACTION_FAILED, <span class="string">"Error writing request message. "</span> + ex.getMessage());</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过<code>sendRemoteRequest()</code> 发送请求，处理结果</p>
+<p>用SOAP处理器转换得到SOAP消息，然后发送</p>
+<p><em>RouteImpl.java</em></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> StreamResponseMessage <span class="title">send</span><span class="params">(StreamRequestMessage msg)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (getStreamClient() == <span class="keyword">null</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> getStreamClient().sendRequest(msg);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em>StreamClientImpl.java</em></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> StreamResponseMessage <span class="title">sendRequest</span><span class="params">(StreamRequestMessage requestMessage)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">final</span> UpnpRequest requestOperation = requestMessage.getOperation();</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    HttpUriRequest httpRequest = createHttpRequest(requestMessage, requestOperation);</span><br><span class="line">    HttpParams requestParams = getRequestParams(requestMessage);</span><br><span class="line">    HttpConnectionParams.setConnectionTimeout(requestParams, <span class="number">20000</span>);</span><br><span class="line">    HttpConnectionParams.setSoTimeout(requestParams, <span class="number">20000</span>);</span><br><span class="line">    httpRequest.setParams(requestParams);</span><br><span class="line">    HeaderUtil.add(httpRequest, requestMessage.getHeaders());</span><br><span class="line">    <span class="keyword">return</span> httpClient.execute(httpRequest, createResponseHandler());</span><br><span class="line">  &#125; <span class="keyword">catch</span> (MethodNotSupportedException ex) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">  &#125; <span class="keyword">catch</span> (ClientProtocolException ex) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">   &#125; <span class="keyword">catch</span> (IOException ex) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>创建请求，添加参数并调用<code>HttpClient.execute()</code> 处理，<code>createResponseHandler()</code>处理响应并返回</p>
+<p>然后回到<code>SendingAction</code>处理返回值</p>
+<p><em>SendingAction.java</em></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">handleResponse</span><span class="params">(IncomingActionResponseMessage responseMsg)</span> <span class="keyword">throws</span> ActionException </span>&#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;  </span><br><span class="line">    getUpnpService().getConfiguration().getSoapActionProcessor().readBody(responseMsg, actionInvocation);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (UnsupportedDataException ex) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> ActionException(ErrorCode.ACTION_FAILED, <span class="string">"Error reading response message. "</span> + ex.getMessage());</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">handleResponseFailure</span><span class="params">(IncomingActionResponseMessage responseMsg)</span> <span class="keyword">throws</span> ActionException </span>&#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    getUpnpService().getConfiguration().getSoapActionProcessor().readBody(responseMsg, actionInvocation);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (UnsupportedDataException ex) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> ActionException(ErrorCode.ACTION_FAILED, <span class="string">"Error reading response failure message. "</span> + ex.getMessage());</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>用SOAP处理器读取响应体，最终通过<code>ActionInvocation.setOutput()</code>将解析得到的响应字段设置到<code>ActionInvocation</code> 里</p>
+<p>总结：</p>
+<ol>
+<li>获得信息，构造命令</li>
+<li>通过SOAP处理器转换为SOAP消息</li>
+<li>通过Http发送消息</li>
+<li>接受Http响应消息</li>
+<li>通过SOAP处理器解析SOAP消息</li>
+<li>将解析的字段回传</li>
+</ol>
+<h5 id="订阅事件"><a href="#订阅事件" class="headerlink" title="订阅事件"></a>订阅事件</h5><p><code>ControlPoint()</code>通过<code>execute()</code>订阅事件</p>
+<ol>
+<li>通过<code>UpnpServiceConfiguration.getSyncProtocolExecutor()</code>获得同步线程池</li>
+<li>传入<code>SubscriptionCallback</code></li>
+</ol>
+<p><em>SubscriptionCallback.java</em></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (getControlPoint() == <span class="keyword">null</span>) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">"Callback must be executed through ControlPoint"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span> (getService() <span class="keyword">instanceof</span> LocalService) &#123;</span><br><span class="line">    establishLocalSubscription((LocalService) service);</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (getService() <span class="keyword">instanceof</span> RemoteService) &#123;</span><br><span class="line">    establishRemoteSubscription((RemoteService) service);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">establishRemoteSubscription</span><span class="params">(RemoteService service)</span> </span>&#123;</span><br><span class="line">  RemoteGENASubscription remoteSubscription = <span class="keyword">new</span> RemoteGENASubscription(service, requestedDurationSeconds) &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">failed</span><span class="params">(UpnpResponse responseStatus)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">synchronized</span> (SubscriptionCallback.<span class="keyword">this</span>) &#123;	</span><br><span class="line">        SubscriptionCallback.<span class="keyword">this</span>.setSubscription(<span class="keyword">null</span>);</span><br><span class="line">        SubscriptionCallback.<span class="keyword">this</span>.failed(<span class="keyword">this</span>, responseStatus, <span class="keyword">null</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">established</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="keyword">synchronized</span> (SubscriptionCallback.<span class="keyword">this</span>) &#123;		</span><br><span class="line">        SubscriptionCallback.<span class="keyword">this</span>.setSubscription(<span class="keyword">this</span>);</span><br><span class="line">        SubscriptionCallback.<span class="keyword">this</span>.established(<span class="keyword">this</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ended</span><span class="params">(CancelReason reason, UpnpResponse responseStatus)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">synchronized</span> (SubscriptionCallback.<span class="keyword">this</span>) &#123;		</span><br><span class="line">        SubscriptionCallback.<span class="keyword">this</span>.setSubscription(<span class="keyword">null</span>);</span><br><span class="line">        SubscriptionCallback.<span class="keyword">this</span>.ended(<span class="keyword">this</span>, reason, responseStatus);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">eventReceived</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="keyword">synchronized</span> (SubscriptionCallback.<span class="keyword">this</span>) &#123;		</span><br><span class="line">        SubscriptionCallback.<span class="keyword">this</span>.eventReceived(<span class="keyword">this</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">eventsMissed</span><span class="params">(<span class="keyword">int</span> numberOfMissedEvents)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">synchronized</span> (SubscriptionCallback.<span class="keyword">this</span>) &#123;		</span><br><span class="line">        SubscriptionCallback.<span class="keyword">this</span>.eventsMissed(<span class="keyword">this</span>, numberOfMissedEvents);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">  </span><br><span class="line">  getControlPoint().getProtocolFactory()			.createSendingSubscribe(remoteSubscription).run();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>构造一个GENA订阅回调，通过<code>ProtocolFactory.createSendingSubscribe()</code> 创建订阅消息并发送</p>
+<p><em>SendingSubscribe.java</em></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"> <span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> IncomingSubscribeResponseMessage <span class="title">executeSync</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!getInputMessage().hasCallbackURLs()) &#123;         </span><br><span class="line">    getUpnpService().getConfiguration().getRegistryListenerExecutor().execute(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">      <span class="meta">@Override</span></span><br><span class="line">      <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        subscription.fail(<span class="keyword">null</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">try</span> &#123;          </span><br><span class="line">    getUpnpService().getRegistry().lockRemoteSubscriptions();</span><br><span class="line">    StreamResponseMessage response = getUpnpService().getRouter().send(getInputMessage());             </span><br><span class="line">    getUpnpService().getConfiguration().getRegistryListenerExecutor().execute(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">      <span class="meta">@Override</span></span><br><span class="line">      <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        subscription.fail(<span class="keyword">null</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">final</span> IncomingSubscribeResponseMessage responseMessage = <span class="keyword">new</span> IncomingSubscribeResponseMessage(response);</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span> (response.getOperation().isFailed()) &#123;            </span><br><span class="line">    getUpnpService().getConfiguration().getRegistryListenerExecutor().execute(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">      <span class="meta">@Override</span></span><br><span class="line">      <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;                           </span><br><span class="line">        subscription.fail(responseMessage.getOperation());</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (!responseMessage.isVaildHeaders()) &#123;           </span><br><span class="line">    getUpnpService().getConfiguration().getRegistryListenerExecutor().execute(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">      <span class="meta">@Override</span></span><br><span class="line">      <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;                           </span><br><span class="line">        subscription.fail(responseMessage.getOperation());</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;           </span><br><span class="line">    subscription.setSubscriptionId(responseMessage.getSubscriptionId());            </span><br><span class="line">    subscription.setActualSubscriptionDurationSeconds(responseMessage.getSubscriptionDurationSeconds());       </span><br><span class="line">    getUpnpService().getRegistry().addRemoteSubscription(subscription);            </span><br><span class="line">    getUpnpService().getConfiguration().getRegistryListenerExecutor().execute(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">      <span class="meta">@Override</span></span><br><span class="line">      <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        subscription.establish();</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> responseMessage;</span><br><span class="line">&#125; <span class="keyword">finally</span> &#123;        </span><br><span class="line">  getUpnpService().getRegistry().unlockRemoteSubscriptions();</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>调用<code>Router.send()</code>发送订阅消息，并接收响应，通过<code>Registry.addRemoteSubscription()</code>添加订阅</p>
+<h5 id="接收消息"><a href="#接收消息" class="headerlink" title="接收消息"></a>接收消息</h5><p>UDP数据报的接收上面说过了，这里看Http数据流</p>
+<p><code>SteamServer</code>接口描述了接收Http数据流的能力，<code>SteamServerImpl</code>是其实现类</p>
+<p>创建监听Socket，通过<code>accept()</code>接收连接，并创建新的通信Socket</p>
+<p><em>StreamServerImpl.java</em></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">UpnpStream connectionStream = <span class="keyword">new</span> HttpServerConnectionUpnpStream(router.getProtocolFactory(), httpServerConnection, globalParams);</span><br><span class="line">router.received(connectionStream);</span><br></pre></td></tr></table></figure>
+<p>从连接中得到一个UpnpStream，交给Router，放到同步线程池中执行</p>
+<p><em>Router.java</em></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">received</span><span class="params">(UpnpStream stream)</span></span>&#123;</span><br><span class="line">  getConfiguration().getSyncProtocolExecutor().execute(stream);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em>HttpServerConnectionUpnpStream.java</em></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  ...</span><br><span class="line">  httpService.handleRequest(connection, context);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em>UpnpHttpService.java</em></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doService</span><span class="params">(HttpRequest httpRequest, HttpResponse httpResponse, HttpContext ctx)</span> <span class="keyword">throws</span> HttpException, IOException </span>&#123;</span><br><span class="line">  ...</span><br><span class="line">  responseMsg = process(requestMessage);</span><br><span class="line">  ...</span><br><span class="line">  responseSent(responseMsg);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em>UpnpStream.java</em></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> StreamResponseMessage <span class="title">process</span><span class="params">(StreamRequestMessage requestMsg)</span> </span>&#123;</span><br><span class="line">  ...</span><br><span class="line">  syncProtocol = getProtocolFactory().createReceivingSync(requestMsg);</span><br><span class="line">  syncProtocol.run();</span><br><span class="line">  StreamResponseMessage responseMsg = syncProtocol.getOutputMessage();</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em>ProtocolFactoryImpl.java</em></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> ReceivingSync <span class="title">createReceivingSync</span><span class="params">(StreamRequestMessage message)</span> <span class="keyword">throws</span> ProtocolCreationException </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (message.getOperation().getMethod().equals(UpnpRequest.Method.GET)) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ReceivingRetrieval(getUpnpService(), message);</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (getUpnpService().getConfiguration().getNamespace().isControlPath(message.getUri())) &#123;</span><br><span class="line">    <span class="keyword">if</span> (message.getOperation().getMethod().equals(UpnpRequest.Method.POST))</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span> ReceivingAction(getUpnpService(), message);</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (getUpnpService().getConfiguration().getNamespace().isEventSubscriptionPath(message.getUri())) &#123;</span><br><span class="line">    <span class="keyword">if</span> (message.getOperation().getMethod().equals(UpnpRequest.Method.SUBSCRIBE)) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span> ReceivingSubscribe(getUpnpService(), message);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (message.getOperation().getMethod().equals(UpnpRequest.Method.UNSUBSCRIBE)) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span> ReceivingUnsubscribe(getUpnpService(), message);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (getUpnpService().getConfiguration().getNamespace().isEventCallbackPath(message.getUri())) &#123;</span><br><span class="line">    <span class="keyword">if</span> (message.getOperation().getMethod().equals(UpnpRequest.Method.NOTIFY))</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span> ReceivingEvent(getUpnpService(), message);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">throw</span> <span class="keyword">new</span> ProtocolCreationException(<span class="string">"Protocol for message type not found: "</span> + message);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>根据UPNP消息头构造不同的接收消息</p>
+<p>以收到事件为例</p>
+<p><em>ReceivingEvent.java</em></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> OutgoingEventResponseMessage <span class="title">executeSync</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  ...</span><br><span class="line">    getUpnpService().getConfiguration().getGenaEventProcessor().readBody(requestMessage);</span><br><span class="line">  ...</span><br><span class="line">    <span class="keyword">final</span> RemoteGENASubscription subscription =                 </span><br><span class="line">    getUpnpService().getRegistry().getRemoteSubscription(requestMessage.getSubscrptionId());</span><br><span class="line">  getUpnpService().getConfiguration().getRegistryListenerExecutor().execute(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      subscription.receive(                                  </span><br><span class="line">        requestMessage.getSequence(),                                 </span><br><span class="line">        requestMessage.getStateVariableValues()</span><br><span class="line">      );</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;                                                                         </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最终通知到注册的监听器上</p>
+<h4 id="重要的类"><a href="#重要的类" class="headerlink" title="重要的类"></a>重要的类</h4><h5 id="UpnpOperation"><a href="#UpnpOperation" class="headerlink" title="UpnpOperation"></a>UpnpOperation</h5><p>UPnP操作，有<code>UpnpRequest</code>和<code>UpnpResponse</code>两个子类</p>
+<h5 id="UpnpMessage"><a href="#UpnpMessage" class="headerlink" title="UpnpMessage"></a>UpnpMessage</h5><p>UPnP消息，类结构如下：</p>
+<ul>
+<li><code>StreamRequestMessage</code> 请求数据流</li>
+<li><code>StreamResponseMessage</code> 响应数据流</li>
+<li><code>IncomingDatagramMessage</code> 接收数据报</li>
+<li><code>OutgoingDatagramMessage</code> 发送数据报</li>
+</ul>
+<p>有很多具体的消息类如<code>OutgoingSubscribeRequestMessage</code>/<code>OutgoingSearchRequest</code>/<code>OutgoingActionRequestMessage</code>等</p>
+<h5 id="Device"><a href="#Device" class="headerlink" title="Device"></a>Device</h5><p>设备类，有<code>LocalDevice</code>和<code>RemoteDevice</code> 两个子类，表示本地和网络设备</p>
+<h5 id="SendingAsync"><a href="#SendingAsync" class="headerlink" title="SendingAsync"></a>SendingAsync</h5><p>异步命令，类结构如下：</p>
+<ul>
+<li><code>SendingSync</code> 同步命令<ul>
+<li><code>SendingSubscribe</code></li>
+<li><code>SendingRenewal</code></li>
+<li><code>SendingEvent</code></li>
+<li><code>SendingAction</code></li>
+<li><code>SendingUnsubscribe</code></li>
+</ul>
+</li>
+<li><code>SendingNotification</code>  通知<ul>
+<li><code>SendingNotificationByebye</code></li>
+<li><code>SendingNotificationAlive</code></li>
+</ul>
+</li>
+<li><code>SendingSearch</code> 搜索</li>
+</ul>
+<h5 id="ReceivingAsync"><a href="#ReceivingAsync" class="headerlink" title="ReceivingAsync"></a>ReceivingAsync</h5><p>接收异步消息，类结构如下</p>
+<ul>
+<li><code>ReceivingSearch</code> 接收搜索请求</li>
+<li><code>ReceivingNotification</code> 接收通知</li>
+<li><code>ReceivingSearchResponse</code> 接收搜索响应</li>
+<li><code>ReceivingSync</code> 接收同步消息<ul>
+<li><code>ReceivingEvent</code></li>
+<li><code>ReceivingAction</code></li>
+<li><code>ReceivingSubscribe</code></li>
+<li><code>ReceivingRetrieval</code></li>
+<li><code>ReceivingUnsubscribe</code></li>
+</ul>
+</li>
+</ul>
+<h5 id="协议相关"><a href="#协议相关" class="headerlink" title="协议相关"></a>协议相关</h5><p><code>org.teleal.cling.transport</code>包里包含大量涉及到的协议的接口和实现类，如SOAP/GENA/TCP/UDP等</p>
+<h5 id="应用相关"><a href="#应用相关" class="headerlink" title="应用相关"></a>应用相关</h5><p><code>org.teleal.cling.support</code>包含应用层方面的代码，可以看到一些基本的服务<code>AVTransport</code>/<code>MediaManager</code>/<code>PlayQueue</code>/<code>RenderingControl</code></p>
+<p><code>callback</code>子目录里面都是相关命令，是<code>ActionCallback</code>的子类</p>
+<p>还有个<code>lastchange</code>子目录，里面是XML的解析器，是<code>LastChangeParser</code>的子类，收到订阅事件时，<code>GENASubscription</code>的<code>currentValues</code>保存了一张表，里面的<code>LastChange</code>则描述了事件变化，需要用<code>LastChangeParser</code>解析，得到<code>Event</code></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+  
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+            <a href="/tags/DLNA/" rel="tag"># DLNA</a>
+          
+        </div>
+      
+
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+         
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/06/archivers/bluetooth/" rel="next" title="蓝牙学习笔记">
+                <i class="fa fa-chevron-left"></i> 蓝牙学习笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!--MOB SHARE BEGIN-->
+<div class="-mob-share-ui-button -mob-share-open">分享</div>
+<div class="-mob-share-ui" style="display: none">
+    <ul class="-mob-share-list">
+        <li class="-mob-share-weibo"><p>新浪微博</p></li>
+        <li class="-mob-share-tencentweibo"><p>腾讯微博</p></li>
+        <li class="-mob-share-qzone"><p>QQ空间</p></li>
+        <li class="-mob-share-qq"><p>QQ好友</p></li>
+        <li class="-mob-share-renren"><p>人人网</p></li>
+        <li class="-mob-share-kaixin"><p>开心网</p></li>
+        <li class="-mob-share-douban"><p>豆瓣</p></li>
+        <li class="-mob-share-facebook"><p>Facebook</p></li>
+        <li class="-mob-share-twitter"><p>Twitter</p></li>
+    </ul>
+    <div class="-mob-share-close">取消</div>
+</div>
+<div class="-mob-share-ui-bg"></div>
+<script id="-mob-share" src="http://f1.webshare.mob.com/code/mob-share.js?appkey=22ad92fd0e280"></script>
+<!--MOB SHARE END-->     
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="刘晗" />
+          <p class="site-author-name" itemprop="name">刘晗</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">34</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">34</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#DLNA开源库——Cling"><span class="nav-number">1.</span> <span class="nav-text">DLNA开源库——Cling</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DLNA原理"><span class="nav-number">1.1.</span> <span class="nav-text">DLNA原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#设备发现"><span class="nav-number">1.1.1.</span> <span class="nav-text">设备发现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#请求设备描述文档"><span class="nav-number">1.1.2.</span> <span class="nav-text">请求设备描述文档</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#请求服务描述文档"><span class="nav-number">1.1.3.</span> <span class="nav-text">请求服务描述文档</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#服务动作请求"><span class="nav-number">1.1.4.</span> <span class="nav-text">服务动作请求</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UPnP工作原理"><span class="nav-number">1.2.</span> <span class="nav-text">UPnP工作原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#寻址"><span class="nav-number">1.2.1.</span> <span class="nav-text">寻址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#发现"><span class="nav-number">1.2.2.</span> <span class="nav-text">发现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#描述"><span class="nav-number">1.2.3.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#控制"><span class="nav-number">1.2.4.</span> <span class="nav-text">控制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#事件"><span class="nav-number">1.2.5.</span> <span class="nav-text">事件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#表达"><span class="nav-number">1.2.6.</span> <span class="nav-text">表达</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cling"><span class="nav-number">1.3.</span> <span class="nav-text">Cling</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#重要组件"><span class="nav-number">1.3.1.</span> <span class="nav-text">重要组件</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#UpnpService"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">UpnpService</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ControlPoint"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">ControlPoint</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#UpnpServiceConfiguration"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">UpnpServiceConfiguration</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ProtocoFactory"><span class="nav-number">1.3.1.4.</span> <span class="nav-text">ProtocoFactory</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Registry"><span class="nav-number">1.3.1.5.</span> <span class="nav-text">Registry</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#情景分析"><span class="nav-number">1.3.2.</span> <span class="nav-text">情景分析</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#搜索设备"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">搜索设备</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#发送命令"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">发送命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#订阅事件"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">订阅事件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#接收消息"><span class="nav-number">1.3.2.4.</span> <span class="nav-text">接收消息</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#重要的类"><span class="nav-number">1.3.3.</span> <span class="nav-text">重要的类</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#UpnpOperation"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">UpnpOperation</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#UpnpMessage"><span class="nav-number">1.3.3.2.</span> <span class="nav-text">UpnpMessage</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Device"><span class="nav-number">1.3.3.3.</span> <span class="nav-text">Device</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SendingAsync"><span class="nav-number">1.3.3.4.</span> <span class="nav-text">SendingAsync</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ReceivingAsync"><span class="nav-number">1.3.3.5.</span> <span class="nav-text">ReceivingAsync</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#协议相关"><span class="nav-number">1.3.3.6.</span> <span class="nav-text">协议相关</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#应用相关"><span class="nav-number">1.3.3.7.</span> <span class="nav-text">应用相关</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">刘晗</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io" rel="external nofollow">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid="></script>
+      <!-- UY END -->
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+
+</body>
+</html>
